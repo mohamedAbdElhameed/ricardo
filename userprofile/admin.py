@@ -9,6 +9,15 @@ from .models import Seller, City
 #     default_zoom = 15
 #     readonly_fields = ('Latitude', 'Longitude')
 
+class SellerAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ['user', 'city', 'avatar', 'description', 'rate', 'phone_number', ]
+    #search_fields = ['user__username', 'city__name', 'description', 'rate', 'phone_number']
+    # list_filter = ['user__username', 'city__name']
 
-admin.site.register(Seller)
-admin.site.register(City)
+
+class CityAdmin(admin.ModelAdmin):
+    list_display = ['name', 'longitude', 'latitude', ]
+
+admin.site.register(Seller, SellerAdmin)
+admin.site.register(City, CityAdmin)

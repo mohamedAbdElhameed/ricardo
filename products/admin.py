@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.forms import BaseInlineFormSet
 
 from .models import BigCategory, Category, Product, ProductImage, ProductAdditionalAttributeValue, \
-    ProductAdditionalAttributeName
+    ProductAdditionalAttributeName, SubCategory
 
 
 class RequiredInlineFormSet(BaseInlineFormSet):
@@ -17,22 +17,48 @@ class RequiredInlineFormSet(BaseInlineFormSet):
         return form
 
 
-class ProductImageInline(admin.TabularInline):
+class ProductImageInline(admin.StackedInline):
     model = ProductImage
     extra = 1
     formset = RequiredInlineFormSet
 
 
-class ProductAdditionalAttributeValueInline(admin.TabularInline):
+class ProductAdditionalAttributeValueInline(admin.StackedInline):
     model = ProductAdditionalAttributeValue
+    autocomplete_fields = ['product_additional_attribute']
     extra = 1
 
 
+class SubCategoryAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    autocomplete_fields = ['category']
+    list_display = ['name', 'category', 'image']
+
+
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ProductImageInline, ProductAdditionalAttributeValueInline,]
+    inlines = [ProductImageInline, ProductAdditionalAttributeValueInline, ]
+    list_display = ['name', 'sub_category', 'seller', 'description', 'price']
+    search_fields = ['seller', 'name', 'description', 'price', ]
+    autocomplete_fields = ['sub_category', 'seller']
+    list_filter = ['seller', ]
 
 
-admin.site.register(BigCategory)
-admin.site.register(Category)
+class BigCategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', ]
+    search_fields = ['name', ]
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'big_category', 'description', 'image', ]
+    search_fields = ['name', 'big_category__name', 'description', ]
+    autocomplete_fields = ['big_category']
+
+
+class ProductAdditionalAttributeNameAdmin(admin.ModelAdmin):
+    list_display = ['name', ]
+    search_fields = ['name']
+admin.site.register(BigCategory, BigCategoryAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(ProductAdditionalAttributeName)
+admin.site.register(ProductAdditionalAttributeName, ProductAdditionalAttributeNameAdmin)

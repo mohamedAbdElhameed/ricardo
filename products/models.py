@@ -13,7 +13,7 @@ class BigCategory(Model):
 
 class Category(Model):
     big_category = models.ForeignKey(BigCategory, related_name="categories", on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=35)
     description = models.TextField()
     image = models.ImageField()
 
@@ -21,8 +21,17 @@ class Category(Model):
         return self.name
 
 
+class SubCategory(Model):
+    category = models.ForeignKey(Category, related_name="subcategories", on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=50)
+    image = models.ImageField()
+
+    def __str__(self):
+        return self.name
+
+
 class Product(Model):
-    category = models.ForeignKey(Category, related_name="category_products", on_delete=models.SET_NULL, null=True)
+    sub_category = models.ForeignKey(SubCategory, related_name="subcategory_products", on_delete=models.SET_NULL, null=True)
     seller = models.ForeignKey(Seller, related_name="seller_products", on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=50)
     description = models.TextField()

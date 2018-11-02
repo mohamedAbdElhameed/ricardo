@@ -9,9 +9,13 @@ class AchievementInline(admin.TabularInline):
     extra = 1
 
 
-class AchievementAdmin(admin.ModelAdmin):
+class ArtisanMasterAdmin(admin.ModelAdmin):
     inlines = [AchievementInline, ]
+    autocomplete_fields = ['seller']
 
 
-admin.site.register(ArtisanMaster, AchievementAdmin)
-admin.site.register(Tale)
+class TaleAdmin(admin.ModelAdmin):
+    list_display = ['title', 'details', 'video_url']
+
+admin.site.register(ArtisanMaster, ArtisanMasterAdmin)
+admin.site.register(Tale, TaleAdmin)
