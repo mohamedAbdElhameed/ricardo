@@ -10,3 +10,5 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = [('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
 
 admin.site.register(Post, PostAdmin)
+
+
