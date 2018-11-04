@@ -12,4 +12,6 @@ class StartDetail(models.Model):
     below_image = models.ImageField()
     below_title = models.CharField(max_length=100)
     below_detail = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 

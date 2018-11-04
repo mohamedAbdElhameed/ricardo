@@ -1,7 +1,7 @@
 from django.contrib import admin
 # Register your models here.
-from .models import Seller, City
-
+from .models import Seller, Buyer, Review, City
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 # class CityAdmin(OSMGeoAdmin):
 #     default_lon = -93
@@ -9,15 +9,47 @@ from .models import Seller, City
 #     default_zoom = 15
 #     readonly_fields = ('Latitude', 'Longitude')
 
-class SellerAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    list_display = ['user', 'city', 'avatar', 'description', 'rate', 'phone_number', ]
-    #search_fields = ['user__username', 'city__name', 'description', 'rate', 'phone_number']
-    # list_filter = ['user__username', 'city__name']
-
 
 class CityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'longitude', 'latitude', ]
+    search_fields = ['id', 'name']
+    list_display = ['id', 'name']
+
+
+class SellerAdmin(admin.ModelAdmin):
+    search_fields = ['id', 'user__username', 'longitude', 'latitude', 'city__name','description', 'rate', 'number_of_rates', 'phone_number']
+    list_display = ['id', 'user', 'avatar', 'longitude', 'latitude', 'city', 'description', 'rate', 'number_of_rates', 'phone_number', ]
+    # search_fields = ['user__username', 'city__name', 'description', 'rate', 'phone_number']
+    # list_filter = ['user__username', 'city__name']
+    autocomplete_fields = ['city', 'user']
+    readonly_fields = ['rate', 'number_of_rates']
+    list_filter = ['city', ('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
+
+
+class BuyerAdmin(admin.ModelAdmin):
+    search_fields = ['id', 'user__username', 'avatar', 'phone_number', 'address']
+    list_display = ['id', 'user', 'avatar', 'phone_number', 'address']
+    list_filter = [('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['seller', 'buyer']
+    list_display = ['id', 'seller', 'buyer', 'details', 'rate', ]
+    search_fields = ['id', 'seller__user__username', 'buyer__user__username', 'details', 'rate', ]
+    list_filter = ['seller', ('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
 
 admin.site.register(Seller, SellerAdmin)
+admin.site.register(Buyer, BuyerAdmin)
+admin.site.register(Review, ReviewAdmin)
 admin.site.register(City, CityAdmin)
