@@ -12,7 +12,7 @@ class ArtisanMaster(models.Model):
 
     class Meta:
         verbose_name = _("Artisan Master")
-        verbose_name_plural = _("Artisan Maters")
+        verbose_name_plural = _("Artisan Masters")
 
     def __str__(self):
         return self.seller.user.username
