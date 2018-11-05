@@ -1,0 +1,280 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-04 23:29+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\news\models.py:6 .\products\models.py:11 .\products\models.py:26
+#: .\products\models.py:57
+msgid "Image"
+msgstr "Imagen"
+
+#: .\news\models.py:7 .\start\models.py:11 .\stories\models.py:23
+#: .\stories\models.py:38
+msgid "Title"
+msgstr "T�tulo"
+
+#: .\news\models.py:8 .\stories\models.py:25 .\stories\models.py:39
+#: .\userprofile\models.py:63
+msgid "Details"
+msgstr "Detalles"
+
+#: .\news\models.py:9 .\products\models.py:12 .\products\models.py:27
+#: .\products\models.py:44 .\products\models.py:60 .\products\models.py:70
+#: .\products\models.py:85 .\products\models.py:100 .\start\models.py:16
+#: .\stories\models.py:10 .\stories\models.py:26 .\stories\models.py:41
+#: .\userprofile\models.py:33 .\userprofile\models.py:49
+#: .\userprofile\models.py:65
+msgid "Created At"
+msgstr "Creado en"
+
+#: .\news\models.py:10 .\products\models.py:13 .\products\models.py:28
+#: .\products\models.py:45 .\products\models.py:61 .\products\models.py:71
+#: .\products\models.py:86 .\products\models.py:101 .\start\models.py:17
+#: .\stories\models.py:11 .\stories\models.py:27 .\stories\models.py:42
+#: .\userprofile\models.py:34 .\userprofile\models.py:50
+#: .\userprofile\models.py:66
+msgid "Modified At"
+msgstr "Modificado en"
+
+#: .\news\models.py:13
+msgid "Post"
+msgstr "Enviar"
+
+#: .\news\models.py:14
+msgid "Posts"
+msgstr "Mensajes"
+
+#: .\products\models.py:9 .\products\models.py:25 .\products\models.py:41
+#: .\products\models.py:69 .\userprofile\models.py:23
+msgid "Name"
+msgstr "Nombre"
+
+#: .\products\models.py:10 .\products\models.py:42 .\userprofile\models.py:29
+msgid "Description"
+msgstr "Descripcin"
+
+#: .\products\models.py:16 .\products\models.py:24
+msgid "Category"
+msgstr "Categora"
+
+#: .\products\models.py:17
+msgid "Categories"
+msgstr "Categoras"
+
+#: .\products\models.py:31 .\products\models.py:39
+msgid "Sub Category"
+msgstr "Subcategora"
+
+#: .\products\models.py:32
+msgid "Sub Categories"
+msgstr "Subcategorias"
+
+#: .\products\models.py:40 .\stories\models.py:9 .\userprofile\models.py:37
+#: .\userprofile\models.py:61
+msgid "Seller"
+msgstr "Vendedor"
+
+#: .\products\models.py:43
+msgid "Price"
+msgstr "Precio"
+
+#: .\products\models.py:48 .\products\models.py:56 .\products\models.py:82
+#: .\products\models.py:97
+msgid "Product"
+msgstr "Producto"
+
+#: .\products\models.py:49 .\start\models.py:12
+msgid "Products"
+msgstr "Productos"
+
+#: .\products\models.py:58
+msgid "Order"
+msgstr "Orden"
+
+#: .\products\models.py:59
+msgid "Alt Text"
+msgstr "Texto alternativo"
+
+#: .\products\models.py:64
+msgid "Product Image"
+msgstr "Imagen del producto"
+
+#: .\products\models.py:65
+msgid "Product Images"
+msgstr "Imgenes del producto"
+
+#: .\products\models.py:74
+msgid "Product Additional Attribute Name"
+msgstr "Nombre del atributo adicional del producto"
+
+#: .\products\models.py:75
+msgid "Product Additional Attribute Names"
+msgstr "Nombres de atributos adicionales del producto"
+
+#: .\products\models.py:83
+msgid "Product Additional Attributes"
+msgstr "Atributos adicionales del producto"
+
+#: .\products\models.py:84
+msgid "Additional Attributes Values"
+msgstr "Valores de atributos adicionales"
+
+#: .\products\models.py:89
+msgid "Product Additional Attribute Value"
+msgstr "Valor de atributo adicional del producto"
+
+#: .\products\models.py:90
+msgid "Product Additional Attribute Values"
+msgstr "Valores de atributos adicionales del producto"
+
+#: .\products\models.py:98 .\userprofile\models.py:53
+#: .\userprofile\models.py:62
+msgid "Buyer"
+msgstr "Comprador"
+
+#: .\products\models.py:99
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: .\products\models.py:104
+msgid "Cart"
+msgstr "Carro"
+
+#: .\products\models.py:105
+msgid "Carts"
+msgstr "Carretas"
+
+#: .\ricardo\settings.py:123
+msgid "Arabic"
+msgstr "Arbica"
+
+#: .\ricardo\settings.py:124
+msgid "English"
+msgstr "Ingls"
+
+#: .\start\models.py:10
+msgid "Banner Image"
+msgstr "Imagen de banner"
+
+#: .\start\models.py:13
+msgid "Below Image"
+msgstr "Debajo de la imagen"
+
+#: .\start\models.py:14
+msgid "Below Title"
+msgstr "Debajo del ttulo"
+
+#: .\start\models.py:15
+msgid "Below Detail"
+msgstr "Debajo del detalle"
+
+#: .\start\models.py:20
+msgid "Start Detail"
+msgstr "Detalle de inicio"
+
+#: .\start\models.py:21
+msgid "Start Details"
+msgstr "Detalles de inicio"
+
+#: .\stories\models.py:14 .\stories\models.py:22
+msgid "Artisan Master"
+msgstr "Maestro artesano"
+
+#: .\stories\models.py:15
+msgid "Artisan Masters"
+msgstr "Maestro artesanos"
+
+#: .\stories\models.py:24
+msgid "Year"
+msgstr "Ao"
+
+#: .\stories\models.py:30
+msgid "Achievement"
+msgstr "Logro"
+
+#: .\stories\models.py:31
+msgid "Achievements"
+msgstr "Logros"
+
+#: .\stories\models.py:40
+msgid "Video Url"
+msgstr "URL del vdeo"
+
+#: .\stories\models.py:45
+msgid "Tale"
+msgstr "Cuento"
+
+#: .\stories\models.py:46
+msgid "Tales"
+msgstr "Cuentos"
+
+#: .\userprofile\models.py:17 .\userprofile\models.py:26
+msgid "City"
+msgstr "Ciudad"
+
+#: .\userprofile\models.py:18
+msgid "Cities"
+msgstr "Ciudades"
+
+#: .\userprofile\models.py:22 .\userprofile\models.py:45
+msgid "User"
+msgstr "Utilizar"
+
+#: .\userprofile\models.py:24
+msgid "Longitude"
+msgstr "Longitud"
+
+#: .\userprofile\models.py:25
+msgid "Latitude"
+msgstr "Latitud"
+
+#: .\userprofile\models.py:27 .\userprofile\models.py:48
+msgid "Address"
+msgstr "Direccin"
+
+#: .\userprofile\models.py:28 .\userprofile\models.py:46
+msgid "Avatar"
+msgstr "Avatar"
+
+#: .\userprofile\models.py:30 .\userprofile\models.py:64
+msgid "Rate"
+msgstr "Tarifa"
+
+#: .\userprofile\models.py:31
+msgid "Number"
+msgstr "Nmero"
+
+#: .\userprofile\models.py:32 .\userprofile\models.py:47
+msgid "Phone Number"
+msgstr "Nmero de telfono"
+
+#: .\userprofile\models.py:38
+msgid "Sellers"
+msgstr "Vendedores"
+
+#: .\userprofile\models.py:54
+msgid "Buyers"
+msgstr "Los compradores"
+
+#: .\userprofile\models.py:69
+msgid "Review"
+msgstr "revisin"
+
+#: .\userprofile\models.py:70
+msgid "Reviews"
+msgstr "Opiniones"
