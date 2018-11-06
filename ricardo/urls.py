@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 from django.conf.urls.static import static
 from . import settings
@@ -22,4 +23,6 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('news/', include('news.urls', namespace='news')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('start/', include('start.urls', namespace='start')),
+    path('products/', include('products.urls', namespace='products')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + staticfiles_urlpatterns()

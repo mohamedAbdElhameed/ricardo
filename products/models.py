@@ -24,6 +24,7 @@ class SubCategory(Model):
     category = models.ForeignKey(Category, related_name="subcategories", on_delete=models.SET_NULL, null=True, help_text=_("Category"), verbose_name=_("Category"))
     name = models.CharField(max_length=50, help_text=_("Name"), verbose_name=_("Name"))
     image = models.ImageField(help_text=_("Image"), verbose_name=_("Image"))
+    description = models.TextField(help_text=_("Description"), verbose_name=_("Description"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
 

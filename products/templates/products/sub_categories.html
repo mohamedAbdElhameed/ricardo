@@ -1,0 +1,37 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+<div class="page-category">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li>{{category.name}}</li>
+            </ol><!--/.breadcrumb-->
+            {% for subcategory in category.subcategories.all %}
+            <div class="row">
+
+                <div class="col-md-offset-3 col-md-8">
+                    <a href="/subcategory/{{subcategory.id}}/">
+                        <div class="gategory">
+                            <div class="text-catergory">
+                                <h4>{{subcategory.name}}</h4>
+                                <p>
+                                    {{subcategory.description}}
+                                </p>
+                            </div><!--/.text-catergory-->
+                            <div class="image-catergory">
+                                <img class="img-responsive" src={{subcategory.image.url}} alt="">
+                            </div><!--/.image-catergory-->
+                        </div><!--/.gategory-->
+                    </a>
+                </div><!--/.col-->
+            </div><!--/.row-->
+            {% endfor %}
+        </div><!--/.container-->
+    </div>
+{%endblock%}

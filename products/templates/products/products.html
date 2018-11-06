@@ -1,0 +1,58 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+<div class="page-proudcts">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="#">{{category.name}}</a></li>
+                <li class="active">{{subcategory.name}}</li>
+            </ol><!--/.breadcrumb-->
+             <div class="row">
+                <div class="col-md-3">
+                    <div class="proudct">
+                        <a href="proudct.html">
+                            <div class="img-proudct">
+                                <img class="img-responsive" src="img/C9D287pXoAAorJp.jpg" alt="">
+                            </div><!--/.img-proudct-->
+                            <h4>lorem</h4>
+                            <span class="pull-left"><a href="vendor.html"><i class="fa fa-user"></i> lorem</a></span>
+                            <span class="pull-right">40.00$</span>
+                        </a>
+                    </div><!--/.proudct-->
+                </div><!--/.col-->
+                <div class="col-md-3">
+                    <div class="proudct">
+                        <a href="proudct.html">
+                            <div class="img-proudct">
+                                <img class="img-responsive" src="img/C9D287pXoAAorJp.jpg" alt="">
+                            </div><!--/.img-proudct-->
+                            <h4>lorem</h4>
+                            <span class="pull-left"><a href=""><i class="fa fa-user"></i> lorem</a></span>
+                            <span class="pull-right">40.00$</span>
+                        </a>
+                    </div><!--/.proudct-->
+                </div><!--/.col-->
+            </div><!--/.row-->
+
+
+            </div><!--/.row-->
+            <nav class="text-center" style="margin-top: 61px;" aria-label="...">
+              <ul class="pagination" style="margin: 0;">
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+              </ul>
+            </nav>
+        </div><!--/.container-->
+    </div>
+{%endblock%}
