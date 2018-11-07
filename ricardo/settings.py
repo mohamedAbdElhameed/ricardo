@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    #'bootstrap_admin',
+    'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,7 +136,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-BOOTSTRAP_ADMIN_SIDEBAR_MENU = False
+BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

@@ -18,13 +18,13 @@ class RequiredInlineFormSet(BaseInlineFormSet):
         return form
 
 
-class ProductImageInline(admin.StackedInline):
+class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    extra = 0
+    extra = 1
     formset = RequiredInlineFormSet
 
 
-class ProductAdditionalAttributeValueInline(admin.StackedInline):
+class ProductAdditionalAttributeValueInline(admin.TabularInline):
     model = ProductAdditionalAttributeValue
     autocomplete_fields = ['product_additional_attribute']
     extra = 0
@@ -72,6 +72,7 @@ class CartAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)
