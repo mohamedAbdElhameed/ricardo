@@ -20,7 +20,7 @@ class RequiredInlineFormSet(BaseInlineFormSet):
 
 class ProductImageInline(admin.StackedInline):
     model = ProductImage
-    extra = 1
+    extra = 0
     formset = RequiredInlineFormSet
 
 

@@ -1,0 +1,60 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+<style>
+        .header {
+           background: url({{start.banner_image.url}});
+
+        }
+</style>
+<header class="header">
+        <div class="intro">
+            <a href="#" target="_blank" rel="nofollow"> <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+            <a href="#" target="_blank" rel="nofollow"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" target="_blank" rel="nofollow"> <i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div><!--/.intro-->
+        <div class="text-intro"><h3>{{start.title}}</h3></div>
+</header>
+<!--/.header-->
+    <!--.proudcts-->
+    <div class="proudcts">
+        <div class="container">
+            <h2 class="text-center">Proudctos Popular</h2>
+            <div class="row">
+                {% for product in start.products.all %}
+                <div class="col-md-3">
+                    <div class="proudct">
+                        <a href="{% url 'products:product' product.id%}">
+                            <div class="img-proudct">
+                                <img class="img-responsive" src={{product.images.all.0.image.url}} alt="">
+                            </div><!--/.img-proudct-->
+                            <h4>{{product.name}}</h4>
+                            <span class="pull-left"><a href="vendor.html"><i class="fa fa-user"></i> {{product.seller.user.username}}</a></span>
+                            <span class="pull-right">{{product.price}}$</span>
+                        </a>
+                    </div><!--/.proudct-->
+                </div><!--/.col-->
+                {% endfor %}
+            </div><!--/.row-->
+
+        </div><!--/.container-->
+    </div>
+    <!--/.proudcts-->
+    <!--.about-->
+    <div class="about text-center">
+        <div class="container">
+            <img class="img-responsive" src={{start.below_image.url}} alt="">
+            <div class="text-about">
+                <h2>{{start.below_title}}</h2>
+                  {% autoescape off %} {{start.below_detail}}{% endautoescape %}
+            </div>
+        </div><!--/.container-->
+    </div>
+
+{%endblock%}

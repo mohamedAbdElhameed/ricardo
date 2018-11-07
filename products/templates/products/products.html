@@ -10,49 +10,62 @@
 <div class="page-proudcts">
         <div class="container">
             <ol class="breadcrumb">
-                <li><a href="#">{{category.name}}</a></li>
+                <li><a href="{% url 'products:category' category.id %}">{{category.name}}</a></li>
                 <li class="active">{{subcategory.name}}</li>
             </ol><!--/.breadcrumb-->
+
              <div class="row">
+                 {% for product in products %}
                 <div class="col-md-3">
                     <div class="proudct">
-                        <a href="proudct.html">
+                        <a href="{% url 'products:product' product.id %}">
                             <div class="img-proudct">
-                                <img class="img-responsive" src="img/C9D287pXoAAorJp.jpg" alt="">
+                                <img class="img-responsive" src={{product.images.all.0.image.url}} alt="">
                             </div><!--/.img-proudct-->
-                            <h4>lorem</h4>
-                            <span class="pull-left"><a href="vendor.html"><i class="fa fa-user"></i> lorem</a></span>
-                            <span class="pull-right">40.00$</span>
+                            <h4>{{product.name}}</h4>
+                            <span class="pull-left"><a href="seller/{{product.seller.id}}/"><i class="fa fa-user"></i> {{product.seller.user.username}}</a></span>
+                            <span class="pull-right">{{product.price}}$</span>
                         </a>
                     </div><!--/.proudct-->
+
                 </div><!--/.col-->
-                <div class="col-md-3">
-                    <div class="proudct">
-                        <a href="proudct.html">
-                            <div class="img-proudct">
-                                <img class="img-responsive" src="img/C9D287pXoAAorJp.jpg" alt="">
-                            </div><!--/.img-proudct-->
-                            <h4>lorem</h4>
-                            <span class="pull-left"><a href=""><i class="fa fa-user"></i> lorem</a></span>
-                            <span class="pull-right">40.00$</span>
-                        </a>
-                    </div><!--/.proudct-->
-                </div><!--/.col-->
+                 {% endfor %}
             </div><!--/.row-->
 
 
             </div><!--/.row-->
             <nav class="text-center" style="margin-top: 61px;" aria-label="...">
-              <ul class="pagination" style="margin: 0;">
-                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
-                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
-              </ul>
+              <div class="pagination">
+    <span class="step-links">
+        <div class="pagination">
+    <span class="step-links">
+        {% if products.has_other_pages %}
+  <ul class="pagination">
+    {% if products.has_previous %}
+      <li><a href="?page={{ products.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in products.paginator.page_range %}
+      {% if products.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if products.has_next %}
+      <li><a href="?page={{ products.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+    </span>
+</div>
+    </span>
+</div>
             </nav>
         </div><!--/.container-->
     </div>
 {%endblock%}
+

@@ -1,0 +1,101 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+<div class="proudct">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'products:category' category.id %}">{{category.name}}</a></li>
+                <li><a href="{% url 'products:subcategory' subcategory.id%}">{{subcategory.name}}</a></li>
+                <li class="active">{{product.name}}</li>
+            </ol><!--/.breadcrumb-->
+
+            <div class="details-product">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!--****SKITTER****-->
+                        <div class="skitter skitter-large">
+                            <ul>
+                                {% if product.images.all.0.image.url %}
+                                <li>
+                                    <a href="javascript:void(0);"><img src={{product.images.all.0.image.url}} class="cut" /></a>
+                                </li>
+                                {% endif %}
+                                {% if product.images.all.1.image.url %}
+                                <li>
+                                    <a href="javascript:void(0);"><img src={{product.images.all.1.image.url}} class="swapBlocks" /></a>
+                                </li>
+                                {% endif %}
+                                {% if product.images.all.2.image.url %}
+                                <li>
+                                    <a href="javascript:void(0);"><img src={{product.images.all.2.image.url}} class="swapBarsBack" /></a>
+                                </li>
+                                {% endif %}
+                                {% if product.images.all.3.image.url %}
+                                <li>
+                                    <a href="javascript:void(0);"><img  src={{product.images.all.3.image.url}} class="cut" /></a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div><!--/.skitter-->
+                        <!--****/SKITTER****-->
+                        <div class="caption">
+                            <h3>Description</h3>
+                            <p>
+                                This is a simple hero unit, a simple jumbotron-style component for calling extra attention
+                                This is a simple hero unit, a simple jumbotron-style component for calling extra attention
+                                This is a simple hero unit, a simple jumbotron-style component for calling extra attention
+                            </p>
+                        </div><!--/.caption-->
+                    </div><!--/.col-->
+                    <div class="col-md-6">
+                        <div class="details">
+                            <ul class="list-unstyled">
+                                <h4>Coucho</h4>
+                                <li><b><i class="fa fa-map-marker"></i> Municipio: </b><span>jumbotron-style</span></li>
+                                <li><b><i class="fa fa-map-marker"></i> Material: </b><span>jumbotron-style</span></li>
+                                <li><b><i class="fa fa-map-marker"></i> Dimensiones: </b><span>jumbotron-style</span></li>
+                                <li><b><i class="fa fa-map-marker"></i> categoria: </b><span>jumbotron-style</span></li>
+                                <li><b><i class="fa fa-map-marker"></i> precio: </b><span>$120.000</span></li>
+                            </ul>
+                            <a class="btn-proudct"><i class="fa fa-shopping-bag"></i> Anadir Al Carrito</a>
+                            <form action="" method="post">
+                                <label>cantidad </label><input type="number" value="3">
+                            </form>
+                        </div><!--/.details-->
+                        <div class="acount">
+                            <p><strong>Vendedor:</strong></p>
+                            <a href="vendor.html">
+                                <img class="img-circle img-thumbnail" src="img/C9D28q_XgAAAMDD.jpg" alt="">
+                                <span>Momo Momo</span>
+                                <span class="rate">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i style="color: #4e2a24;">(6)</i>
+                                </span>
+                            </a>
+                            <div class="about-vendor">
+                                <strong><p>calling extra attention</p></strong>
+                                <span class="pull-left"><i class="fa fa-money"></i> $12.000 Ciduas</span>
+                                <span class="pull-right"><i class="fa fa-money"></i> $20.000 Nacional</span>
+                                <br>
+                                <br>
+                                <strong class="text-center"><p>"calling extra attention"</p></strong>
+                            </div><!--/.about-vendor-->
+                        </div><!--/.acount-->
+                    </div><!--/.col-->
+                </div><!--/.row-->
+            </div><!--/.details-product-->
+        </div><!--/.container-->
+    </div>
+    <!--/.proudct-->
+{%endblock%}
+
