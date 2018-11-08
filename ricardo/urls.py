@@ -23,6 +23,7 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('news/', include('news.urls', namespace='news')),
-    path('start/', include('start.urls', namespace='start')),
+    path('', include('start.urls', namespace='start')),
     path('products/', include('products.urls', namespace='products')),
+    path('stories/', include('stories.urls', namespace='stories')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + staticfiles_urlpatterns()

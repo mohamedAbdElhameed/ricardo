@@ -1,0 +1,66 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+<!--page-maestros-->
+    <div class="page-maestros">
+        <div class="container">
+            <div class="maestros">
+                {% for master in masters %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-master">
+                            <h3>{{master.seller.name}}</h3>
+                            <h5>{{master.seller.city.name}}</h5>
+                            <ul class="list-unstyled icons-master">
+                                <li><i class="fa fa-map-marker"></i> {{master.seller.address}}</li>
+                                <li><i class="fa fa-phone"></i> {{master.seller.phone_number}}</li>
+                                <li><i class="fa fa-send"></i> {{master.seller.user.email}}</li>
+                            </ul>
+                            <hr>
+                            <div class="perfil">
+                                <h3>Perfil Profesional</h3>
+                                <p>
+                                   {{master.seller.description}}
+                                </p>
+
+                                <!--Timeline-->
+                                <ul class="timeline">
+                                    {% for achieve in master.achievements.all %}
+                                    <!-- Item 1 -->
+                                    <li>
+                                        <div class="direction-r">
+                                            <div class="flag-wrapper">
+                                                <span class="flag">{{achieve.title}}</span>
+                                                <span class="time-wrapper"><span class="time">{{achieve.year}}</span></span>
+                                            </div>
+                                            <div class="desc">{{achieve.details}}</div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <!--/.Timeline-->
+                            </div><!--/.perfil-->
+                        </div><!--/.text-master-->
+                    </div><!--/.col-->
+                    <div class="col-md-6">
+                        <div class="image-master">
+                            <img class="img-responsive" src={{master.seller.avatar.url}} alt="">
+                        </div><!--/.image-master-->
+                    </div><!--/.col-->
+                </div><!--/.row-->
+                <hr>
+                {% endfor %}
+            </div><!--/.maestros-->
+        </div><!--/.container-->
+    </div>
+    <!--/.page-maestros-->
+{%endblock%}
+
+
+

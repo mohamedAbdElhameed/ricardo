@@ -55,11 +55,14 @@
                         <div class="details">
                             <ul class="list-unstyled">
                                 <h4>Coucho</h4>
-                                <li><b><i class="fa fa-map-marker"></i> Municipio: </b><span>jumbotron-style</span></li>
-                                <li><b><i class="fa fa-map-marker"></i> Material: </b><span>jumbotron-style</span></li>
-                                <li><b><i class="fa fa-map-marker"></i> Dimensiones: </b><span>jumbotron-style</span></li>
-                                <li><b><i class="fa fa-map-marker"></i> categoria: </b><span>jumbotron-style</span></li>
-                                <li><b><i class="fa fa-map-marker"></i> precio: </b><span>$120.000</span></li>
+                                <li><b><i class="fa fa-map-marker"></i> Municipio: </b><span>{{product.seller.city.name}}</span></li>
+                                {% for attribute in product.additional_attributes.all %}
+                                <li><b><i class="fa fa-map-marker"></i> {{attribute.product_additional_attribute.name}}: </b><span>{{attribute.additional_attribute_value}}</span></li>
+                                {% endfor %}
+
+                                <!--<li><b><i class="fa fa-map-marker"></i> Dimensiones: </b><span>jumbotron-style</span></li>-->
+                                <li><b><i class="fa fa-map-marker"></i> categoria: </b><span>{{category.name}}</span></li>
+                                <li><b><i class="fa fa-map-marker"></i> precio: </b><span>$ {{product.price}}</span></li>
                             </ul>
                             <a class="btn-proudct"><i class="fa fa-shopping-bag"></i> Anadir Al Carrito</a>
                             <form action="" method="post">
@@ -69,15 +72,22 @@
                         <div class="acount">
                             <p><strong>Vendedor:</strong></p>
                             <a href="vendor.html">
-                                <img class="img-circle img-thumbnail" src="img/C9D28q_XgAAAMDD.jpg" alt="">
-                                <span>Momo Momo</span>
+                                <img class="img-circle img-thumbnail" src={{product.seller.avatar.url}} alt="">
+                                <span>{{product.seller.name}}</span>
                                 <span class="rate">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i style="color: #4e2a24;">(6)</i>
+                                    {% for i in range %}
+                                        {% if rate >= i %}
+                                            <i class="fa fa-star"></i>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                    {% if remainder > .00001%}
+                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    {% endif %}
+                                    {% for i in range2 %}
+                                        <i class="fa fa-star-o"></i>
+                                    {% endfor %}
+                                    <i style="color: #4e2a24;">({{product.seller.number_of_rates}}) {{the_rate}} </i>
                                 </span>
                             </a>
                             <div class="about-vendor">

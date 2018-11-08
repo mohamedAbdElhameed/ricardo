@@ -1,0 +1,39 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+<!--page-news-->
+    <div class="page-stories">
+        <div class="container">
+            <div class="row">
+                {% for tale in tales %}
+                <div class="col-md-12">
+                    <div class="stories">
+                        <div class="embd-stories pull-right">
+                            <iframe width="560" height="315" src="{{tale.video_url}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div><!--/.embd-stories-->
+                        <div class="text-stories">
+                            <h4>{{tale.title}}</h4>
+                            <p>
+                                {{tale.details}}
+                            </p>
+                        </div>
+                    </div><!--/.stories-->
+                </div><!--/.col-->
+                {% endfor %}
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </div>
+    <!--/.page-stories-->
+{%endblock%}
+
+
+
+
+
+

@@ -38,12 +38,21 @@ def product_view(request, pk):
     subcategory = product.sub_category
     category = subcategory.category
     categories = Category.objects.all()
-
+    rate = product.seller.rate / product.seller.number_of_rates
+    if rate % 1 == 0:
+        flag = 2
+    else:
+        flag = 1
     context = {
         "product": product,
         "subcategory": subcategory,
         "category": category,
         "categories": categories,
+        "rate": (rate//1),
+        "remainder": rate % 1,
+        "the_rate": rate,
+        "range": range(1, int(rate//1+1)),
+        "range2": range(1, int(5-(rate//1+1))+flag)
     }
 
     return render(request, 'products/product.html', context)
