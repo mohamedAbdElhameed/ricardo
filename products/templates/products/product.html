@@ -71,7 +71,7 @@
                         </div><!--/.details-->
                         <div class="acount">
                             <p><strong>Vendedor:</strong></p>
-                            <a href="vendor.html">
+                            <a href="{% url 'userprofile:vendor' product.seller.id %}">
                                 <img class="img-circle img-thumbnail" src={{product.seller.avatar.url}} alt="">
                                 <span>{{product.seller.name}}</span>
                                 <span class="rate">

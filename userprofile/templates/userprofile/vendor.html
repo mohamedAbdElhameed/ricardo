@@ -1,0 +1,79 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+   <!--.vendors-->
+    <div class="vendors">
+        <div class="container">
+            <div class="details-product">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="image-vendor">
+                            <img src="{{seller.avatar.url}}" alt="">
+                            <div class="vendor-rate text-center">
+                                {% for i in range %}
+                                        {% if rate >= i %}
+                                            <i class="fa fa-star"></i>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                    {% if remainder > .00001%}
+                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    {% endif %}
+                                    {% for i in range2 %}
+                                        <i class="fa fa-star-o"></i>
+                                    {% endfor %}
+                            </div><!--/.vendor-rate-->
+                        </div><!--/.image-vendor-->
+                    </div><!--/.col-->
+                    <div class="col-md-6">
+                        <div class="vendor-name">
+                            <h2>{{seller.name}}</h2>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-map-marker"></i>{{seller.city.name}}</li>
+                                <li><i class="fa fa-phone"></i> {{seller.phone_number}}</li>
+                                <li><i class="fa fa-send"></i> {{seller.user.email}}</li>
+                            </ul>
+                        </div><!--vendor-name-->
+                        <div class="caption">
+                            <h3>Description</h3>
+                            <p>
+                                {{seller.description}}
+                            </p>
+                        </div><!--/.caption-->
+                    </div><!--/.col-->
+                </div><!--/.row-->
+            </div><!--/.details-product-->
+        </div><!--/.container-->
+    </div>
+    <!--/.vendors-->
+
+    <!--.proudcts-->
+    <div class="proudcts vendors-page">
+        <div class="container">
+            <h2 class="text-center">Proudctos</h2>
+            <hr>
+            <div class="row">
+                {% for product in seller.seller_products.all %}
+                <div class="col-md-3">
+                    <div class="proudct">
+                        <a href="proudct.html">
+                            <div class="img-proudct">
+                                <img class="img-responsive" src="{{product.images.all.0.image.url}}" alt="">
+                            </div><!--/.img-proudct-->
+                            <h4>{{product.name}}</h4>
+                            <span>{{product.price}}$</span>
+                        </a>
+                    </div><!--/.proudct-->
+                </div><!--/.col-->
+                {% endfor %}
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </div>
+    <!--/.proudcts-->
+{%endblock%}
