@@ -27,3 +27,7 @@ class StartDetailAdmin(admin.ModelAdmin):
 
 
 admin.site.register(StartDetail, StartDetailAdmin)
+
+admin.site.site_header = "Ricardo"
+admin.site.site_title = "Ricardo"
+admin.site.index_title = "Ricardo"
