@@ -4,7 +4,7 @@ from products.views import sub_categories, products_view, product_view
 
 from . import views
 
-app_name = 'start'
+app_name = 'products'
 
 urlpatterns = [
     path('category/<int:pk>/', sub_categories, name='category'),
