@@ -62,7 +62,7 @@
                 {% for product in seller.seller_products.all %}
                 <div class="col-md-3">
                     <div class="proudct">
-                        <a href="proudct.html">
+                        <a href="{% url 'products:product' product.id %}">
                             <div class="img-proudct">
                                 <img class="img-responsive" src="{{product.images.all.0.image.url}}" alt="">
                             </div><!--/.img-proudct-->

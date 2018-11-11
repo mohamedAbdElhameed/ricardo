@@ -35,7 +35,7 @@
                                 <img class="img-responsive" src={{product.images.all.0.image.url}} alt="">
                             </div><!--/.img-proudct-->
                             <h4>{{product.name}}</h4>
-                            <span class="pull-left"><a href="vendor.html"><i class="fa fa-user"></i> {{product.seller.user.username}}</a></span>
+                            <span class="pull-left"><a href="{% url 'userprofile:vendor' product.seller.id%}"><i class="fa fa-user"></i> {{product.seller.user.username}}</a></span>
                             <span class="pull-right">{{product.price}}$</span>
                         </a>
                     </div><!--/.proudct-->

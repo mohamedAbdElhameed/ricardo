@@ -70,6 +70,22 @@ class Review(models.Model):
         verbose_name_plural = _("Reviews")
 
 
+class Contact(models.Model):
+    name = models.CharField(max_length=50, help_text=_("name"), verbose_name=_("name"))
+    phone = models.CharField(max_length=15, help_text=_("phone_number"), verbose_name=_("phone_number"))
+    email = models.EmailField(max_length=50, help_text=_("email"), verbose_name=_("email"))
+    message = models.TextField(max_length=500, help_text=_("message"), verbose_name=_("message"))
+    read = models.BooleanField(default=False, help_text=_("Done"), verbose_name=_("Done"))
+    created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("Contact Message")
+        verbose_name_plural = _("Contact Messages")
+
+
 @receiver(post_save, sender=Review)
 def increment_rate(sender, instance, **kwargs):
     seller = Seller.objects.get(user=instance.seller.user)

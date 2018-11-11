@@ -1,6 +1,6 @@
 from django.contrib import admin
 # Register your models here.
-from .models import Seller, Buyer, Review, City
+from .models import Seller, Buyer, Review, City, Contact
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 # class CityAdmin(OSMGeoAdmin):
@@ -49,7 +49,22 @@ class ReviewAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
+
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'phone', 'email', 'message', 'read']
+    search_fields = ['id', 'name', 'phone', 'email', 'message', 'read']
+    list_filter = ['read']
+    list_editable = ['read']
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 admin.site.register(Seller, SellerAdmin)
 admin.site.register(Buyer, BuyerAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(City, CityAdmin)
+admin.site.register(Contact, ContactAdmin)

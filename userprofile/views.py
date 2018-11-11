@@ -1,8 +1,9 @@
 from django.shortcuts import render
-
+from django import http
 # Create your views here.
 from products.models import Category
-from userprofile.models import Seller
+from userprofile.forms import ContactForm
+from userprofile.models import Seller, Contact
 
 
 def sellers_view(request):
@@ -34,3 +35,38 @@ def vendor_view(request, pk):
         "range2": range(1, int(5-(rate//1+1))+flag)
     }
     return render(request, 'userprofile/vendor.html', context)
+
+
+def we_view(request):
+    categories = Category.objects.all()
+
+    context = {
+        'categories': categories,
+
+    }
+    return render(request, 'userprofile/we.html', context)
+
+
+def contact_view(request):
+    categories = Category.objects.all()
+    form = ContactForm()
+    context = {
+        'categories': categories,
+        'form': form
+    }
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            phone = form.cleaned_data['phone']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            contact = Contact()
+            contact.name = name
+            contact.phone = phone
+            contact.email = email
+            contact.message = message
+            contact.save()
+            return render(request, 'userprofile/contact.html', context)
+
+    return render(request, 'userprofile/contact.html', context)

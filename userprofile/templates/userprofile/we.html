@@ -1,0 +1,73 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+    <!--page-programa-->
+    <div class="page-programa">
+        <div class="container">
+
+            <h2 class="text-center">Programa Artesanias</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="image-programa">
+                        <img class="img-responsive" src={% static "/start/img/person2.jpg" %} alt="">
+                    </div><!--/.image-programa-->
+                </div><!--/.col-->
+                <div class="col-md-6">
+                    <div class="text-programa">
+                        <p>
+                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
+                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention.
+                        </p>
+                    </div><!--/.text-programa-->
+                </div><!--/.col-->
+            </div><!--/.row-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="about-programa">
+                        <h5>Conoce al equipo</h5>
+                        <p>
+                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
+                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention.
+                        </p>
+                    </div><!--/.about-programa-->
+                </div><!--/.col-->
+            </div><!--/.row-->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="persone-programa">
+                        <img class="img-responsive" src={% static "/start/img/person4.jpg" %} alt="">
+                        <h5>Person Name</h5>
+                        <p>
+                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
+                        </p>
+                    </div><!--/.persone-programa-->
+                </div><!--/.col-->
+                <div class="col-md-4">
+                    <div class="persone-programa">
+                        <img class="img-responsive" src={% static "/start/img/person1.jpg" %} alt="">
+                        <h5>Person Name</h5>
+                        <p>
+                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
+                        </p>
+                    </div><!--/.persone-programa-->
+                </div><!--/.col-->
+                <div class="col-md-4">
+                    <div class="persone-programa">
+                        <img class="img-responsive" src={% static "/start/img/person3.jpg" %} alt="">
+                        <h5>Person Name</h5>
+                        <p>
+                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
+                        </p>
+                    </div><!--/.persone-programa-->
+                </div><!--/.col-->
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </div>
+    <!--/.page-programa-->
+{%endblock%}
