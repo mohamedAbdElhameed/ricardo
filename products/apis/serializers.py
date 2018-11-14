@@ -1,8 +1,7 @@
 from rest_framework import serializers
 
-from products.models import Product, SubCategory, ProductImage
-
-from userprofile.models import Seller
+from products.models import Product, SubCategory, ProductImage, Cart
+from userprofile.models import Seller, Buyer
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -66,3 +65,15 @@ class SubCategorySerializer(serializers.ModelSerializer):
         model = SubCategory
         fields = ['id', 'name', 'image']
 
+
+class CartSerializer(serializers.ModelSerializer):
+    product_id = serializers.IntegerField()
+
+    class Meta:
+        model = Cart
+        fields = ['product_id', 'quantity']
+
+    def create(self, validated_data):
+        validated_data['buyer'] = Buyer.objects.get(user=self.context['request'].user)
+        validated_data['product'] = Product.objects.get(id=validated_data['product_id'])
+        return Cart.objects.create(**validated_data)

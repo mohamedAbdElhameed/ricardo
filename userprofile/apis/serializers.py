@@ -1,7 +1,7 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
-
-from userprofile.models import Seller
-
+from rest_framework.authtoken.models import Token
+from userprofile.models import Seller, Contact, Buyer
 from products.models import Product
 
 
@@ -27,3 +27,46 @@ class SellerSerializer(serializers.ModelSerializer):
                 'price': product.price
             })
         return product_list
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['name', 'phone', 'email', 'message', ]
+
+
+class SellersSerializer(serializers.ModelSerializer):
+    rate = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Seller
+        fields = ['id', 'name', 'avatar', 'rate', 'description',]
+
+    def get_rate(self, seller):
+        return seller.rate / seller.number_of_rates
+
+
+class UserSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'password', 'token']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        Token.objects.create(user=user)
+        Buyer.objects.create(user=user)
+        return user
+
+    def get_token(self, user):
+        return Token.objects.get(user=user).key
+
+
+
