@@ -83,8 +83,8 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <a href="javascript:void(0);"> <i id="search_show" class="fa fa-search" aria-hidden="true"></i></a>
-                <a href="javascript:void(0);"> <i id="login_show" class="fa fa-user-circle" aria-hidden="true"></i></a>
-                <a href="card.html"> <i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                {% if not user.is_authenticated %}<a href="javascript:void(0);"> <i id="login_show" class="fa fa-user-circle" aria-hidden="true"></i></a>{% endif %}
+                {% if user.is_authenticated %} <a href="card.html"> <i class="fa fa-shopping-bag" aria-hidden="true"></i></a> {% endif %}
                 <div class="search-form-box">
                     <input class="search-store">
                 </div>
@@ -133,23 +133,27 @@
         </li><!--/.dropdown--->
     </div>
     <!--/.navbar-->
-    <div class="login-wrap">
+    {% if not user.is_authenticated %}
+        <div class="login-wrap">
         <div class="login-html">
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
             <div class="login-form">
+
                 <div class="sign-in-htm">
-                    <form action="/" method="POST">
+
+                    <form action="{% url 'userprofile:signin' %}" method="POST">
+                        {% csrf_token %}
                         <div class="group">
                             <label for="user" class="label">Username</label>
-                            <input id="user" type="text" class="input">
+                            {{sign_in_form.username}}
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Password</label>
-                            <input id="pass" type="password" class="input" data-type="password">
+                            {{sign_in_form.password}}
                         </div>
                         <div class="group">
-                            <input id="check" type="checkbox" class="check" checked>
+                            {{sign_in_form.remember_me}}
                             <label for="check"><span class="icon"></span> Keep me Signed in</label>
                         </div>
                         <div class="group">
@@ -162,22 +166,23 @@
                     </div>
                 </div>
                 <div class="sign-up-htm">
-                    <form action="/" method="POST">
+                    <form action="{% url 'userprofile:signup' %}" method="POST">
+                        {%csrf_token%}
                         <div class="group">
                             <label for="user" class="label">Username</label>
-                            <input id="user" type="text" class="input">
+                            {{sign_up_form.username}}
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Password</label>
-                            <input id="pass" type="password" class="input" data-type="password">
+                            {{sign_up_form.password}}
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Repeat Password</label>
-                            <input id="pass" type="password" class="input" data-type="password">
+                            {{sign_up_form.re_password}}
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Email Address</label>
-                            <input id="pass" type="text" class="input">
+                            {{sign_up_form.email}}
                         </div>
                         <div class="group">
                             <input type="submit" class="button" value="Sign Up">
@@ -191,6 +196,20 @@
             </div>
         </div>
     </div>
+    {% endif %}
+    <br>
+    <br>
+
+<div class="container-fluid" style="position:absolute; top:125px;">
+            {% if messages %}
+            {% for message in messages %}
+        <div class="alert alert-dismissible fade in {% if message.tags %}{% if message.tags == 'error' %}alert-danger{% elif message.tags == 'debug' %}alert-warning{% else %}alert-{{ message.tags }}{% endif %}{% else %}alert-info{% endif %}" role="alert">
+
+          <strong>{{ message }}</strong>
+        </div>
+      {% endfor %}
+        {% endif %}
+</div>
    {% block content %}{% endblock %}
     <!--.footer-->
     <footer class="text-center">
