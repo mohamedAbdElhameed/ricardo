@@ -77,3 +77,11 @@ class CartSerializer(serializers.ModelSerializer):
         validated_data['buyer'] = Buyer.objects.get(user=self.context['request'].user)
         validated_data['product'] = Product.objects.get(id=validated_data['product_id'])
         return Cart.objects.create(**validated_data)
+
+
+class CartListSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = Cart
+        fields = ['id', 'product', 'quantity', ]

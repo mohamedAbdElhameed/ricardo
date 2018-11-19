@@ -4,7 +4,7 @@ from products.views import sub_categories, products_view, product_view
 from rest_framework.routers import DefaultRouter
 
 from products.apis.views import ProductViewSet, ProductDetailViewSet, SubCategoryList, ProductsInSubCategoryList, \
-    CartView
+    CartView, CartListView
 from . import views
 
 app_name = 'products'
@@ -13,6 +13,7 @@ app_name = 'products'
 urlpatterns = [
     path('api/productlist/', ProductViewSet.as_view({'get': 'list'})),
     path('api/addtocart/', CartView.as_view(), name='cart'),
+    path('api/cartlist/', CartListView.as_view(), name='cat_list'),
     path('api/product/<int:pk>/', ProductDetailViewSet.as_view()),
     path('api/subcategorylist/', SubCategoryList.as_view()),
     path('api/subcategoryproducts/<int:pk>/', ProductsInSubCategoryList.as_view()),
