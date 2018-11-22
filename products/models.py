@@ -101,6 +101,10 @@ class Cart(Model):
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
 
+    @property
+    def total_cost(self):
+        return self.quantity * self.product.price
+
     class Meta:
         verbose_name = _("Cart")
         verbose_name_plural = _("Carts")
