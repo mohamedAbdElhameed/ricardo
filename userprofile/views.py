@@ -31,7 +31,10 @@ def vendor_view(request, pk):
     seller = Seller.objects.get(id=pk)
     sign_up_form = SignUpForm()
     sign_in_form = LoginForm()
-    rate = seller.rate / seller.number_of_rates
+    if seller.number_of_rates == 0:
+        rate = 0
+    else:
+        rate = seller.rate / seller.number_of_rates
     if rate % 1 == 0:
         flag = 2
     else:
