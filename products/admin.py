@@ -45,6 +45,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['id', 'seller__user__username', 'name', 'description', 'price', ]
     autocomplete_fields = ['sub_category', 'seller']
     list_filter = ['seller', ('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
+    list_editable = ['seller']
 
 
 class CategoryAdmin(admin.ModelAdmin):
