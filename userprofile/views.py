@@ -127,13 +127,13 @@ def signin(request):
             userbyemail = User.objects.filter(email=username)
             if len(userbyemail) > 0:
                 user = authenticate(username=userbyemail[0].username, password=password)
-            if user is not None:
+            if user is not None and not user.is_superuser:
                 login(request, user)
 
                 if not form.cleaned_data['remember_me']:
                     request.session.set_expiry(0)
             else:
-                messages.add_message(request, messages.SUCCESS, 'bad credentials')
+                messages.add_message(request, messages.ERROR, 'bad credentials')
             return HttpResponseRedirect('/')
 
 
