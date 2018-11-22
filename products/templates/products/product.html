@@ -64,9 +64,9 @@
                                 <li><b><i class="fa fa-map-marker"></i> categoria: </b><span>{{category.name}}</span></li>
                                 <li><b><i class="fa fa-map-marker"></i> precio: </b><span>$ {{product.price}}</span></li>
                             </ul>
-                            <a class="btn-proudct"><i class="fa fa-shopping-bag"></i> Anadir Al Carrito</a>
+                            <a class="btn-proudct" onclick="add_cart({{product.id}})" id="add_c"><i class="fa fa-shopping-bag"></i> {% if not in_cart %} Anadir Al Carrito {% else %}Actualizarlo en carrito{% endif %}</a>
                             <form action="" method="post">
-                                <label>cantidad </label><input type="number" value="3">
+                                <label>cantidad </label><input id="number" type="number" min="0" value="{{quantity|default_if_none:0}}">
                             </form>
                         </div><!--/.details-->
                         <div class="acount">
@@ -104,6 +104,21 @@
             </div><!--/.details-product-->
         </div><!--/.container-->
     </div>
+<script>
+    function add_cart(product){
+        quantity = $("#number").val();
+        if (quantity > 0){
+                $.ajax({
+                            url: "http://127.0.0.1:8000/products/cart/add/"+product+"/"+quantity+"/",
+                            type: 'GET',
+                            success: function(res) {
+                                console.log(res);
+                                $("#add_c").html('<i class="fa fa-shopping-bag"></i> Actualizarlo en carrito');
+                            }
+                });
+        }
+    }
+</script>
     <!--/.proudct-->
 {%endblock%}
 

@@ -1,13 +1,16 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django import http
 # Create your views here.
 from products.models import Category
+from rest_framework.authtoken.models import Token
 from userprofile.forms import ContactForm, SignUpForm, LoginForm
-from userprofile.models import Seller, Contact
+from userprofile.models import Seller, Contact, Buyer
 from django.contrib import messages
+
+
 
 def sellers_view(request):
     categories = Category.objects.all()
@@ -107,6 +110,9 @@ def signup(request):
                 return HttpResponseRedirect('/')
             user = User.objects.create_user(username, cd['email'], password)
             user.save()
+            buyer = Buyer(user=user)
+            buyer.save()
+            Token.objects.create(user=user)
             messages.add_message(request, messages.SUCCESS, 'user has been added')
             return HttpResponseRedirect('/')
 
@@ -129,3 +135,9 @@ def signin(request):
             else:
                 messages.add_message(request, messages.SUCCESS, 'bad credentials')
             return HttpResponseRedirect('/')
+
+
+def log_out(request):
+    logout(request)
+    messages.add_message(request, messages.SUCCESS, 'ha cerrado la sesión con éxito')
+    return HttpResponseRedirect('/')

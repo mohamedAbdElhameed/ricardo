@@ -1,0 +1,98 @@
+{% extends 'start/base.html' %}
+{% load static %}
+{% block title %}
+ متنساش تقلي العنوان هنا
+{%endblock%}
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+ <!--card-->
+    <div class="card">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="left-card">
+                        <div class="panel panel-default panel-responsive">
+                            <div class="panel-heading">
+                                Productos
+                                <span class="pull-right"> Items ({{carts|length}})</span>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="list-unstyled">
+                                    {% if carts %}
+
+                                    {% for cart in carts %}
+                                    <li id="cart{{cart.id}}">
+                                        <div class="detils-card" >
+                                            <img src="{{cart.product.images.all.0.image.url}}" alt="">
+                                            <div class="detils">
+                                                <h4>{{cart.product.name}}</h4>
+                                                <input type="number" value="{{cart.quantity}}">
+                                                <p><label>Vendedor:</label> {{cart.product.seller}}</p>
+                                                <p><label>Price:</label> {{cart.product.price}}</p>
+                                            </div><!--/.detils-->
+                                            <div class="total">
+                                                <p><label>Total Price:</label> {% widthratio cart.product.price 1 cart.quantity %}
+                                                    $</p>
+                                                <p class="delete pull-right" onclick="remove({{cart.id}})"><i class="fa fa-trash" ></i> Remove</p>
+                                            </div><!--/.total-->
+                                        </div><!--/.detils-card-->
+                                    </li>
+
+                                    {% endfor %}
+
+                                    {% else %}
+                                        <p>Tienes que añadir algunos productos al carrito.</p>
+                                    {% endif %}
+                                </ul>
+                            </div><!--/.panel-body-->
+                        </div><!--/.panel-->
+                    </div><!--/.left-card-->
+                </div><!--/.col-->
+                <div class="col-md-4">
+                    <div class="right-card">
+                        <div class="panel panel-default panel-responsive">
+                            <div class="panel-heading text-center"><strong>Summury</strong></div>
+                            <div class="panel-body">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <label>Numero de articuos</label> <span class="badge">4</span>
+                                    </li>
+                                    <li>
+                                        <label>Transporte</label> <span>Contergerga</span>
+                                    </li>
+                                    <li>
+                                        <label>Total</label> <span class="badge">1200$</span>
+                                    </li>
+                                    <li class="text-center">
+                                        <p>
+                                            así como el es¬tímulo hacia la asociatividad y formalización como artesano em¬prendedor.
+                                        </p>
+                                        <a href="#" class="btn-card">Proceder con pago</a>
+                                    </li>
+                                </ul>
+                            </div><!--/.panel-body-->
+                        </div><!--/.panel-->
+                    </div><!--/.left-card-->
+                </div><!--/.col-->
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </div>
+    <!--card-->
+<script>
+    function remove(cart){
+        $.ajax({
+                    url: "http://127.0.0.1:8000/products/cart/delete/"+cart+"/",
+                    type: 'GET',
+                    success: function(res) {
+                        console.log(res);
+                        if (res){
+                            $("#cart"+cart).remove();
+
+                        }
+                    }
+                });
+    }
+</script>
+{%endblock%}

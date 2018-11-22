@@ -1,10 +1,12 @@
 from django.urls import path, include
 
-from products.views import sub_categories, products_view, product_view
+from products.views import sub_categories, products_view, product_view, cart_view, delete_cart_element, add_to_cart
 from rest_framework.routers import DefaultRouter
 
 from products.apis.views import ProductViewSet, ProductDetailViewSet, SubCategoryList, ProductsInSubCategoryList, \
     CartView, CartListView
+
+
 from . import views
 
 app_name = 'products'
@@ -20,4 +22,7 @@ urlpatterns = [
     path('category/<int:pk>/', sub_categories, name='category'),
     path('subcategory/<int:pk>/', products_view, name='subcategory'),
     path('product/<int:pk>/', product_view, name='product'),
+    path('cart/', cart_view, name='cart'),
+    path('cart/delete/<int:pk>/', delete_cart_element, name='delete_cart_element'),
+    path('cart/add/<int:product>/<int:quantity>/', add_to_cart, name='add_to_cart'),
 ]
