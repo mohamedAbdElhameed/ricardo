@@ -62,7 +62,7 @@ def product_view(request, pk):
     categories = Category.objects.all()
     sign_up_form = SignUpForm()
     sign_in_form = LoginForm()
-    rate = product.seller.rate / product.seller.number_of_rates
+    rate = product.seller.rate / product.seller.number_of_rates or 0
     if rate % 1 == 0:
         flag = 2
     else:
