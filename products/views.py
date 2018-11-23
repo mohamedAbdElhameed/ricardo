@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -94,10 +95,16 @@ def cart_view(request):
     user = request.user
     carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user))
     categories = Category.objects.all()
+    number_of_products = carts.aggregate(Sum('quantity'))['quantity__sum']
+    total_price = 0
+    for product in carts:
+        total_price += product.quantity * product.product.price
 
     context = {
         "categories": categories,
         'carts': carts,
+        'number_of_products': number_of_products,
+        "total_price": total_price,
     }
     return render(request, 'products/cart.html', context)
 

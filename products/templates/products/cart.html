@@ -16,7 +16,7 @@
                         <div class="panel panel-default panel-responsive">
                             <div class="panel-heading">
                                 Productos
-                                <span class="pull-right"> Items ({{carts|length}})</span>
+                                <span class="pull-right"> Productos ({{carts|length}})</span>
                             </div>
                             <div class="panel-body">
                                 <ul class="list-unstyled">
@@ -27,10 +27,10 @@
                                         <div class="detils-card" >
                                             <img src="{{cart.product.images.all.0.image.url}}" alt="">
                                             <div class="detils">
-                                                <h4>{{cart.product.name}}</h4>
+                                                <h4><a href="{% url 'products:product' cart.product.id %}">{{cart.product.name}}</a> </h4>
                                                 <input type="number" id="number{{cart.product.id}}" min="0" value="{{cart.quantity}}">
                                                 <a class="btn-proudct" onclick="add_cart({{cart.product.id}})" id="add_c"><i class="fa fa-shopping-bag"></i> Actualizarlo en carrito</a>
-                                                <p><label>Vendedor:</label> {{cart.product.seller}}</p>
+                                                <p><label>Vendedor:</label> <a href="{% url 'userprofile:vendor' cart.product.seller.id %}">{{cart.product.seller}}</a> </p>
                                                 <p><label>Price:</label> {{cart.product.price}}</p>
                                             </div><!--/.detils-->
                                             <div class="total">
@@ -58,13 +58,13 @@
                             <div class="panel-body">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <label>Numero de articuos</label> <span class="badge">4</span>
+                                        <label>Numero de articuos</label> <span class="badge" id="number_of_products">{{number_of_products}}</span>
                                     </li>
                                     <li>
                                         <label>Transporte</label> <span>Contergerga</span>
                                     </li>
                                     <li>
-                                        <label>Total</label> <span class="badge">1200$</span>
+                                        <label>Total</label> <span class="badge" id="total_price">{{total_price}}$</span>
                                     </li>
                                     <li class="text-center">
                                         <p>
