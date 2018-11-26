@@ -29,13 +29,13 @@
                                             <div class="detils">
                                                 <h4><a href="{% url 'products:product' cart.product.id %}">{{cart.product.name}}</a> </h4>
                                                 <input type="number" id="number{{cart.product.id}}" min="0" value="{{cart.quantity}}">
-                                                <a class="btn-proudct" onclick="add_cart({{cart.product.id}})" id="add_c"><i class="fa fa-shopping-bag"></i> Actualizarlo en carrito</a>
+                                                <a class="btn-proudct" data-price="{{cart.product.price}}" onclick="add_cart({{cart.product.id}}, {{cart.product.price}})" id="add_c"><i class="fa fa-shopping-bag"></i> Actualizarlo en carrito</a>
                                                 <p><label>Vendedor:</label> <a href="{% url 'userprofile:vendor' cart.product.seller.id %}">{{cart.product.seller}}</a> </p>
-                                                <p><label>Price:</label> {{cart.product.price}}</p>
+                                                <p><label>Price:</label> ${{cart.product.price}}</p>
                                             </div><!--/.detils-->
                                             <div class="total">
-                                                <p><label>Total Price:</label> {{cart.total_cost}}
-                                                    $</p>
+                                                <p id="total{{cart.product.id}}"><label>Total Price:</label> ${{cart.total_cost|floatformat:2}}
+                                                    </p>
                                                 <p class="delete pull-right" onclick="remove({{cart.id}})"><i class="fa fa-trash" ></i> Remove</p>
                                             </div><!--/.total-->
                                         </div><!--/.detils-card-->
@@ -64,7 +64,7 @@
                                         <label>Transporte</label> <span>Contergerga</span>
                                     </li>
                                     <li>
-                                        <label>Total</label> <span class="badge" id="total_price">{{total_price}}$</span>
+                                        <label>Total</label> <span class="badge" id="total_price">${{total_price|floatformat:2}}</span>
                                     </li>
                                     <li class="text-center">
                                         <p>
@@ -98,7 +98,7 @@
 
     }
 
-    function add_cart(product){
+    function add_cart(product, price){
         quantity = $("#number"+product).val();
         if (quantity > 0){
                 $.ajax({
@@ -108,7 +108,9 @@
                                 console.log(res);
                                 $("#add_c").html('<i class="fa fa-shopping-bag"></i> Actualizarlo en carrito');
                                 $("#number_of_products").text(res.number_of_products);
-                                $("#total_price").text(res.total_price);
+                                $("#total_price").text("$" + (res.total_price).toFixed(2));
+                                $("#total"+product).html('<label>Total Price:</label> $' + (quantity * price).toFixed(2));
+                                console.log(price);
                             }
                 });
         }
