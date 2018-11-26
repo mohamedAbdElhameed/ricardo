@@ -14,6 +14,8 @@ class SellerSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'avatar', 'description', 'address', 'phone_number', 'rate', 'number_of_rates', 'seller_products']
 
     def get_rate(self, seller):
+        if seller.number_of_rates == 0:
+            return 0
         return seller.rate / seller.number_of_rates
 
     def get_seller_products(self, seller):
