@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,16 +13,21 @@ from userprofile.forms import ContactForm, SignUpForm, LoginForm
 from userprofile.models import Seller, Contact, Buyer
 from django.contrib import messages
 
+
 def sellers_view(request):
     categories = Category.objects.all()
     sellers = Seller.objects.all()
     sign_up_form = SignUpForm()
     sign_in_form = LoginForm()
+    positions = []
+    for seller in sellers:
+        positions.append([seller.city.name, float(seller.latitude), float(seller.longitude)])
     context = {
         'sign_up_form': sign_up_form,
         'sign_in_form': sign_in_form,
         'categories': categories,
         'sellers': sellers,
+        'positions': positions,
     }
     return render(request, 'userprofile/sellers.html', context)
 

@@ -5,6 +5,12 @@
 {%endblock%}
 {% block extrainhead %}
 <link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+<style>
+    #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+</style>
 {% endblock %}
 {%block content%}
    <!--.vendors-->
@@ -75,5 +81,25 @@
             </div><!--/.row-->
         </div><!--/.container-->
     </div>
+
     <!--/.proudcts-->
+            <div id="map"></div>
+<script>
+// Initialize and add the map
+function initMap() {
+  // The location of Uluru
+  var uluru = {lat: {{seller.latitude}}, lng: {{seller.longitude}}}
+  // The map, centered at Uluru
+  var map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+}
+    </script>
+            <div class="col-md-12">
+                <div class="row">
+                    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFtHE8VOIuHl27sqebPeWN44C1ASjmxn8&callback=initMap">
+    </script>
+                </div>
+            </div>
 {%endblock%}
