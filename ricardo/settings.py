@@ -131,6 +131,12 @@ LOCALE_PATHS = (
    os.path.join(BASE_DIR, 'locale'),
 )
 
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+SILENCED_SYSTEM_CHECKS = ['auth.E003', 'auth.W004']
+
 LANGUAGES = (
     ('es', _('Spanish')),
     ('en', _('English')),

@@ -6,6 +6,9 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
+User._meta.get_field('username')._unique = True
+User._meta.get_field('email')._unique = True
+User._meta.get_field('email')._required = True
 
 class City(models.Model):
     name = models.CharField(max_length=50)

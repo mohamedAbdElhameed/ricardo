@@ -42,7 +42,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <a href="index.html">
+                <a href="{% url 'start:index' %}">
                     <img class="navbar-logo left-logo" src={% static "/start/img/LOGOS GOBER-05.png" %} alt="">
                     <img class="navbar-logo right-logo" src={% static "/start/img/LOGOS GOBER-12.png" %} alt="">
                 </a>
@@ -145,7 +145,7 @@
                     <form action="{% url 'userprofile:signin' %}" method="POST">
                         {% csrf_token %}
                         <div class="group">
-                            <label for="user" class="label">Username</label>
+                            <label for="user" class="label">Username or Email</label>
                             {{sign_in_form.username}}
                         </div>
                         <div class="group">

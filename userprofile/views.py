@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django import http
@@ -9,8 +10,6 @@ from rest_framework.authtoken.models import Token
 from userprofile.forms import ContactForm, SignUpForm, LoginForm
 from userprofile.models import Seller, Contact, Buyer
 from django.contrib import messages
-
-
 
 def sellers_view(request):
     categories = Category.objects.all()
@@ -104,20 +103,41 @@ def signup(request):
             username = cd['username']
             password = cd['password']
             re_password = cd['re_password']
+            email = cd['email']
             if len(User.objects.filter(username=username)) > 0:
                 messages.add_message(request, messages.ERROR, 'this username is already exists')
+                return HttpResponseRedirect('/')
+
+            if len(User.objects.filter(email=email)) > 0:
+                messages.add_message(request, messages.ERROR, 'this email is already exists')
                 return HttpResponseRedirect('/')
 
             if password != re_password:
                 messages.add_message(request, messages.ERROR, 'the password fields doesn\'t match')
                 return HttpResponseRedirect('/')
-            user = User.objects.create_user(username, cd['email'], password)
+            user = User.objects.create_user(username, email, password)
             user.save()
             buyer = Buyer(user=user)
             buyer.save()
             Token.objects.create(user=user)
             messages.add_message(request, messages.SUCCESS, 'user has been added')
             return HttpResponseRedirect('/')
+
+
+def authenticate_via_email(email, password):
+    """
+        Authenticate user using email.
+        Returns user object if authenticated else None
+    """
+    if email:
+        try:
+            user = User.objects.get(email__iexact=email)
+            print(user)
+            if user.check_password(password):
+                return user
+        except ObjectDoesNotExist:
+            pass
+    return None
 
 
 def signin(request):

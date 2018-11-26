@@ -110,28 +110,28 @@ class Cart(Model):
         verbose_name_plural = _("Carts")
 
 
-class Order(models.Model):
-    buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    address = models.CharField(max_length=250)
-    postal_code = models.CharField(max_length=20)
-    city = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
-    modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
-    paid = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ('-created_at',)
-
-    def __str__(self):
-        return 'Order {}'.format(self.id)
-
-    def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
-
-
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.SET_NULL, null=True)
+# class Order(models.Model):
+#     buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True)
+#     first_name = models.CharField(max_length=50)
+#     last_name = models.CharField(max_length=50)
+#     email = models.EmailField()
+#     address = models.CharField(max_length=250)
+#     postal_code = models.CharField(max_length=20)
+#     city = models.CharField(max_length=100)
+#     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
+#     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
+#     paid = models.BooleanField(default=False)
+#
+#     class Meta:
+#         ordering = ('-created_at',)
+#
+#     def __str__(self):
+#         return 'Order {}'.format(self.id)
+#
+#     def get_total_cost(self):
+#         return sum(item.get_cost() for item in self.items.all())
+#
+#
+# class OrderItem(models.Model):
+#     order = models.ForeignKey(Order, related_name='items', on_delete=models.SET_NULL, null=True)
+#     product = models.ForeignKey(Product, related_name='order_items', on_delete=models.SET_NULL, null=True)

@@ -1,5 +1,8 @@
 from django.contrib import admin
 # Register your models here.
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+
 from .models import Seller, Buyer, Review, City, Contact
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
@@ -68,3 +71,16 @@ admin.site.register(Buyer, BuyerAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.register(Contact, ContactAdmin)
+
+
+class UserAdminNew(UserAdmin):
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username',  'email', 'password1', 'password2')}
+         ),
+    )
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdminNew)

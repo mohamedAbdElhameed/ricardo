@@ -35,12 +35,29 @@ class UserCreate(CreateAPIView):
     authentication_classes = ()
     permission_classes = ()
 
+    def post(self, request, *args, **kwargs):
+        email = request.data['email']
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            user = None
+        if user is not None:
+            return Response({
+                'msg': 'este correo electrónico ya existe',
+            }, status.HTTP_400_BAD_REQUEST)
+        return super().post(request, *args, **kwargs)
+
 
 class LoginView(APIView):
     permission_classes = ()
 
     def post(self, request,):
-        username = request.data.get("username")
+        email = request.data.get("username")
+        username = User.objects.filter(email=email)
+        if len(username) > 0:
+            username = username[0].username
+        else:
+            username = None
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
         if user:

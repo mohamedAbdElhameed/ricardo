@@ -51,8 +51,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'token']
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ['email', 'username', 'password', 'first_name', 'last_name', 'token']
+        extra_kwargs = {'password': {'write_only': True}, }
 
     def create(self, validated_data):
         user = User(
@@ -60,13 +60,14 @@ class UserSerializer(serializers.ModelSerializer):
             username=validated_data['username']
         )
         user.set_password(validated_data['password'])
+        user.first_name = validated_data['first_name']
+        user.last_name = validated_data['last_name']
         user.save()
         Token.objects.create(user=user)
-        Buyer.objects.create(user=user)
+        buyer = Buyer.objects.create(user=user)
+
+        print(user)
         return user
 
     def get_token(self, user):
         return Token.objects.get(user=user).key
-
-
-
