@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.db.models import Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -109,13 +109,28 @@ def cart_view(request):
     return render(request, 'products/cart.html', context)
 
 
+def total_price_and_items(request):
+    user = request.user
+    carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user))
+    number_of_products = carts.aggregate(Sum('quantity'))['quantity__sum']
+    total_price = 0
+    for product in carts:
+        total_price += product.quantity * product.product.price
+
+    return JsonResponse({
+        'total_price': total_price,
+        'number_of_products': number_of_products
+    })
+
+
 def delete_cart_element(request, pk):
     cart_element = Cart.objects.get(pk=pk)
     cart_element.delete()
+    nums = total_price_and_items(request)
     if not cart_element:
         return HttpResponse("False")
     else:
-        return HttpResponse("True")
+        return nums
 
 
 def add_to_cart(request, product, quantity):
@@ -127,7 +142,7 @@ def add_to_cart(request, product, quantity):
     if len(cart):
         cart[0].quantity = quantity
         cart[0].save()
-        return HttpResponse(quantity)
+        return total_price_and_items(request)
     else:
         Cart.objects.create(buyer=buyer, quantity=quantity, product=Product.objects.get(pk=product))
         return HttpResponse(quantity)
