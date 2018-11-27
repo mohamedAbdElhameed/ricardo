@@ -107,7 +107,7 @@ def cart_view(request):
         merchant_id = '508029'
         account_id = '512321'
         test = '1'
-        host = 'http://127.0.0.1:8000/'
+        host = 'http://ricardoooo123123123.pythonanywhere.com'
     # else:
     #     action_url = "https://checkout.payulatam.com/ppp-web-gateway-payu"
     #     apikey = config('payu_api_key')
