@@ -109,7 +109,7 @@
         quantity = $("#number").val();
         if (quantity > 0){
                 $.ajax({
-                            url: "http://ricardoooo123123123.pythonanywhere.com/products/cart/add/"+product+"/"+quantity+"/",
+                            url: "http://127.0.0.1:8000/products/cart/add/"+product+"/"+quantity+"/",
                             type: 'GET',
                             success: function(res) {
                                 console.log(res);

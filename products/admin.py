@@ -5,7 +5,7 @@ from django.forms import BaseInlineFormSet
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 from .models import Category, Product, ProductImage, ProductAdditionalAttributeValue, \
-    ProductAdditionalAttributeName, SubCategory, Cart
+    ProductAdditionalAttributeName, SubCategory, Cart, Order, OrderItem
 
 
 class RequiredInlineFormSet(BaseInlineFormSet):
@@ -80,3 +80,35 @@ admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductAdditionalAttributeName, ProductAdditionalAttributeNameAdmin)
 admin.site.register(Cart, CartAdmin)
+
+
+class InlineOrderItems(admin.TabularInline):
+    model = OrderItem
+    extra = 1
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request):
+        return False
+
+
+class OrderAdmin(admin.ModelAdmin):
+    inlines = [InlineOrderItems, ]
+    list_display = ['id', 'buyer', 'paid']
+    list_filter = ['buyer', 'paid']
+    search_fields = ['buyer__name', 'id']
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+admin.site.register(Order, OrderAdmin)
