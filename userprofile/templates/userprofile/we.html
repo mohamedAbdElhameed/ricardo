@@ -1,16 +1,18 @@
 {% extends 'start/base.html' %}
 {% load static %}
 {% block title %}
- متنساش تقلي العنوان هنا
+Artesanias de Boyacá
 {%endblock%}
 {% block extrainhead %}
 <link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
 {% endblock %}
 {%block content%}
-    <!--page-programa-->
     <div class="page-programa">
         <div class="container">
-
+            <ol class="breadcrumb">
+                <li><a href="#">Nosotros</a></li>
+                <li class="active">Programa Artesanias</li>
+            </ol><!--/.breadcrumb-->
             <h2 class="text-center">Programa Artesanias</h2>
             <div class="row">
                 <div class="col-md-6">
@@ -21,8 +23,12 @@
                 <div class="col-md-6">
                     <div class="text-programa">
                         <p>
-                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
-                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention.
+                            El programa <strong>Artesanías de Boyacá</strong> siendo el fruto de un proceso de transformación administrativa y productiva,
+                            que ha liderado la Secretaría de Productividad, TIC y Gestión del Conocimiento de la Gobernación de Boyacá,
+                            viene trabajando en cuatro líneas de apoyo y fortalecimiento, de una parte preservando y protegiendo la identidad cultural del territorio,
+                            artesano innovador adoptando el mejoramiento de procesos, capacitación y diseño,
+                            así como el estímulo hacia la asociatividad y formalización como artesano emprendedor y el impulso hacia el artesano competitivo
+                            a través de la búsqueda de modernos canales de comercialización.
                         </p>
                     </div><!--/.text-programa-->
                 </div><!--/.col-->
@@ -32,8 +38,7 @@
                     <div class="about-programa">
                         <h5>Conoce al equipo</h5>
                         <p>
-                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
-                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention.
+                            A continuación, una pequeña reseña de cada uno de los líderes del proyecto de Artesanías de Boyacá.
                         </p>
                     </div><!--/.about-programa-->
                 </div><!--/.col-->
@@ -42,27 +47,31 @@
                 <div class="col-md-4">
                     <div class="persone-programa">
                         <img class="img-responsive" src={% static "/start/img/person4.jpg" %} alt="">
-                        <h5>Person Name</h5>
+                        <h5>Dr. Sergio Armando Tolosa Acevedo</h5>
                         <p>
-                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
+                            <strong>Secretario de Productividad, Tic y Gestión del Conocimiento</strong>, Es administrador de empresas con estudios de maestría en dirección de empresas
+                            y especializaciones en finanzas y alta gerencia en mercadotecnia. Cuenta con más de 20 años de experiencia laboral en cargos directivos y empresas de Boyacá.
                         </p>
                     </div><!--/.persone-programa-->
                 </div><!--/.col-->
                 <div class="col-md-4">
                     <div class="persone-programa">
                         <img class="img-responsive" src={% static "/start/img/person1.jpg" %} alt="">
-                        <h5>Person Name</h5>
+                        <h5>Ing. William Orlando Vargas</h5>
                         <p>
-                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
+                            <strong>Director Tic</strong>, Es ingeniero de sistemas, magíster en dirección estratégica de tecnologías de la información y las comunicaciones.
+                            Se ha desempeñado como asesor TIC en el sector público. En su experiencia profesional está  la ejecución de proyectos en pro de la apropiación de las TIC.
                         </p>
                     </div><!--/.persone-programa-->
                 </div><!--/.col-->
                 <div class="col-md-4">
                     <div class="persone-programa">
                         <img class="img-responsive" src={% static "/start/img/person3.jpg" %} alt="">
-                        <h5>Person Name</h5>
+                        <h5>Ing. Elianeth Gómez</h5>
                         <p>
-                           This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention This is a simple hero unit, a simple jumbotron-style component for calling extra attention,
+                            <strong>Directora de Productividad</strong>, Es ingeniera de alimentos, con maestría en ingeniería y gerencia de cadenas agrícolas y maestría en estrategias
+                            territoriales y ambientales, en el ámbito local. Cuenta con experiencia en liderazgo de proyectos dirigidos al sector empresarial y de desarrollo
+                            local.
                         </p>
                     </div><!--/.persone-programa-->
                 </div><!--/.col-->
