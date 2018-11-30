@@ -54,7 +54,7 @@
                     <a href="#">Nosotros <i class="fa fa-caret-down"></i></a>
                     <div class="dropdown-content">
                         <a href="{% url 'userprofile:we' %}">Programa Artesanías de Boyacá</a>
-                        <a href="{% url 'userprofile:sellers' %}">Profiles</a>
+                        <a href="{% url 'userprofile:sellers' %}">Artisans</a>
                         <a href="{% url 'userprofile:contact' %}">Contacto</a>
                     </div>
                 </li><!--/.dropdown--->
@@ -101,26 +101,21 @@
             <a href="#">Nosotros <i class="fa fa-caret-down"></i></a>
             <div class="dropdown-content">
                 <a href="{% url 'userprofile:we' %}">Programa Artesanías de Boyacá</a>
-                <a href="{% url 'userprofile:sellers' %}">Profiles</a>
+                <a href="{% url 'userprofile:sellers' %}">artisans </a>
                 <a href="{% url 'userprofile:contact' %}">Contacto</a>
             </div>
         </li><!--/.dropdown--->
         <li class="dropdown">
             <a href="#">Productos <i class="fa fa-caret-down"></i></a>
             <div class="dropdown-content">
-                <a class="header-drop" href="#">Hogar y decoración</a>
-                <a href="category.html">Cestería</a>
-                <a href="category.html">Cerámica</a>
-                <a href="category.html">Carpintería</a>
-                <a href="category.html">Forja y Metales</a>
-                <a href="category.html">Taracea</a>
-
-                <a class="header-drop" href="#">Moda Artesanal</a>
-                <a href="category.html">Tejeduría</a>
-
-                <a class="header-drop" href="#">Joyería</a>
-                <a href="category.html">Bisutería</a>
-                <a href="category.html">Plata</a>
+                {% if categories %}
+                            {% for category in categories %}
+                                <a class="header-drop" href="{% url 'products:category' category.id%}">{{ category.name }}</a>
+                                {% for subcategory in category.subcategories.all|slice:":4" %}
+                                    <a href="{% url 'products:subcategory' subcategory.id%}">{{subcategory.name}}</a>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endif %}
             </div>
         </li><!--/.dropdown--->
         <li class="dropdown">
