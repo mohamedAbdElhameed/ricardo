@@ -111,16 +111,26 @@ class Cart(Model):
 
 
 class Order(models.Model):
-    buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE)
-    paid = models.BooleanField(default='False')
+    buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE, help_text=_("Buyer"), verbose_name=_("Buyer"))
+    paid = models.BooleanField(default='False', help_text=_("Paid"), verbose_name=_("Paid"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
 
+    class Meta:
+        verbose_name = _("Order")
+        verbose_name_plural = _("Orders")
+
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField()
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, help_text=_("Order"), verbose_name=_("Order"))
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, help_text=_("Product"), verbose_name=_("Product"))
+    quantity = models.IntegerField(help_text=_("quantity"), verbose_name=_("quantity"))
 
     def __str__(self):
         return ""
+
+    class Meta:
+        verbose_name = _("Order Item")
+        verbose_name_plural = _("Order Items")
+
+
