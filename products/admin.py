@@ -2,10 +2,11 @@ from django.contrib import admin
 
 # Register your models here.
 from django.forms import BaseInlineFormSet
+from django import forms
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
-
+from django.utils.translation import gettext_lazy as _
 from .models import Category, Product, ProductImage, ProductAdditionalAttributeValue, \
-    ProductAdditionalAttributeName, SubCategory, Cart, Order, OrderItem
+    ProductAdditionalAttributeName, SubCategory, Cart, Order, OrderItem, Status, OrderProxy
 
 
 class RequiredInlineFormSet(BaseInlineFormSet):
@@ -41,11 +42,32 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline, ProductAdditionalAttributeValueInline, ]
-    list_display = ['id', 'name', 'sub_category', 'seller', 'description', 'price']
+    list_display = ['id', 'name', 'sub_category', 'seller', 'description', 'price', 'active']
     search_fields = ['id', 'seller__user__username', 'name', 'description', 'price', ]
     autocomplete_fields = ['sub_category', 'seller']
-    list_filter = ['seller', ('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
-    list_editable = ['seller']
+    list_filter = ['seller', 'active', ('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
+    list_editable = ['active']
+
+    def get_form(self, request, obj=None, **kwargs):
+        self.exclude = []
+        if not request.user.is_superuser:
+            self.exclude.append('seller')  # here!
+            self.exclude.append('active')
+
+        return super(ProductAdmin, self).get_form(request, obj, **kwargs)
+
+    def get_queryset(self, request):
+        qs = super(ProductAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(seller=request.user.seller)
+
+    def get_list_display(self, request):
+        self.list_editable = []
+        if request.user.is_superuser:
+            self.list_editable = ['active']
+
+        return super(ProductAdmin, self).get_list_display(request)
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -82,9 +104,19 @@ admin.site.register(ProductAdditionalAttributeName, ProductAdditionalAttributeNa
 admin.site.register(Cart, CartAdmin)
 
 
+class OrderItemForm(forms.ModelForm):
+    total = forms.CharField(required=False)
+    price = forms.CharField(required=False)
+
+    class Meta:
+        model = OrderItem
+        fields = ['product', 'quantity', 'price', 'total']
+
+
 class InlineOrderItems(admin.TabularInline):
     model = OrderItem
     extra = 1
+    form = OrderItemForm
 
     def has_change_permission(self, request, obj=None):
         return False
@@ -96,19 +128,77 @@ class InlineOrderItems(admin.TabularInline):
         return False
 
 
+class OrderAdminForm(forms.ModelForm):
+    email = forms.EmailField(help_text=_("Email"), required=False)
+    phone_number = forms.CharField(help_text=_("Phone_Number"), required=False)
+    address = forms.CharField(help_text=_("Address"), required=False)
+    total_price = forms.CharField(required=False)
+    total_quantity = forms.CharField(required=False)
+
+    class Meta:
+        model = Order
+        fields = ['buyer', 'address', 'phone_number', 'email', 'total_price', 'total_quantity', 'status', 'paid']
+
+
 class OrderAdmin(admin.ModelAdmin):
+    form = OrderAdminForm
     inlines = [InlineOrderItems, ]
-    list_display = ['id', 'buyer', 'paid']
+    list_display = ['id', 'buyer', 'email', 'phone_number', 'address', 'paid', 'total_quantity', 'total_price']
     list_filter = ['buyer', 'paid']
     search_fields = ['buyer__name', 'id']
 
     def has_add_permission(self, request, obj=None):
         return False
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
     def has_change_permission(self, request, obj=None):
+        return False
+
+    def total_quantity(self, order):
+        items = order.order_items.all()
+        quantity = 0
+        for item in items:
+            quantity += item.quantity
+        return quantity
+
+    def total_price(self, order):
+        items = order.order_items.all()
+        print(items)
+        price = 0
+        for item in items:
+            price += item.product.price * item.quantity
+        return price
+
+
+admin.site.register(Order, OrderAdmin)
+
+
+class StatusAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+
+class OrderProxyAdmin(admin.ModelAdmin):
+    readonly_fields = ['buyer', 'paid',]
+    list_display = ['id', 'buyer', 'paid', 'status']
+    list_filter = ['buyer', 'paid', 'status']
+    list_editable = ['status']
+    autocomplete_fields = ['status']
+
+    def has_add_permission(self, request):
         return False
 
     def has_delete_permission(self, request, obj=None):
         return False
 
-admin.site.register(Order, OrderAdmin)
+    def get_queryset(self, request):
+        qs = super(OrderProxyAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        order_items = OrderItem.objects.filter(product__in= [product for product in request.user.seller.seller_products.all()])
+        return qs.filter(order_items__in=order_items)
+
+
+admin.site.register(Status, StatusAdmin)
+admin.site.register(OrderProxy, OrderProxyAdmin)

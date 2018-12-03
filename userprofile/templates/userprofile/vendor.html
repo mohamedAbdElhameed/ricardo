@@ -64,6 +64,7 @@
             <hr>
             <div class="row">
                 {% for product in seller.seller_products.all %}
+                {% if product.active %}
                 <div class="col-md-3">
                     <div class="proudct">
                         <a href="{% url 'products:product' product.id %}">
@@ -75,6 +76,7 @@
                         </a>
                     </div><!--/.proudct-->
                 </div><!--/.col-->
+                {% endif %}
                 {% endfor %}
             </div><!--/.row-->
         </div><!--/.container-->

@@ -44,6 +44,7 @@ class Product(Model):
     price = models.FloatField(help_text=_("Price"), verbose_name=_("Price"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
+    active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _("Product")
@@ -110,19 +111,51 @@ class Cart(Model):
         verbose_name_plural = _("Carts")
 
 
+class Status(models.Model):
+    status_name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.status_name
+
+
 class Order(models.Model):
     buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE, help_text=_("Buyer"), verbose_name=_("Buyer"))
     paid = models.BooleanField(default='False', help_text=_("Paid"), verbose_name=_("Paid"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
+    status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, default=None, help_text=_("you can change the status form the states list"))
 
     class Meta:
         verbose_name = _("Order")
         verbose_name_plural = _("Orders")
 
+    def email(self):
+        return self.buyer.user.email
+
+    def address(self):
+        return self.buyer.address
+
+    def phone_number(self):
+        return self.buyer.phone_number
+
+    def total_quantity(self, order):
+        items = order.order_items.all()
+        quantity = 0
+        for item in items:
+            quantity += item.quantity
+        return quantity
+
+    def total_price(self, order):
+        items = order.order_items.all()
+        print(items)
+        price = 0
+        for item in items:
+            price += item.product.price * item.quantity
+        return price
+
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, help_text=_("Order"), verbose_name=_("Order"))
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items', help_text=_("Order"), verbose_name=_("Order"))
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, help_text=_("Product"), verbose_name=_("Product"))
     quantity = models.IntegerField(help_text=_("quantity"), verbose_name=_("quantity"))
 
@@ -133,4 +166,13 @@ class OrderItem(models.Model):
         verbose_name = _("Order Item")
         verbose_name_plural = _("Order Items")
 
+    def total(self):
+        return '$ ' + str(self.quantity * self.product.price)
 
+    def price(self):
+        return '$ ' + str(self.product.price)
+
+
+class OrderProxy(Order):
+    class Meta:
+        proxy = True

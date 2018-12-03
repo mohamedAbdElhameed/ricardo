@@ -33,7 +33,7 @@ def products_view(request, pk):
     subcategory = SubCategory.objects.filter(id=pk)[0]
     sign_up_form = SignUpForm()
     sign_in_form = LoginForm()
-    products = subcategory.subcategory_products.all()
+    products = subcategory.subcategory_products.filter(active=True)
     paginator = Paginator(products, 2)
     page = request.GET.get('page')
     products = paginator.get_page(page)
@@ -91,7 +91,8 @@ def product_view(request, pk):
         "range": range(1, int(rate//1+1)),
         "range2": range(1, int(5-(rate//1+1))+flag)
     }
-
+    if not product.active:
+        return HttpResponse("<P>this product is not active now<P>")
     return render(request, 'products/product.html', context)
 
 

@@ -27,6 +27,7 @@
             <h2 class="text-center">Proudctos Popular</h2>
             <div class="row">
                 {% for product in start.products.all %}
+                {% if product.active %}
                 <div class="col-md-3">
                     <div class="proudct">
                         <a href="{% url 'products:product' product.id%}">
@@ -39,6 +40,7 @@
                         </a>
                     </div><!--/.proudct-->
                 </div><!--/.col-->
+                {% endif %}
                 {% endfor %}
             </div><!--/.row-->
 

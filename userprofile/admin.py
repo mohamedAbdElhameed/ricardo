@@ -13,12 +13,18 @@ from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 #     readonly_fields = ('Latitude', 'Longitude')
 
 
+class SellerUserInline(admin.StackedInline):
+    model = User
+    exclude = ['password']
+
+
 class CityAdmin(admin.ModelAdmin):
     search_fields = ['id', 'name']
     list_display = ['id', 'name']
 
 
 class SellerAdmin(admin.ModelAdmin):
+    # inlines = ['SellerUserInline']
     search_fields = ['id', 'user__username', 'longitude', 'latitude', 'city__name','description', 'rate', 'number_of_rates', 'phone_number']
     list_display = ['id', 'user', 'avatar', 'longitude', 'latitude', 'city', 'description', 'rate', 'number_of_rates', 'phone_number', ]
     # search_fields = ['user__username', 'city__name', 'description', 'rate', 'phone_number']
