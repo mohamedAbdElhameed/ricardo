@@ -117,6 +117,10 @@ class Status(models.Model):
     def __str__(self):
         return self.status_name
 
+    class Meta:
+        verbose_name = _("Status")
+        verbose_name_plural = _("Status")
+
 
 class Order(models.Model):
     buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE, help_text=_("Buyer"), verbose_name=_("Buyer"))

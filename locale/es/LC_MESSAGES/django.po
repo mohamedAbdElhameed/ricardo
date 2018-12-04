@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-04 14:03+0200\n"
+"POT-Creation-Date: 2018-12-04 14:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr "Detalles"
 
 #: .\news\models.py:9 .\products\models.py:12 .\products\models.py:28
 #: .\products\models.py:45 .\products\models.py:62 .\products\models.py:72
-#: .\products\models.py:87 .\products\models.py:102 .\products\models.py:124
+#: .\products\models.py:87 .\products\models.py:102 .\products\models.py:128
 #: .\start\models.py:17 .\stories\models.py:10 .\stories\models.py:26
 #: .\stories\models.py:41 .\userprofile\models.py:36 .\userprofile\models.py:52
 #: .\userprofile\models.py:68 .\userprofile\models.py:82
@@ -44,7 +44,7 @@ msgstr "Creado en"
 
 #: .\news\models.py:10 .\products\models.py:13 .\products\models.py:29
 #: .\products\models.py:46 .\products\models.py:63 .\products\models.py:73
-#: .\products\models.py:88 .\products\models.py:103 .\products\models.py:125
+#: .\products\models.py:88 .\products\models.py:103 .\products\models.py:129
 #: .\start\models.py:18 .\stories\models.py:11 .\stories\models.py:27
 #: .\stories\models.py:42 .\userprofile\models.py:37 .\userprofile\models.py:53
 #: .\userprofile\models.py:69
@@ -112,7 +112,7 @@ msgid "Price"
 msgstr "Precio"
 
 #: .\products\models.py:50 .\products\models.py:58 .\products\models.py:84
-#: .\products\models.py:99 .\products\models.py:159
+#: .\products\models.py:99 .\products\models.py:163
 msgid "Product"
 msgstr "Producto"
 
@@ -120,7 +120,7 @@ msgstr "Producto"
 msgid "Products"
 msgstr "Productos"
 
-#: .\products\models.py:60 .\products\models.py:129 .\products\models.py:158
+#: .\products\models.py:60 .\products\models.py:133 .\products\models.py:162
 msgid "Order"
 msgstr "Orden"
 
@@ -160,7 +160,7 @@ msgstr "Valor de atributo adicional del producto"
 msgid "Product Additional Attribute Values"
 msgstr "Valores de atributos adicionales del producto"
 
-#: .\products\models.py:100 .\products\models.py:122 .\userprofile\models.py:56
+#: .\products\models.py:100 .\products\models.py:126 .\userprofile\models.py:56
 #: .\userprofile\models.py:65
 msgid "Buyer"
 msgstr "Comprador"
@@ -181,49 +181,49 @@ msgstr "Carretas"
 msgid "Status name"
 msgstr "estado"
 
-#: .\products\models.py:123
-msgid "Paid"
-msgstr "Pagado"
-
-#: .\products\models.py:126
-msgid "you can change the status form the states list"
-msgstr "Puede cambiar el estado de la lista de estado del pedido"
-
-#: .\products\models.py:126
+#: .\products\models.py:121 .\products\models.py:122 .\products\models.py:130
 msgid "Status"
 msgstr "Estado"
 
+#: .\products\models.py:127
+msgid "Paid"
+msgstr "Pagado"
+
 #: .\products\models.py:130
+msgid "you can change the status form the states list"
+msgstr "Puede cambiar el estado de la lista de estado del pedido"
+
+#: .\products\models.py:134
 #, fuzzy
 #| msgid "Order"
 msgid "Orders"
 msgstr "Orden"
 
-#: .\products\models.py:160
+#: .\products\models.py:164
 #, fuzzy
 #| msgid "Quantity"
 msgid "quantity"
 msgstr "Cantidad"
 
-#: .\products\models.py:166
+#: .\products\models.py:170
 #, fuzzy
 #| msgid "Order"
 msgid "Order Item"
 msgstr "Orden"
 
-#: .\products\models.py:167
+#: .\products\models.py:171
 #, fuzzy
 #| msgid "Order"
 msgid "Order Items"
 msgstr "Orden"
 
-#: .\products\models.py:179
+#: .\products\models.py:183
 #, fuzzy
 #| msgid "Order"
 msgid "Order Status"
 msgstr "Orden"
 
-#: .\products\models.py:180
+#: .\products\models.py:184
 #, fuzzy
 #| msgid "Order"
 msgid "Orders Status"
