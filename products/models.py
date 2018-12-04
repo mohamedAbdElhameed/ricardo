@@ -112,7 +112,7 @@ class Cart(Model):
 
 
 class Status(models.Model):
-    status_name = models.CharField(max_length=50)
+    status_name = models.CharField(max_length=50, help_text=_("Status name"), verbose_name=_("Status name"))
 
     def __str__(self):
         return self.status_name
@@ -123,7 +123,7 @@ class Order(models.Model):
     paid = models.BooleanField(default='False', help_text=_("Paid"), verbose_name=_("Paid"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
-    status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, default=None, help_text=_("you can change the status form the states list"))
+    status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, default=None, help_text=_("you can change the status form the states list"), verbose_name=_("Status"))
 
     class Meta:
         verbose_name = _("Order")
