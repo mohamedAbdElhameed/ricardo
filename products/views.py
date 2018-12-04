@@ -217,12 +217,13 @@ def add_to_cart(request, product, quantity):
         Cart.objects.create(buyer=buyer, quantity=quantity, product=Product.objects.get(pk=product))
         return HttpResponse(quantity)
 
+
 @csrf_exempt
 def payment_confirmation(request):
     # This is Payu transaction approved code, only for confirmation page, not global variable
     PAYU_APPROVED_CODE = '4'
     if settings.DEBUG:
-        buyer = request.user.buyer
+        buyer = Buyer.objects.get(user=int(request.POST.get('extra1')))
         transaction_final_state = PAYU_APPROVED_CODE
         sign = '1234'
         create_signature = '1234'
