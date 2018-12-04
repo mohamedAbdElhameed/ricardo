@@ -9,6 +9,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.utils.datetime_safe import datetime
+from django.views.decorators.csrf import csrf_exempt
 
 from products.models import Category, SubCategory, Product, Cart, Order, OrderItem
 from ricardo import settings
@@ -216,7 +217,7 @@ def add_to_cart(request, product, quantity):
         Cart.objects.create(buyer=buyer, quantity=quantity, product=Product.objects.get(pk=product))
         return HttpResponse(quantity)
 
-
+@csrf_exempt
 def payment_confirmation(request):
     # This is Payu transaction approved code, only for confirmation page, not global variable
     PAYU_APPROVED_CODE = '4'
