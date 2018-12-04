@@ -176,3 +176,5 @@ class OrderItem(models.Model):
 class OrderProxy(Order):
     class Meta:
         proxy = True
+        verbose_name = _("Order Status")
+        verbose_name_plural = _("Orders Status")

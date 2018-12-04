@@ -143,7 +143,7 @@ class OrderAdminForm(forms.ModelForm):
 class OrderAdmin(admin.ModelAdmin):
     form = OrderAdminForm
     inlines = [InlineOrderItems, ]
-    list_display = ['id', 'buyer', 'email', 'phone_number', 'address', 'paid', 'total_quantity', 'total_price']
+    list_display = ['id', 'buyer', 'email', 'phone_number', 'address', 'paid', 'status', 'total_quantity', 'total_price']
     list_filter = ['buyer', 'paid']
     search_fields = ['buyer__name', 'id']
 

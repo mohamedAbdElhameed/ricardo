@@ -13,11 +13,15 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'seller_name', 'price', 'first_image']
 
     def get_seller_name(self, product):
+        if product.seller is None:
+            return None
         return product.seller.name
 
     def get_first_image(self, product):
-        return self.context['request'].build_absolute_uri(product.images.all()[0].image.url)
-
+        if len(product.images.all()) > 0:
+            return self.context['request'].build_absolute_uri(product.images.all()[0].image.url) or None
+        else:
+            return None
 
 class SellerSerializerForProductDetail(serializers.ModelSerializer):
     rate = serializers.SerializerMethodField()
