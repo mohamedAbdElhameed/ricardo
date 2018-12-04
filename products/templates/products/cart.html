@@ -11,16 +11,17 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="left-card">
-                        <div class="panel panel-default panel-responsive">
+                        {% for cart in small_carts %}
+                            <div class="panel panel-default panel-responsive">
                             <div class="panel-heading">
-                                Productos
-                                <span class="pull-right"> Productos ({{carts|length}})</span>
+                                {{cart.seller.name}}
+                                <span class="pull-right"> Productos ({{cart.products|length}})</span>
                             </div>
                             <div class="panel-body">
                                 <ul class="list-unstyled">
-                                    {% if carts %}
+                                    {% if cart.products %}
 
-                                    {% for cart in carts %}
+                                    {% for cart in cart.products %}
                                     <li id="cart{{cart.id}}">
                                         <div class="detils-card" >
                                             <img src="{{cart.product.images.all.0.image.url}}" alt="">
@@ -40,13 +41,35 @@
                                     </li>
 
                                     {% endfor %}
-
+                                        <form method="post" action={{action_url}}>
+    <input name="merchantId" type="hidden" value="{{cart.merchant_id}}" >
+    <input name="referenceCode" type="hidden" value="{{cart.reference_code}}" >
+    <input name="description" type="hidden" value="{{description}}" >
+    <input name="amount" type="hidden" value="{{cart.amount}}" >
+    <input name="tax" type="hidden" value="{{cart.tax}}" >
+    <input name="taxReturnBase" type="hidden" value="{{cart.base}}" >
+    <input name="signature" type="hidden" value="{{cart.signature}}" >
+    <input name="accountId" type="hidden" value="{{account_id}}" >
+    <input name="currency" type="hidden" value="{{currency}}" >
+    <input name="buyerFullName" type="hidden" value="{{buyer_name}}" >
+    <input name="buyerEmail" type="hidden" value="{{buyer_email}}" >
+    <input name="shippingAddress" type="hidden" value="k2 n 12 34" >
+    <input name="shippingCity" type="hidden" value="Tunja" >
+    <input name="shippingCountry" type="hidden" value="COP" >
+    <input name="telephone" type="hidden" value="3141234567" >
+    <input name="test" type="hidden" value="1" >
+    <input name="responseUrl" type="hidden" value="{{response_url}}" >
+    <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}" >
+    <input class="button" name="Submit" type="submit" value="Proceder con pago" >
+                                            <!--<a class="btn-card">Proceder con pago</a>-->
+</form>
                                     {% else %}
                                         <p>Tienes que añadir algunos productos al carrito.</p>
                                     {% endif %}
                                 </ul>
                             </div><!--/.panel-body-->
                         </div><!--/.panel-->
+                        {% endfor %}
                     </div><!--/.left-card-->
                 </div><!--/.col-->
                 <div class="col-md-4">
@@ -69,28 +92,6 @@
                                             así como el es¬tímulo hacia la asociatividad y formalización como artesano em¬prendedor.
                                         </p>
 
-                                        <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
-    <input name="merchantId" type="hidden" value="{{merchant_id}}" >
-    <input name="referenceCode" type="hidden" value="{{reference_code}}" >
-    <input name="description" type="hidden" value="{{description}}" >
-    <input name="amount" type="hidden" value="{{amount}}" >
-    <input name="tax" type="hidden" value="{{tax}}" >
-    <input name="taxReturnBase" type="hidden" value="{{base}}" >
-    <input name="signature" type="hidden" value="{{signature}}" >
-    <input name="accountId" type="hidden" value="{{account_id}}" >
-    <input name="currency" type="hidden" value="{{currency}}" >
-    <input name="buyerFullName" type="hidden" value="{{buyer_name}}" >
-    <input name="buyerEmail" type="hidden" value="{{buyer_email}}" >
-    <input name="shippingAddress" type="hidden" value="k2 n 12 34" >
-    <input name="shippingCity" type="hidden" value="Tunja" >
-    <input name="shippingCountry" type="hidden" value="COP" >
-    <input name="telephone" type="hidden" value="3141234567" >
-    <input name="test" type="hidden" value="1" >
-    <input name="responseUrl" type="hidden" value="{{confirmation_url}}" >
-    <input name="confirmationUrl" type="hidden" value="{{response_url}}" >
-    <input class="button" name="Submit" type="submit" value="Proceder con pago" >
-                                            <!--<a class="btn-card">Proceder con pago</a>-->
-</form>
 
                                     </li>
                                 </ul>

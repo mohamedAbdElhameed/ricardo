@@ -82,8 +82,8 @@
                 </li><!--/.dropdown--->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if not user.is_authenticated %}<a href="javascript:void(0);"> <i id="login_show" class="fa fa-user-circle" aria-hidden="true"></i></a>{% endif %}
-                {% if user.is_authenticated %} <a href="{% url 'products:cart' %}"> <i class="fa fa-shopping-bag" aria-hidden="true"></i></a>  <a href="{% url 'userprofile:logout' %}"> <i class="fa fa-sign-out" aria-hidden="true"></i></a>{% endif %}
+                {% if not user.is_authenticated or user.is_superuser%}<a href="javascript:void(0);"> <i id="login_show" class="fa fa-user-circle" aria-hidden="true"></i></a>{% endif %}
+                {% if user.is_authenticated and not user.is_superuser%} <a href="{% url 'products:cart' %}"> <i class="fa fa-shopping-bag" aria-hidden="true"></i></a>  <a href="{% url 'userprofile:logout' %}"> <i class="fa fa-sign-out" aria-hidden="true"></i></a>{% endif %}
                 <div class="search-form-box">
                     <input class="search-store">
                 </div>
@@ -127,7 +127,7 @@
         </li><!--/.dropdown--->
     </div>
     <!--/.navbar-->
-    {% if not user.is_authenticated %}
+    {% if not user.is_authenticated or user.is_superuser%}
         <div class="login-wrap">
         <div class="login-html">
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>

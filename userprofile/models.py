@@ -33,6 +33,8 @@ class Seller(Model):
     rate = models.FloatField(default=0.0, help_text=_("Rate"), verbose_name=_("Rate"))
     number_of_rates = models.IntegerField(default='0', help_text=_("Number"), verbose_name=_("Number"))
     phone_number = models.CharField(max_length=20, help_text=_("Phone Number"), verbose_name=_("Phone Number"))
+    APIKEY = models.CharField(max_length=100, null=True, blank=True)
+    merchant_id = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
 

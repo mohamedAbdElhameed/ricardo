@@ -1,5 +1,7 @@
 import hashlib
+from collections import OrderedDict
 
+from django.contrib.auth import logout
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponse, JsonResponse
@@ -10,6 +12,7 @@ from django.utils.datetime_safe import datetime
 
 from products.models import Category, SubCategory, Product, Cart, Order, OrderItem
 from ricardo import settings
+from start.views import index
 from userprofile.forms import LoginForm, SignUpForm
 from userprofile.models import Buyer
 
@@ -99,34 +102,56 @@ def product_view(request, pk):
 def cart_view(request):
     user = request.user
     carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user))
+    small_carts = []
+    sellers = []
+
+    for item in carts:
+        if item.product.seller not in sellers:
+            sellers.append(item.product.seller)
+
+    for seller in sellers:
+        apikey = seller.APIKEY or '4Vj8eK4rloUd272L48hsrarnUA'
+        merchant_id = seller.merchant_id or '508029'
+        date = str(datetime.now())
+        reference_code = str(user.buyer.id) + str(seller.name) + date
+        products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller)
+        amount = 0
+        number_of_products = 0
+        for product in products:
+            amount += product.product.price * product.quantity
+            number_of_products += product.quantity
+        currency = 'COP'
+        tax = str(round(amount / 100 * 17, 2))
+        base = str(round(amount / 100 * 83, 2))
+        signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
+        small_carts.append({
+            'seller': seller,
+            'products': products,
+            'APIKEY': apikey,
+            'merchant_id': merchant_id,
+            'amount': str(amount),
+            'signature': signature,
+            'reference_code': reference_code,
+            'tax': tax,
+            'base': base,
+            'number_of_products': number_of_products,
+        })
     buyer = user.buyer
     currency = 'COP'
-    date = str(datetime.now())
     if settings.DEBUG:
         action_url = "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
-        apikey = '4Vj8eK4rloUd272L48hsrarnUA'
-        merchant_id = '508029'
         account_id = '512321'
         test = '1'
         host = 'http://ricardoooo123123123.pythonanywhere.com/'
-    # else:
-    #     action_url = "https://checkout.payulatam.com/ppp-web-gateway-payu"
-    #     apikey = config('payu_api_key')
-    #     merchant_id = config('merchant_id')
-    #     account_id = config('account_id')
-    #     test = '0'
-    #     host = 'https://peaku.co/'
+    else:
+        action_url = "https://checkout.payulatam.com/ppp-web-gateway-payu"
+        account_id = '512321'
+        test = '0'
+        host = 'https://peaku.co/'
 
-    response_url = host + 'resumen/'
+    response_url = host + 'products/response/'
     confirmation_url = host + 'products/payment_confirmation/'
-    reference_code = str(buyer.id) + date
-    amount = 20000
-
-    signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
     description = "this is test for buying "
-    tax = 3193
-    base = 16807
-
 
     categories = Category.objects.all()
     number_of_products = carts.aggregate(Sum('quantity'))['quantity__sum']
@@ -137,26 +162,18 @@ def cart_view(request):
     context = {
         "categories": categories,
         'carts': carts,
+        'small_carts': small_carts,
         'number_of_products': number_of_products,
         "total_price": total_price,
         "action_url": action_url,
-        "apikey": apikey,
-        "merchant_id": merchant_id,
         "account_id": account_id,
         "currency": currency,
-        "test": test,
+        "test": test,    # to test credit card
         "description": description,
         "buyer_name": buyer.user.username,
         "buyer_email": buyer.user.email,
-        "reference_code": reference_code,
-        "amount": amount,
-        "tax": tax,
-        "base": base,
-        "signature": signature,
         "response_url": response_url,
         "confirmation_url": confirmation_url,
-        "currency": currency
-
     }
     return render(request, 'products/cart.html', context)
 
@@ -233,10 +250,9 @@ def payment_confirmation(request):
 
         if create_signature == sign:
             message = '<h1>0K</h1>'
-            order = Order(buyer=buyer, paid=True)
-            order.save()
+            order = Order.objects.create(buyer=buyer, paid=True)
             for cart in carts:
-                OrderItem(order=order, product=cart.product, quantity=cart.quantity).save()
+                OrderItem.objects.create(order=order, product=cart.product, quantity=cart.quantity)
                 cart.delete()
         else:
             message = '<h1>Sign is wrong check why!!!</h1>'
