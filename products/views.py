@@ -224,6 +224,7 @@ def payment_confirmation(request):
     PAYU_APPROVED_CODE = '4'
     if settings.DEBUG:
         buyer = Buyer.objects.get(user=request.POST.get('extra1'))
+        extra2 = request.POST.get('extra2')
         transaction_final_state = PAYU_APPROVED_CODE
         sign = '1234'
         create_signature = '1234'
@@ -239,7 +240,7 @@ def payment_confirmation(request):
         merchant_id = request.POST.get('merchant_id')
         reference_sale = request.POST.get('reference_sale')
         amount = request.POST.get('value')
-        extra2 = request.POST.get('extra2')
+
         # Decimal validation, Payu requirement
         if amount[-1] == 0:
             amount = round(float(amount), 1)
