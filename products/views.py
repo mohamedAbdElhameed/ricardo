@@ -223,7 +223,7 @@ def payment_confirmation(request):
     # This is Payu transaction approved code, only for confirmation page, not global variable
     PAYU_APPROVED_CODE = '4'
     if settings.DEBUG:
-        buyer = Buyer.objects.get(user=int(request.POST.get('extra1')))
+        buyer = Buyer.objects.get(user=request.POST.get('extra1'))
         transaction_final_state = PAYU_APPROVED_CODE
         sign = '1234'
         create_signature = '1234'
@@ -239,7 +239,7 @@ def payment_confirmation(request):
         merchant_id = request.POST.get('merchant_id')
         reference_sale = request.POST.get('reference_sale')
         amount = request.POST.get('value')
-
+        extra2 = request.POST.get('extra2')
         # Decimal validation, Payu requirement
         if amount[-1] == 0:
             amount = round(float(amount), 1)
@@ -248,7 +248,7 @@ def payment_confirmation(request):
         create_signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_sale + "~" + str(amount) + "." + "~" + currency + "~" + transaction_final_state).encode('utf-8')).hexdigest()
 
     if transaction_final_state == PAYU_APPROVED_CODE:
-        carts = Cart.objects.filter(buyer=buyer)
+        carts = Cart.objects.filter(buyer=buyer, product__seller=extra2)
 
         if create_signature == sign:
             message = '<h1>0K</h1>'
