@@ -128,6 +128,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, default=None, help_text=_("you can change the status form the states list"), verbose_name=_("Status"))
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, help_text=_("Seller"), verbose_name=_("Seller"), default=2)
 
     class Meta:
         verbose_name = _("Order")

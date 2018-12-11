@@ -175,8 +175,8 @@ class OrderAdmin(admin.ModelAdmin):
         qs = super(OrderAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        order_items = OrderItem.objects.filter(product__in= [product for product in request.user.seller.seller_products.all()])
-        return qs.filter(order_items__in=order_items)
+        # order_items = OrderItem.objects.filter(product__in= [product for product in request.user.seller.seller_products.all()])
+        return qs.filter(seller=request.user.seller)
 
 admin.site.register(Order, OrderAdmin)
 
@@ -202,8 +202,7 @@ class OrderProxyAdmin(admin.ModelAdmin):
         qs = super(OrderProxyAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        order_items = OrderItem.objects.filter(product__in= [product for product in request.user.seller.seller_products.all()])
-        return qs.filter(order_items__in=order_items)
+        return qs.filter(seller=request.user.seller)
 
 
 admin.site.register(Status, StatusAdmin)

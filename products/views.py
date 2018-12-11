@@ -253,7 +253,7 @@ def payment_confirmation(request):
 
         if create_signature == sign:
             message = '<h1>0K</h1>'
-            order = Order.objects.create(buyer=buyer, paid=True)
+            order = Order.objects.create(buyer=buyer, paid=True, seller=extra2)
             for cart in carts:
                 OrderItem.objects.create(order=order, product=cart.product, quantity=cart.quantity)
                 cart.delete()
