@@ -59,3 +59,7 @@ function closeNav() {
 }
 
 
+$('.SHOW').click(function () {
+        $('.profileUser .veiw_text .Pededos .showReviwe').toggle();
+
+    });
