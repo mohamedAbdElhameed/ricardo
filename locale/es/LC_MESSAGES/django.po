@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-04 14:39+0200\n"
+"POT-Creation-Date: 2018-12-17 16:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\news\models.py:6 .\products\models.py:11 .\products\models.py:26
-#: .\products\models.py:59
+#: .\news\models.py:6 .\products\models.py:13 .\products\models.py:28
+#: .\products\models.py:61
 msgid "Image"
 msgstr "Imagen"
 
@@ -29,25 +29,25 @@ msgid "Title"
 msgstr "T�tulo"
 
 #: .\news\models.py:8 .\stories\models.py:25 .\stories\models.py:39
-#: .\userprofile\models.py:66
+#: .\userprofile\models.py:69
 msgid "Details"
 msgstr "Detalles"
 
-#: .\news\models.py:9 .\products\models.py:12 .\products\models.py:28
-#: .\products\models.py:45 .\products\models.py:62 .\products\models.py:72
-#: .\products\models.py:87 .\products\models.py:102 .\products\models.py:128
+#: .\news\models.py:9 .\products\models.py:14 .\products\models.py:30
+#: .\products\models.py:47 .\products\models.py:64 .\products\models.py:74
+#: .\products\models.py:89 .\products\models.py:104 .\products\models.py:130
 #: .\start\models.py:17 .\stories\models.py:10 .\stories\models.py:26
-#: .\stories\models.py:41 .\userprofile\models.py:36 .\userprofile\models.py:52
-#: .\userprofile\models.py:68 .\userprofile\models.py:82
+#: .\stories\models.py:41 .\userprofile\models.py:39 .\userprofile\models.py:55
+#: .\userprofile\models.py:71 .\userprofile\models.py:85
 msgid "Created At"
 msgstr "Creado en"
 
-#: .\news\models.py:10 .\products\models.py:13 .\products\models.py:29
-#: .\products\models.py:46 .\products\models.py:63 .\products\models.py:73
-#: .\products\models.py:88 .\products\models.py:103 .\products\models.py:129
+#: .\news\models.py:10 .\products\models.py:15 .\products\models.py:31
+#: .\products\models.py:48 .\products\models.py:65 .\products\models.py:75
+#: .\products\models.py:90 .\products\models.py:105 .\products\models.py:131
 #: .\start\models.py:18 .\stories\models.py:11 .\stories\models.py:27
-#: .\stories\models.py:42 .\userprofile\models.py:37 .\userprofile\models.py:53
-#: .\userprofile\models.py:69
+#: .\stories\models.py:42 .\userprofile\models.py:40 .\userprofile\models.py:56
+#: .\userprofile\models.py:72
 msgid "Modified At"
 msgstr "Modificado en"
 
@@ -71,169 +71,157 @@ msgstr "correo electrónico"
 msgid "Phone_Number"
 msgstr "Nmero de telfono"
 
-#: .\products\admin.py:134 .\userprofile\models.py:30
-#: .\userprofile\models.py:51
+#: .\products\admin.py:134 .\userprofile\models.py:31
+#: .\userprofile\models.py:54
 msgid "Address"
 msgstr "Direccin"
 
-#: .\products\models.py:9 .\products\models.py:25 .\products\models.py:42
-#: .\products\models.py:71 .\userprofile\models.py:26
+#: .\products\models.py:11 .\products\models.py:27 .\products\models.py:44
+#: .\products\models.py:73 .\userprofile\models.py:27
 msgid "Name"
 msgstr "Nombre"
 
-#: .\products\models.py:10 .\products\models.py:27 .\products\models.py:43
-#: .\userprofile\models.py:32
+#: .\products\models.py:12 .\products\models.py:29 .\products\models.py:45
+#: .\userprofile\models.py:33
 msgid "Description"
 msgstr "Descripcin"
 
-#: .\products\models.py:16 .\products\models.py:24
+#: .\products\models.py:18 .\products\models.py:26
 msgid "Category"
 msgstr "Categora"
 
-#: .\products\models.py:17
+#: .\products\models.py:19
 msgid "Categories"
 msgstr "Categoras"
 
-#: .\products\models.py:32 .\products\models.py:40
+#: .\products\models.py:34 .\products\models.py:42
 msgid "Sub Category"
 msgstr "Subcategora"
 
-#: .\products\models.py:33
+#: .\products\models.py:35
 msgid "Sub Categories"
 msgstr "Subcategorias"
 
-#: .\products\models.py:41 .\stories\models.py:9 .\userprofile\models.py:40
-#: .\userprofile\models.py:64
+#: .\products\models.py:43 .\products\models.py:133 .\stories\models.py:9
+#: .\userprofile\models.py:43 .\userprofile\models.py:67
 msgid "Seller"
 msgstr "Vendedor"
 
-#: .\products\models.py:44
+#: .\products\models.py:46
 msgid "Price"
 msgstr "Precio"
 
-#: .\products\models.py:50 .\products\models.py:58 .\products\models.py:84
-#: .\products\models.py:99 .\products\models.py:163
+#: .\products\models.py:52 .\products\models.py:60 .\products\models.py:86
+#: .\products\models.py:101 .\products\models.py:168
 msgid "Product"
 msgstr "Producto"
 
-#: .\products\models.py:51 .\start\models.py:13
+#: .\products\models.py:53 .\start\models.py:13
 msgid "Products"
 msgstr "Productos"
 
-#: .\products\models.py:60 .\products\models.py:133 .\products\models.py:162
+#: .\products\models.py:62 .\products\models.py:137 .\products\models.py:167
 msgid "Order"
 msgstr "Orden"
 
-#: .\products\models.py:61
+#: .\products\models.py:63
 msgid "Alt Text"
 msgstr "Texto alternativo"
 
-#: .\products\models.py:66
+#: .\products\models.py:68
 msgid "Product Image"
 msgstr "Imagen del producto"
 
-#: .\products\models.py:67
+#: .\products\models.py:69
 msgid "Product Images"
 msgstr "Imgenes del producto"
 
-#: .\products\models.py:76
+#: .\products\models.py:78
 msgid "Product Additional Attribute Name"
 msgstr "Nombre del atributo adicional del producto"
 
-#: .\products\models.py:77
+#: .\products\models.py:79
 msgid "Product Additional Attribute Names"
 msgstr "Nombres de atributos adicionales del producto"
 
-#: .\products\models.py:85
+#: .\products\models.py:87
 msgid "Product Additional Attributes"
 msgstr "Atributos adicionales del producto"
 
-#: .\products\models.py:86
+#: .\products\models.py:88
 msgid "Additional Attributes Values"
 msgstr "Valores de atributos adicionales"
 
-#: .\products\models.py:91
+#: .\products\models.py:93
 msgid "Product Additional Attribute Value"
 msgstr "Valor de atributo adicional del producto"
 
-#: .\products\models.py:92
+#: .\products\models.py:94
 msgid "Product Additional Attribute Values"
 msgstr "Valores de atributos adicionales del producto"
 
-#: .\products\models.py:100 .\products\models.py:126 .\userprofile\models.py:56
-#: .\userprofile\models.py:65
+#: .\products\models.py:102 .\products\models.py:128 .\userprofile\models.py:59
+#: .\userprofile\models.py:68
 msgid "Buyer"
 msgstr "Comprador"
 
-#: .\products\models.py:101
+#: .\products\models.py:103
 msgid "Quantity"
 msgstr "Cantidad"
 
-#: .\products\models.py:110
+#: .\products\models.py:112
 msgid "Cart"
 msgstr "Carro"
 
-#: .\products\models.py:111
+#: .\products\models.py:113
 msgid "Carts"
 msgstr "Carretas"
 
-#: .\products\models.py:115
+#: .\products\models.py:117
 msgid "Status name"
 msgstr "estado"
 
-#: .\products\models.py:121 .\products\models.py:122 .\products\models.py:130
+#: .\products\models.py:123 .\products\models.py:124 .\products\models.py:132
 msgid "Status"
 msgstr "Estado"
 
-#: .\products\models.py:127
+#: .\products\models.py:129
 msgid "Paid"
 msgstr "Pagado"
 
-#: .\products\models.py:130
+#: .\products\models.py:132
 msgid "you can change the status form the states list"
 msgstr "Puede cambiar el estado de la lista de estado del pedido"
 
-#: .\products\models.py:134
-#, fuzzy
-#| msgid "Order"
+#: .\products\models.py:138
 msgid "Orders"
 msgstr "Orden"
 
-#: .\products\models.py:164
-#, fuzzy
-#| msgid "Quantity"
+#: .\products\models.py:169
 msgid "quantity"
 msgstr "Cantidad"
 
-#: .\products\models.py:170
-#, fuzzy
-#| msgid "Order"
+#: .\products\models.py:175
 msgid "Order Item"
 msgstr "Orden"
 
-#: .\products\models.py:171
-#, fuzzy
-#| msgid "Order"
+#: .\products\models.py:176
 msgid "Order Items"
 msgstr "Orden"
 
-#: .\products\models.py:183
-#, fuzzy
-#| msgid "Order"
+#: .\products\models.py:188
 msgid "Order Status"
 msgstr "Orden"
 
-#: .\products\models.py:184
-#, fuzzy
-#| msgid "Order"
+#: .\products\models.py:189
 msgid "Orders Status"
 msgstr "Orden"
 
-#: .\ricardo\settings.py:143
+#: .\ricardo\settings.py:145
 msgid "Spanish"
 msgstr ""
 
-#: .\ricardo\settings.py:144
+#: .\ricardo\settings.py:146
 msgid "English"
 msgstr "Ingls"
 
@@ -293,85 +281,85 @@ msgstr "Cuento"
 msgid "Tales"
 msgstr "Cuentos"
 
-#: .\userprofile\models.py:20 .\userprofile\models.py:29
+#: .\userprofile\models.py:21 .\userprofile\models.py:30
 msgid "City"
 msgstr "Ciudad"
 
-#: .\userprofile\models.py:21
+#: .\userprofile\models.py:22
 msgid "Cities"
 msgstr "Ciudades"
 
-#: .\userprofile\models.py:25 .\userprofile\models.py:48
+#: .\userprofile\models.py:26 .\userprofile\models.py:51
 msgid "User"
 msgstr "Utilizar"
 
-#: .\userprofile\models.py:27
+#: .\userprofile\models.py:28
 msgid "Longitude"
 msgstr "Longitud"
 
-#: .\userprofile\models.py:28
+#: .\userprofile\models.py:29
 msgid "Latitude"
 msgstr "Latitud"
 
-#: .\userprofile\models.py:31 .\userprofile\models.py:49
+#: .\userprofile\models.py:32 .\userprofile\models.py:52
 msgid "Avatar"
 msgstr "Avatar"
 
-#: .\userprofile\models.py:33 .\userprofile\models.py:67
+#: .\userprofile\models.py:34 .\userprofile\models.py:70
 msgid "Rate"
 msgstr "Tarifa"
 
-#: .\userprofile\models.py:34
+#: .\userprofile\models.py:35
 msgid "Number"
 msgstr "Nmero"
 
-#: .\userprofile\models.py:35 .\userprofile\models.py:50
+#: .\userprofile\models.py:36 .\userprofile\models.py:53
 msgid "Phone Number"
 msgstr "Nmero de telfono"
 
-#: .\userprofile\models.py:41
+#: .\userprofile\models.py:44
 msgid "Sellers"
 msgstr "Vendedores"
 
-#: .\userprofile\models.py:57
+#: .\userprofile\models.py:60
 msgid "Buyers"
 msgstr "Los compradores"
 
-#: .\userprofile\models.py:72
+#: .\userprofile\models.py:75
 msgid "Review"
 msgstr "revisin"
 
-#: .\userprofile\models.py:73
+#: .\userprofile\models.py:76
 msgid "Reviews"
 msgstr "Opiniones"
 
-#: .\userprofile\models.py:77
+#: .\userprofile\models.py:80
 msgid "name"
 msgstr "Nombre"
 
-#: .\userprofile\models.py:78
+#: .\userprofile\models.py:81
 #, fuzzy
 #| msgid "Phone Number"
 msgid "phone_number"
 msgstr "Nmero de telfono"
 
-#: .\userprofile\models.py:79
+#: .\userprofile\models.py:82
 msgid "email"
 msgstr "correo electrónico"
 
-#: .\userprofile\models.py:80
+#: .\userprofile\models.py:83
 msgid "message"
 msgstr "mensaje"
 
-#: .\userprofile\models.py:81
+#: .\userprofile\models.py:84
 msgid "Done"
 msgstr "Hecho"
 
-#: .\userprofile\models.py:88
+#: .\userprofile\models.py:91
 msgid "Contact Message"
 msgstr "Mensaje de contacto"
 
-#: .\userprofile\models.py:89
+#: .\userprofile\models.py:92
 msgid "Contact Messages"
 msgstr "Mensajes de contacto"
 
