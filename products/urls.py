@@ -1,15 +1,12 @@
 from django.urls import path, include
-
-from products.views import sub_categories, products_view, product_view, cart_view, delete_cart_element, add_to_cart, total_price_and_items, payment_confirmation
+from products.views import sub_categories, products_view, product_view, cart_view, delete_cart_element, add_to_cart, \
+    total_price_and_items, payment_confirmation, order_view
 from rest_framework.routers import DefaultRouter
-
 from products.apis.views import ProductViewSet, ProductDetailViewSet, SubCategoryList, ProductsInSubCategoryList, \
     CartView, CartListView
-
 from . import views
 
 app_name = 'products'
-
 
 urlpatterns = [
     path('api/productlist/', ProductViewSet.as_view({'get': 'list'})),
@@ -25,5 +22,6 @@ urlpatterns = [
     path('cart/delete/<int:pk>/', delete_cart_element, name='delete_cart_element'),
     path('cart/add/<int:product>/<int:quantity>/', add_to_cart, name='add_to_cart'),
     path('cart/total/', total_price_and_items, name='total_price'),
-    path('payment_confirmation/', payment_confirmation, name='payment_confirmation')
+    path('payment_confirmation/', payment_confirmation, name='payment_confirmation'),
+    path('orders/', order_view, name='orders')
 ]

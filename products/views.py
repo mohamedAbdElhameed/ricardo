@@ -2,6 +2,7 @@ import hashlib
 from collections import OrderedDict
 
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponse, JsonResponse
@@ -100,6 +101,7 @@ def product_view(request, pk):
     return render(request, 'products/product.html', context)
 
 
+@login_required(login_url='/')
 def cart_view(request):
     user = request.user
     carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user))
@@ -263,3 +265,18 @@ def payment_confirmation(request):
     else:
         message = '<h1>Something is wrong</h1>' + transaction_final_state
         return HttpResponse(message, status=400)
+
+
+@login_required(login_url='/')
+def order_view(request):
+    categories = Category.objects.all()
+    buyer = request.user.buyer
+
+    orders = Order.objects.filter(buyer=buyer)
+
+    context = {
+        'categories': categories,
+        'orders': orders,
+    }
+
+    return render(request, 'products/orders.html', context)

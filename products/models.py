@@ -3,7 +3,9 @@ from django.db.models import Model
 # Create your models here.
 from userprofile.models import Seller, Buyer
 from django.utils.translation import gettext_lazy as _
+from django import template
 
+register = template.Library()
 
 class Category(Model):
     name = models.CharField(max_length=35, help_text=_("Name"), verbose_name=_("Name"))
@@ -129,6 +131,7 @@ class Order(models.Model):
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, default=None, help_text=_("you can change the status form the states list"), verbose_name=_("Status"))
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE, help_text=_("Seller"), verbose_name=_("Seller"), default=2)
+    rated = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _("Order")
@@ -143,15 +146,16 @@ class Order(models.Model):
     def phone_number(self):
         return self.buyer.phone_number
 
-    def total_quantity(self, order):
-        items = order.order_items.all()
+    def total_quantity(self):
+        items = self.order_items.all()
         quantity = 0
         for item in items:
             quantity += item.quantity
         return quantity
 
-    def total_price(self, order):
-        items = order.order_items.all()
+    @register.simple_tag
+    def total_price(self):
+        items = self.order_items.all()
         print(items)
         price = 0
         for item in items:

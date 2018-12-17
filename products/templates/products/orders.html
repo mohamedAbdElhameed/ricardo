@@ -10,24 +10,31 @@
 <div class="profileUser">
         <div class="container">
             <div class="veiw_text">
-
+                {% for order in orders %}
                 <div class="Pededos">
+
                     <div class="col-md-6">
-                        <h5><strong>Entregado</strong></h5>
-                        <h5><small>Liego 31 de octubre</small></h5>
+                        <h5><strong>{{order.seller.name}}</strong></h5>
+                        <!--<h5><small>Liego 31 de octubre</small></h5>-->
                         <div class="aboutProudct">
-                            <img class="img-responsive" width="180" src="img/6959854329_b88a22b899_b.jpg" alt="">
+                            <img class="img-responsive" width="180" src="{{order.seller.avatar.url}}" alt="">
                             <ul>
-                                <li>Proudct Name</li>
-                                <li><span>$500</span> * <span>1 unidad</span></li>
+                                <li>total price</li>
+                                <li>${{order.total_price}}</li><br/>
+                                <li>total quantity</li>
+                                <li>{{order.total_quantity}}</li><br/>
+                                <li>status: {{order.status}}</li>
+                                <li>from {{order.created_at|timesince}}</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="controlProudct">
-                            <li>lorem lorem</li>
-                            <li>926258562326</li>
+                            {% if not order.rated %}
                             <li><a class="SHOW">Qualify</a></li>
+                            {% else %}
+                            <li>you have been rated this seller</li>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -66,8 +73,10 @@
                     </div>
 
                 </div>
+                {% if not forloop.last %}
                 <hr>
-
+                {% endif %}
+                {% endfor %}
 
 
             </div>

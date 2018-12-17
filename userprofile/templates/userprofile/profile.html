@@ -1,0 +1,37 @@
+{% extends 'start/base.html' %}
+{% load static %}
+
+{% block extrainhead %}
+<link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
+{% endblock %}
+{%block content%}
+
+
+<!--.profileUser-->
+    <div class="profileUser">
+        <div class="container">
+            <div class="veiw_text">
+                <div class="sectionProfile">
+                    <h4>Datos de Cuenta</h4>
+                    <hr>
+                    <ul>
+                        <li><strong>Usuario:</strong> {{request.user.username}} <a href="#">edit</a></li>
+                        <li><strong>Email:</strong> {{request.user.email}} <a href="#">edit</a></li>
+                        <li><strong>Clave:</strong> **************** <a href="#">edit</a></li>
+                        <hr/>
+                        {% if request.user.buyer.avatar %}
+                        <li><strong>Avatar:</strong> <img src="{{request.user.buyer.avatar.url}}" width="300px" height="300px"> <a href="#">edit</a></li>
+                        {% else %}
+                        <li><strong>Avatar:</strong> <img src="https://www.qualiscare.com/wp-content/uploads/2017/08/default-user.png" width="300px" height="300px"> <a href="#">edit</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--/.profileUser-->
+
+{%endblock%}
+
+

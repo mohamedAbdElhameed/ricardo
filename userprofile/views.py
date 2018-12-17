@@ -1,6 +1,7 @@
 from decimal import Decimal
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
@@ -9,7 +10,7 @@ from django import http
 # Create your views here.
 from products.models import Category
 from rest_framework.authtoken.models import Token
-from userprofile.forms import ContactForm, SignUpForm, LoginForm
+from userprofile.forms import ContactForm, SignUpForm, LoginForm, PasswordForm
 from userprofile.models import Seller, Contact, Buyer
 from django.contrib import messages
 
@@ -171,3 +172,30 @@ def log_out(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, 'ha cerrado la sesión con éxito')
     return HttpResponseRedirect('/')
+
+
+@login_required
+def password(request):
+    if request.method == 'POST':
+        form = PasswordForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, u'Password changed successfully.')
+            update_session_auth_hash(request, form.user)
+        else:
+            messages.error(request, u'Please correct the error below.')
+    else:
+        form = PasswordForm(request.user)
+    return render(request, 'settings/password.html', {'form': form})
+
+
+@login_required(login_url='/')
+def profile(request):
+    categories = Category.objects.all()
+
+    context = {
+        'categories': categories,
+
+    }
+
+    return render(request, 'userprofile/profile.html', context)

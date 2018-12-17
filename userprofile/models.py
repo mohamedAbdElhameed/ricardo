@@ -10,6 +10,7 @@ User._meta.get_field('username')._unique = True
 User._meta.get_field('email')._unique = True
 User._meta.get_field('email')._required = True
 
+
 class City(models.Model):
     name = models.CharField(max_length=50)
 
