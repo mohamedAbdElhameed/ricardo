@@ -39,7 +39,7 @@ def products_view(request, pk):
     sign_up_form = SignUpForm()
     sign_in_form = LoginForm()
     products = subcategory.subcategory_products.filter(active=True)
-    paginator = Paginator(products, 20)
+    paginator = Paginator(products, 12)
     page = request.GET.get('page')
     products = paginator.get_page(page)
     context = {

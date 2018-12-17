@@ -12,7 +12,7 @@
             <div class="veiw_text">
                 {% for order in orders %}
                 <div class="Pededos">
-
+                    <div class="row">
                     <div class="col-md-6">
                         <h5><strong>{{order.seller.name}}</strong></h5>
                         <!--<h5><small>Liego 31 de octubre</small></h5>-->
@@ -37,11 +37,33 @@
                             {% endif %}
                         </div>
                     </div>
+                    </div>
+
+                        <div class="row">
+                 {% for item in order.order_items.all %}
+                <div class="col-md-2">
+
+                    <div class="proudct">
+                        <a href="{% url 'products:product' item.product.id %}">
+                            <div class="img-proudct">
+                                <h1 align="center">{{forloop.counter}}</h1>
+                                <img class="img-responsive" src={{item.product.images.all.0.image.url}} alt="" width="100%" height="100%">
+                            </div><!--/.img-proudct-->
+                            <h4>{{item.product.name}}</h4>
+                            <span class="pull-left"> {{item.quantity}} </span> x <span>{{item.product.price}}$</span> = {% widthratio item.quantity 1 item.product.price %}
+
+                        </a>
+                    </div><!--/.proudct-->
+
+                </div><!--/.col-->
+                 {% endfor %}
+</div><!--/.row-->
+
 
                     <div class="showReviwe">
                         <p><strong>Nuestra Oficina: Calle 20 No. 9-90 Oficina 202-203, Centro</strong></p>
                         <div class="col-md-4">
-                            <img class="img-responsive" width="200" src="img/6959854329_b88a22b899_b.jpg" alt="">
+                            <img class="img-responsive" width="200" src="{{order.seller.avatar.url}}" alt="">
                         </div>
                         <div class="col-md-8">
                             <div class="detailsProudct">
@@ -70,9 +92,11 @@
                                 </li>
                             </div>
                         </div>
+
+                        </div>
+
                     </div>
 
-                </div>
                 {% if not forloop.last %}
                 <hr>
                 {% endif %}
