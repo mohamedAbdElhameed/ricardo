@@ -46,7 +46,7 @@ class Product(Model):
     price = models.FloatField(help_text=_("Price"), verbose_name=_("Price"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=False, help_text=_("active"), verbose_name=_("active"))
 
     class Meta:
         verbose_name = _("Product")

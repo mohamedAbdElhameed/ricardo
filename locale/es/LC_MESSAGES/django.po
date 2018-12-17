@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-17 16:45+0200\n"
+"POT-Creation-Date: 2018-12-18 00:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr "Imagen"
 #: .\news\models.py:7 .\start\models.py:12 .\stories\models.py:23
 #: .\stories\models.py:38
 msgid "Title"
-msgstr "T�tulo"
+msgstr "título"
 
 #: .\news\models.py:8 .\stories\models.py:25 .\stories\models.py:39
 #: .\userprofile\models.py:69
@@ -40,7 +40,7 @@ msgstr "Detalles"
 #: .\stories\models.py:41 .\userprofile\models.py:39 .\userprofile\models.py:55
 #: .\userprofile\models.py:71 .\userprofile\models.py:85
 msgid "Created At"
-msgstr "Creado en"
+msgstr "fecha de creación"
 
 #: .\news\models.py:10 .\products\models.py:15 .\products\models.py:31
 #: .\products\models.py:48 .\products\models.py:65 .\products\models.py:75
@@ -49,11 +49,11 @@ msgstr "Creado en"
 #: .\stories\models.py:42 .\userprofile\models.py:40 .\userprofile\models.py:56
 #: .\userprofile\models.py:72
 msgid "Modified At"
-msgstr "Modificado en"
+msgstr "fecha de modificación"
 
 #: .\news\models.py:13
 msgid "Post"
-msgstr "Enviar"
+msgstr "Noticia"
 
 #: .\news\models.py:14
 msgid "Posts"
@@ -66,15 +66,13 @@ msgid "Email"
 msgstr "correo electrónico"
 
 #: .\products\admin.py:133
-#, fuzzy
-#| msgid "Phone Number"
 msgid "Phone_Number"
-msgstr "Nmero de telfono"
+msgstr "número de teléfono"
 
 #: .\products\admin.py:134 .\userprofile\models.py:31
 #: .\userprofile\models.py:54
 msgid "Address"
-msgstr "Direccin"
+msgstr "Direccion"
 
 #: .\products\models.py:11 .\products\models.py:27 .\products\models.py:44
 #: .\products\models.py:73 .\userprofile\models.py:27
@@ -84,23 +82,23 @@ msgstr "Nombre"
 #: .\products\models.py:12 .\products\models.py:29 .\products\models.py:45
 #: .\userprofile\models.py:33
 msgid "Description"
-msgstr "Descripcin"
+msgstr "Descripción"
 
 #: .\products\models.py:18 .\products\models.py:26
 msgid "Category"
-msgstr "Categora"
+msgstr "Categoría"
 
 #: .\products\models.py:19
 msgid "Categories"
-msgstr "Categoras"
+msgstr "Categorías"
 
 #: .\products\models.py:34 .\products\models.py:42
 msgid "Sub Category"
-msgstr "Subcategora"
+msgstr "subcategoría"
 
 #: .\products\models.py:35
 msgid "Sub Categories"
-msgstr "Subcategorias"
+msgstr "subcategorias"
 
 #: .\products\models.py:43 .\products\models.py:133 .\stories\models.py:9
 #: .\userprofile\models.py:43 .\userprofile\models.py:67
@@ -110,6 +108,10 @@ msgstr "Vendedor"
 #: .\products\models.py:46
 msgid "Price"
 msgstr "Precio"
+
+#: .\products\models.py:49
+msgid "active"
+msgstr "Activo"
 
 #: .\products\models.py:52 .\products\models.py:60 .\products\models.py:86
 #: .\products\models.py:101 .\products\models.py:168
@@ -171,11 +173,11 @@ msgstr "Cantidad"
 
 #: .\products\models.py:112
 msgid "Cart"
-msgstr "Carro"
+msgstr "Carrito de compras"
 
 #: .\products\models.py:113
 msgid "Carts"
-msgstr "Carretas"
+msgstr "Carritos de compra"
 
 #: .\products\models.py:117
 msgid "Status name"
@@ -195,7 +197,7 @@ msgstr "Puede cambiar el estado de la lista de estado del pedido"
 
 #: .\products\models.py:138
 msgid "Orders"
-msgstr "Orden"
+msgstr "órdenes"
 
 #: .\products\models.py:169
 msgid "quantity"
@@ -211,17 +213,17 @@ msgstr "Orden"
 
 #: .\products\models.py:188
 msgid "Order Status"
-msgstr "Orden"
+msgstr "Estado de orden"
 
 #: .\products\models.py:189
 msgid "Orders Status"
 msgstr "Orden"
 
-#: .\ricardo\settings.py:145
+#: .\ricardo\settings.py:146
 msgid "Spanish"
 msgstr ""
 
-#: .\ricardo\settings.py:146
+#: .\ricardo\settings.py:147
 msgid "English"
 msgstr "Ingls"
 
@@ -275,11 +277,11 @@ msgstr "URL del vdeo"
 
 #: .\stories\models.py:45
 msgid "Tale"
-msgstr "Cuento"
+msgstr "Historia"
 
 #: .\stories\models.py:46
 msgid "Tales"
-msgstr "Cuentos"
+msgstr "Historias"
 
 #: .\userprofile\models.py:21 .\userprofile\models.py:30
 msgid "City"
@@ -311,11 +313,11 @@ msgstr "Tarifa"
 
 #: .\userprofile\models.py:35
 msgid "Number"
-msgstr "Nmero"
+msgstr "Numero"
 
 #: .\userprofile\models.py:36 .\userprofile\models.py:53
 msgid "Phone Number"
-msgstr "Nmero de telfono"
+msgstr "número de teléfono"
 
 #: .\userprofile\models.py:44
 msgid "Sellers"
@@ -327,21 +329,19 @@ msgstr "Los compradores"
 
 #: .\userprofile\models.py:75
 msgid "Review"
-msgstr "revisin"
+msgstr "Opinión"
 
 #: .\userprofile\models.py:76
 msgid "Reviews"
-msgstr "Opiniones"
+msgstr "Opiniones O reseñas"
 
 #: .\userprofile\models.py:80
 msgid "name"
 msgstr "Nombre"
 
 #: .\userprofile\models.py:81
-#, fuzzy
-#| msgid "Phone Number"
 msgid "phone_number"
-msgstr "Nmero de telfono"
+msgstr "número de teléfono"
 
 #: .\userprofile\models.py:82
 msgid "email"
