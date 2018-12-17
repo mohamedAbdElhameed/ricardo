@@ -33,9 +33,10 @@ CORS_ORIGIN_WHITELIST = (
 # Application definition
 
 INSTALLED_APPS = [
+     'jet',
     #'bootstrap_admin',
-    'django_adminlte',
-    'django_adminlte_theme',
+    # 'django_adminlte',
+    # 'django_adminlte_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

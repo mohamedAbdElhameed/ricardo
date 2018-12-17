@@ -29,7 +29,7 @@ class SellerAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'avatar', 'longitude', 'latitude', 'city', 'description', 'rate', 'number_of_rates', 'phone_number', ]
     # search_fields = ['user__username', 'city__name', 'description', 'rate', 'phone_number']
     # list_filter = ['user__username', 'city__name']
-    autocomplete_fields = ['city', 'user']
+    # autocomplete_fields = ['city', 'user']
     readonly_fields = ['rate', 'number_of_rates']
     list_filter = ['city', ('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
 
@@ -47,7 +47,7 @@ class BuyerAdmin(admin.ModelAdmin):
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    autocomplete_fields = ['seller', 'buyer']
+    # autocomplete_fields = ['seller', 'buyer']
     list_display = ['id', 'seller', 'buyer', 'details', 'rate', ]
     search_fields = ['id', 'seller__user__username', 'buyer__user__username', 'details', 'rate', ]
     list_filter = ['seller', ('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]

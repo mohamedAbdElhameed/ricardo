@@ -27,13 +27,13 @@ class ProductImageInline(admin.TabularInline):
 
 class ProductAdditionalAttributeValueInline(admin.TabularInline):
     model = ProductAdditionalAttributeValue
-    autocomplete_fields = ['product_additional_attribute']
+    # autocomplete_fields = ['product_additional_attribute']
     extra = 0
 
 
 class SubCategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
-    autocomplete_fields = ['category']
+    # autocomplete_fields = ['category']
     list_display = ['id', 'name', 'category', 'image']
     list_filter = ['category']
     search_fields = ['id', 'name' , 'category__name']
@@ -44,7 +44,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline, ProductAdditionalAttributeValueInline, ]
     list_display = ['id', 'name', 'sub_category', 'seller', 'description', 'price', 'active']
     search_fields = ['id', 'seller__user__username', 'name', 'description', 'price', ]
-    autocomplete_fields = ['sub_category', 'seller']
+    # autocomplete_fields = ['sub_category', 'seller']
     list_filter = ['seller', 'active', ('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
     list_editable = ['active']
 
@@ -83,7 +83,7 @@ class ProductAdditionalAttributeNameAdmin(admin.ModelAdmin):
 
 class CartAdmin(admin.ModelAdmin):
     list_display = ['id', 'product', 'buyer', 'quantity', ]
-    autocomplete_fields = ['product', 'buyer']
+    # autocomplete_fields = ['product', 'buyer']
     search_fields = ['id', 'product__name', 'buyer__user__username', 'quantity', ]
     list_filter = [('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
 
@@ -190,7 +190,7 @@ class OrderProxyAdmin(admin.ModelAdmin):
     list_display = ['id', 'buyer', 'paid', 'status']
     list_filter = ['buyer', 'paid', 'status']
     list_editable = ['status']
-    autocomplete_fields = ['status']
+    # autocomplete_fields = ['status']
 
     def has_add_permission(self, request):
         return False

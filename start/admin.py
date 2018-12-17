@@ -17,7 +17,7 @@ class StartDetailAdminForm(forms.ModelForm):
 class StartDetailAdmin(admin.ModelAdmin):
     form = StartDetailAdminForm
     list_display = ['title', 'banner_image', 'below_image', 'below_title', 'below_detail' ]
-    autocomplete_fields = ['products']
+    # autocomplete_fields = ['products']
 
     def has_add_permission(self, request):
         return False

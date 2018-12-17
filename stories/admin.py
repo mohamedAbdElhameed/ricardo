@@ -15,7 +15,7 @@ class ArtisanMasterAdmin(admin.ModelAdmin):
     search_fields = ['id', 'seller__user__username']
     filter = [('created_at', DateRangeFilter), ('modified_at', DateRangeFilter)]
     inlines = [AchievementInline, ]
-    autocomplete_fields = ['seller']
+    # autocomplete_fields = ['seller']
 
 
 class TaleAdmin(admin.ModelAdmin):
