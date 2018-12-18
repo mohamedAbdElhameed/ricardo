@@ -25,7 +25,7 @@ def sellers_view(request):
         if seller.city:
             positions.append([seller.city.name, float(seller.latitude), float(seller.longitude)])
         else:
-            positions.append([seller.city.name or 'city', float(seller.latitude), float(seller.longitude)])
+            positions.append(['city', float(seller.latitude), float(seller.longitude)])
 
     context = {
         'sign_up_form': sign_up_form,
