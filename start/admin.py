@@ -20,7 +20,9 @@ class StartDetailAdmin(admin.ModelAdmin):
     # autocomplete_fields = ['products']
 
     def has_add_permission(self, request):
-        return False
+        if self.model.objects.count() >= 1:
+            return False
+        return super().has_add_permission(request)
 
     def has_delete_permission(self, request, obj=None):
         return False

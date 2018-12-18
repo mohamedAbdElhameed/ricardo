@@ -187,3 +187,6 @@ class OrderProxy(Order):
         proxy = True
         verbose_name = _("Order Status")
         verbose_name_plural = _("Orders Status")
+
+    def __str__(self):
+        return 'Estado de orden' + str(self.id)
