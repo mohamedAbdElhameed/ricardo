@@ -47,7 +47,7 @@
                         <a href="{% url 'products:product' item.product.id %}">
                             <div class="img-proudct">
                                 <h1 align="center">{{forloop.counter}}</h1>
-                                <img class="img-responsive" src={{item.product.images.all.0.image.url}} alt="" width="100%" height="100%">
+                                <img class="img-responsive" src={{item.product.images.all.0.image.url}} alt="">
                             </div><!--/.img-proudct-->
                             <h4>{{item.product.name}}</h4>
                             <span class="pull-left"> {{item.quantity}} </span> x <span>{{item.product.price}}$</span> = {% widthratio item.quantity 1 item.product.price %}
