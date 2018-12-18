@@ -41,12 +41,11 @@
 
                         <div class="row">
                  {% for item in order.order_items.all %}
-                <div class="col-md-2">
+                <div class="col-md-3">
 
                     <div class="proudct">
                         <a href="{% url 'products:product' item.product.id %}">
                             <div class="img-proudct">
-                                <h1 align="center">{{forloop.counter}}</h1>
                                 <img class="img-responsive" src={{item.product.images.all.0.image.url}} alt="">
                             </div><!--/.img-proudct-->
                             <h4>{{item.product.name}}</h4>
