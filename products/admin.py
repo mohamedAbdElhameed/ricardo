@@ -186,10 +186,11 @@ class StatusAdmin(admin.ModelAdmin):
 
 
 class OrderProxyAdmin(admin.ModelAdmin):
-    readonly_fields = ['buyer', 'paid',]
+    readonly_fields = ['buyer', 'paid', 'seller', 'rated']
     list_display = ['id', 'buyer', 'paid', 'status']
     list_filter = ['buyer', 'paid', 'status']
     list_editable = ['status']
+    exclude = ['seller', 'rated']
     # autocomplete_fields = ['status']
 
     def has_add_permission(self, request):
