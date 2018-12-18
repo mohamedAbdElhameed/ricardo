@@ -31,42 +31,9 @@
                     <div class="col-md-6">
                         <div class="controlProudct">
                             {% if not order.rated %}
-                            <li><a class="SHOW">Qualify</a></li>
-                            {% else %}
-                            <li>you have been rated this seller</li>
-                            {% endif %}
-                        </div>
-                    </div>
-                    </div>
-
-                        <div class="row">
-                 {% for item in order.order_items.all %}
-                <div class="col-md-3">
-
-                    <div class="proudct">
-                        <a href="{% url 'products:product' item.product.id %}">
-                            <div class="img-proudct">
-                                <img class="img-responsive" src={{item.product.images.all.0.image.url}} alt="">
-                            </div><!--/.img-proudct-->
-                            <h4>{{item.product.name}}</h4>
-                            <span class="pull-left"> {{item.quantity}}  x ${{item.product.price}} = {{item.total}} </span>
-
-                        </a>
-                    </div><!--/.proudct-->
-
-                </div><!--/.col-->
-                 {% endfor %}
-</div><!--/.row-->
-
-
-                    <div class="showReviwe">
-                        <p><strong>Nuestra Oficina: Calle 20 No. 9-90 Oficina 202-203, Centro</strong></p>
-                        <div class="col-md-4">
-                            <img class="img-responsive" width="200" src="{{order.seller.avatar.url}}" alt="">
-                        </div>
+                            <div class="showReviwe">
                         <div class="col-md-8">
                             <div class="detailsProudct">
-                                <h4>Proudct Name ?</h4>
                                 <div>
                                     <small>
                                         <fieldset class="rating">
@@ -95,6 +62,34 @@
                         </div>
 
                     </div>
+                            {% else %}
+                            <li>you have been rated this seller</li>
+                            {% endif %}
+                        </div>
+                    </div>
+                    </div>
+
+                        <div class="row">
+                 {% for item in order.order_items.all %}
+                <div class="col-md-3">
+
+                    <div class="proudct">
+                        <a href="{% url 'products:product' item.product.id %}">
+                            <div class="img-proudct">
+                                <img class="img-responsive" src={{item.product.images.all.0.image.url}} alt="">
+                            </div><!--/.img-proudct-->
+                            <h4>{{item.product.name}}</h4>
+                            <span class="pull-left"> {{item.quantity}}  x ${{item.product.price}} = {{item.total}} </span>
+
+                        </a>
+                    </div><!--/.proudct-->
+
+                </div><!--/.col-->
+                 {% endfor %}
+</div><!--/.row-->
+
+
+
 
                 {% if not forloop.last %}
                 <hr>
