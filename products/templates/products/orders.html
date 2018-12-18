@@ -8,11 +8,11 @@
 
 
 <div class="profileUser">
-        <div class="container">
-            <div class="veiw_text">
-                {% for order in orders %}
-                <div class="Pededos">
-                    <div class="row">
+    <div class="container">
+        <div class="veiw_text">
+            {% for order in orders %}
+            <div class="Pededos">
+                <div class="row">
                     <div class="col-md-6">
                         <h5><strong>{{order.seller.name}}</strong></h5>
                         <!--<h5><small>Liego 31 de octubre</small></h5>-->
@@ -20,9 +20,11 @@
                             <img class="img-responsive" width="180" src="{{order.seller.avatar.url}}" alt="">
                             <ul>
                                 <li>total price</li>
-                                <li>${{order.total_price}}</li><br/>
+                                <li>${{order.total_price}}</li>
+                                <br/>
                                 <li>total quantity</li>
-                                <li>{{order.total_quantity}}</li><br/>
+                                <li>{{order.total_quantity}}</li>
+                                <br/>
                                 <li>status: {{order.status}}</li>
                                 <li>from {{order.created_at|timesince}}</li>
                             </ul>
@@ -31,46 +33,61 @@
                     <div class="col-md-6">
                         <div class="controlProudct">
                             {% if not order.rated %}
-                            <div class="showReviwe">
-                        <div class="col-md-8">
-                            <div class="detailsProudct">
-                                <div>
-                                    <small>
-                                        <fieldset class="rating">
-                                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                                            <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                                            <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                                            <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                                            <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                                            <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                        </fieldset>
-                                    </small>
+                            <div class="showReviwe col-md-10">
+
+                                <div class="detailsProudct">
+                                    <div>
+                                        <small>
+                                            <fieldset class="rating">
+                                                <input type="radio" id="star5" name="rating" value="5"/><label
+                                                    class="full" for="star5" title="Awesome - 5 stars"></label>
+                                                <input type="radio" id="star4half" name="rating"
+                                                       value="4 and a half"/><label class="half" for="star4half"
+                                                                                    title="Pretty good - 4.5 stars"></label>
+                                                <input type="radio" id="star4" name="rating" value="4"/><label
+                                                    class="full" for="star4" title="Pretty good - 4 stars"></label>
+                                                <input type="radio" id="star3half" name="rating"
+                                                       value="3 and a half"/><label class="half" for="star3half"
+                                                                                    title="Meh - 3.5 stars"></label>
+                                                <input type="radio" id="star3" name="rating" value="3"/><label
+                                                    class="full" for="star3" title="Meh - 3 stars"></label>
+                                                <input type="radio" id="star2half" name="rating"
+                                                       value="2 and a half"/><label class="half" for="star2half"
+                                                                                    title="Kinda bad - 2.5 stars"></label>
+                                                <input type="radio" id="star2" name="rating" value="2"/><label
+                                                    class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                                                <input type="radio" id="star1half" name="rating"
+                                                       value="1 and a half"/><label class="half" for="star1half"
+                                                                                    title="Meh - 1.5 stars"></label>
+                                                <input type="radio" id="star1" name="rating" value="1"/><label
+                                                    class="full" for="star1" title="Sucks big time - 1 star"></label>
+                                                <input type="radio" id="starhalf" name="rating" value="half"/><label
+                                                    class="half" for="starhalf"
+                                                    title="Sucks big time - 0.5 stars"></label>
+                                            </fieldset>
+                                        </small>
+                                    </div>
+                                    <li>
+                                        <form>
+                                            <textarea class="form-control"></textarea>
+                                            <input type="submit" value="Envair">
+                                        </form>
+                                    </li>
                                 </div>
-                                <li>
-                                    <form>
-                                        <textarea class="form-control"></textarea>
-                                        <input type="submit" value="Envair">
-                                    </form>
-                                </li>
+
+
                             </div>
-                        </div>
 
                         </div>
+                        {% else %}
+                        <li>you have been rated this seller</li>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
 
-                    </div>
-                            {% else %}
-                            <li>you have been rated this seller</li>
-                            {% endif %}
-                        </div>
-                    </div>
-                    </div>
-
-                        <div class="row">
-                 {% for item in order.order_items.all %}
+            <div class="row">
+                {% for item in order.order_items.all %}
                 <div class="col-md-3">
 
                     <div class="proudct">
@@ -85,21 +102,19 @@
                     </div><!--/.proudct-->
 
                 </div><!--/.col-->
-                 {% endfor %}
-</div><!--/.row-->
-
-
-
-
-                {% if not forloop.last %}
-                <hr>
-                {% endif %}
                 {% endfor %}
+            </div><!--/.row-->
 
 
-            </div>
+            {% if not forloop.last %}
+            <hr>
+            {% endif %}
+            {% endfor %}
+
+
         </div>
     </div>
+</div>
 {%endblock%}
 
 
