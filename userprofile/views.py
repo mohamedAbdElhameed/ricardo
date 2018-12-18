@@ -22,7 +22,11 @@ def sellers_view(request):
     sign_in_form = LoginForm()
     positions = []
     for seller in sellers:
-        positions.append([seller.city.name, float(seller.latitude), float(seller.longitude)])
+        if seller.city:
+            positions.append([seller.city.name, float(seller.latitude), float(seller.longitude)])
+        else:
+            positions.append([seller.city.name or 'city', float(seller.latitude), float(seller.longitude)])
+
     context = {
         'sign_up_form': sign_up_form,
         'sign_in_form': sign_in_form,
