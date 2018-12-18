@@ -145,7 +145,7 @@ def cart_view(request):
         action_url = "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
         account_id = '512321'
         test = '1'
-        host = 'http://ricardoooo123123123.pythonanywhere.com/'
+        host = 'http://www.artesaniasdeboyaca.com/'
     else:
         action_url = "https://checkout.payulatam.com/ppp-web-gateway-payu"
         account_id = '512321'
