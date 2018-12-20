@@ -33,9 +33,9 @@
                                                 <p><label>Price:</label> ${{cart.product.price}}</p>
                                             </div><!--/.detils-->
                                             <div class="total">
-                                                <p id="total{{cart.product.id}}"><label>Total Price:</label> ${{cart.total_cost|floatformat:2}}
+                                                <p id="total{{cart.product.id}}"><label>Precio Total:</label> ${{cart.total_cost|floatformat:2}}
                                                     </p>
-                                                <p class="delete pull-right" onclick="remove({{cart.id}})"><i class="fa fa-trash" ></i> Remove</p>
+                                                <p class="delete pull-right" onclick="remove({{cart.id}})"><i class="fa fa-trash" ></i> Eliminar</p>
                                             </div><!--/.total-->
                                         </div><!--/.detils-card-->
                                     </li>
@@ -79,21 +79,22 @@
                 <div class="col-md-4">
                     <div class="right-card">
                         <div class="panel panel-default panel-responsive">
-                            <div class="panel-heading text-center"><strong>Summury</strong></div>
+                            <div class="panel-heading text-center"><strong>Resumen</strong></div>
                             <div class="panel-body">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <label>Numero de articuos</label> <span class="badge" id="number_of_products">{{number_of_products}}</span>
+                                        <label>Numero de Artículos</label> <span class="badge" id="number_of_products">{{number_of_products}}</span>
                                     </li>
                                     <li>
-                                        <label>Transporte</label> <span>Contergerga</span>
+                                        <label>Transporte</label> <span>Contraentrega</span>
                                     </li>
                                     <li>
                                         <label>Total</label> <span class="badge" id="total_price">${{total_price|floatformat:2}}</span>
                                     </li>
                                     <li class="text-center">
                                         <p>
-                                            así como el es¬tímulo hacia la asociatividad y formalización como artesano em¬prendedor.
+                                            así como el es¬tímulo hacia la asociatividad y formalización como artesano em¬prendedor. </br> Nota: Por políticas cada pago se realiza a la cuenta de cada vendedor, por lo que deberá realizar
+tantos pagos como vendedores tenga en el carrito de compras.
                                         </p>
 
 
@@ -135,7 +136,7 @@
                                 $("#add_c").html('<i class="fa fa-shopping-bag"></i> Actualizarlo en carrito');
                                 $("#number_of_products").text(res.number_of_products);
                                 $("#total_price").text("$" + (res.total_price).toFixed(2));
-                                $("#total"+product).html('<label>Total Price:</label> $' + (quantity * price).toFixed(2));
+                                $("#total"+product).html('<label>Precio Total:</label> $' + (quantity * price).toFixed(2));
                                 console.log(price);
                             }
                 });

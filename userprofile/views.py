@@ -132,7 +132,7 @@ def signup(request):
             buyer = Buyer(user=user)
             buyer.save()
             Token.objects.create(user=user)
-            messages.add_message(request, messages.SUCCESS, 'user has been added')
+            messages.add_message(request, messages.SUCCESS, 'El usuario ha sido registrado, por favor ingrese con sus datos.')
             return HttpResponseRedirect('/')
 
 
