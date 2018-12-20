@@ -25,8 +25,8 @@ class CityAdmin(admin.ModelAdmin):
 
 class SellerAdmin(admin.ModelAdmin):
     # inlines = ['SellerUserInline']
-    search_fields = ['id', 'user__username', 'longitude', 'latitude', 'city__name', 'rate', 'number_of_rates', 'phone_number']
-    list_display = ['id', 'user', 'avatar', 'longitude', 'latitude', 'city', 'description', 'rate', 'number_of_rates', 'phone_number', ]
+    search_fields = ['id', 'user__username', 'longitude', 'latitude', 'city__name','description', 'rate', 'number_of_rates', 'phone_number']
+    list_display = ['id', 'user', 'avatar', 'longitude', 'latitude', 'city', 'rate', 'number_of_rates', 'phone_number', ]
     # search_fields = ['user__username', 'city__name', 'description', 'rate', 'phone_number']
     # list_filter = ['user__username', 'city__name']
     # autocomplete_fields = ['city', 'user']
