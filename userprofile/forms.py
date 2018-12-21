@@ -5,13 +5,13 @@ class ContactForm(forms.Form):
     name = forms.CharField(max_length=50, widget=forms.TextInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'name',
+            'placeholder': 'Nombre',
             'autocomplete': 'off'
         }))
     phone = forms.CharField(max_length=15, widget=forms.TextInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'phono',
+            'placeholder': 'Telefono',
             'autocomplete': 'off',
             # 'type': 'number'
         }
@@ -19,14 +19,14 @@ class ContactForm(forms.Form):
     email = forms.EmailField(max_length=50, widget=forms.EmailInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'email',
+            'placeholder': 'Correo',
             'autocomplete': 'off'
         }
     ))
     message = forms.CharField(max_length=500, widget=forms.Textarea(
         attrs={
             'class': 'form-control',
-            'placeholder': 'message',
+            'placeholder': 'Mensaje ',
             'autocomplete': 'off'
         }
     ))
