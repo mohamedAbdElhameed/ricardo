@@ -5,9 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from userprofile.models import Seller, Buyer
-from products.models import Product, SubCategory, Cart
-from products.apis.serializers import ProductSerializer, ProductDetailSerializer, SubCategorySerializer, CartSerializer, \
-    CartListSerializer
+from products.models import *
+from products.apis.serializers import *
 
 
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
@@ -79,3 +78,16 @@ class CartListView(ListAPIView):
         buyer = Buyer.objects.get(user=self.request.user)
         cart = Cart.objects.filter(buyer=buyer)
         return cart
+
+
+class CategoriesView(ListAPIView):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+    permission_classes = ()
+
+
+class SubCatInCat(ListAPIView):
+    serializer_class = SubCategorySerializer
+    permission_classes = ()
+    def get_queryset(self):
+        return SubCategory.objects.filter(category=self.kwargs['pk'])

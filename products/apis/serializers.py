@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from products.models import Product, SubCategory, ProductImage, Cart
-from userprofile.models import Seller, Buyer
+from products.models import *
+from userprofile.models import *
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -92,3 +92,9 @@ class CartListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ['id', 'product', 'quantity', ]
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'image']
