@@ -10,7 +10,7 @@ from products.apis.serializers import *
 
 
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(active=True)
     serializer_class = ProductSerializer
     permission_classes = ()
 
