@@ -98,3 +98,20 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name', 'image']
+
+
+class OrderItemsSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = OrderItem
+        fields = ['id', 'product', 'quantity', 'total', 'price']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    order_items = OrderItemsSerializer(many=True)
+    seller = SellerSerializerForProductDetail()
+
+    class Meta:
+        model = Order
+        fields = ['id', 'seller', 'status', 'rated', 'order_items', 'total_price']

@@ -89,5 +89,13 @@ class CategoriesView(ListAPIView):
 class SubCatInCat(ListAPIView):
     serializer_class = SubCategorySerializer
     permission_classes = ()
+
     def get_queryset(self):
         return SubCategory.objects.filter(category=self.kwargs['pk'])
+
+
+class OrderView(ListAPIView):
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        return Order.objects.filter(buyer=Buyer.objects.get(user=self.request.user))
