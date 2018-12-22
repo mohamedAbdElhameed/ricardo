@@ -5,9 +5,9 @@ from rest_framework.generics import RetrieveAPIView, CreateAPIView, ListAPIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
-
-from userprofile.apis.serializers import SellerSerializer, ContactSerializer, SellersSerializer, UserSerializer
+from userprofile.apis.serializers import *
 from userprofile.models import Seller, Contact
+from products.models import *
 
 
 class SellerDetailView(RetrieveAPIView):
@@ -51,7 +51,7 @@ class UserCreate(CreateAPIView):
 class LoginView(APIView):
     permission_classes = ()
 
-    def post(self, request,):
+    def post(self, request, ):
         email = request.data.get("username")
         username = User.objects.filter(email=email)
         if len(username) > 0:
@@ -64,3 +64,22 @@ class LoginView(APIView):
             return Response({"token": user.auth_token.key})
         else:
             return Response({"error": "Wrong Credentials"}, status=HTTP_400_BAD_REQUEST)
+
+
+class ReviewView(CreateAPIView):
+    serializer_class = ReviewSerializer
+    permission_classes = ()
+
+    def post(self, request, *args, **kwargs):
+        order_id = request.data['order_id']
+
+        order = Order.objects.get(id=order_id)
+        buyer = request.user.buyer
+
+        if order.rated or order.buyer != buyer:
+            return Response({
+                'msg': 'this order is already rated or you are not allowed to review this order'
+            }, status=HTTP_400_BAD_REQUEST)
+        order.rated = True
+        order.save()
+        return super().post(request, *args, **kwargs)

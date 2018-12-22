@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-from userprofile.models import Seller, Contact, Buyer
+from userprofile.models import *
 from products.models import Product
 
 
@@ -75,3 +75,15 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_token(self, user):
         return Token.objects.get(user=user).key
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    order_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ['order_id', 'details', 'rate', 'seller']
+
+    def create(self, validated_data):
+        validated_data['buyer'] = self.context['request'].user.buyer
+        return super().create(validated_data)
