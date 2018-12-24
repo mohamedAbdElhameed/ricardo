@@ -5,109 +5,123 @@
 <link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
 {% endblock %}
 {%block content%}
- <!--card-->
-    <div class="card">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="left-card">
-                        {% for cart in small_carts %}
-                            <div class="panel panel-default panel-responsive">
-                            <div class="panel-heading">
-                                {{cart.seller.name}}
-                                <span class="pull-right"> Productos ({{cart.products|length}})</span>
-                            </div>
-                            <div class="panel-body">
-                                <ul class="list-unstyled">
-                                    {% if cart.products %}
+<!--card-->
+<div class="card">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="left-card">
+                    {% for cart in small_carts %}
+                    <div class="panel panel-default panel-responsive">
+                        <div class="panel-heading">
+                            {{cart.seller.name}}
+                            <span class="pull-right"> Productos ({{cart.products|length}})</span>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-unstyled">
+                                {% if cart.products %}
 
-                                    {% for cart in cart.products %}
-                                    <li id="cart{{cart.id}}">
-                                        <div class="detils-card" >
-                                            <img src="{{cart.product.images.all.0.image.url}}" alt="">
-                                            <div class="detils">
-                                                <h4><a href="{% url 'products:product' cart.product.id %}">{{cart.product.name}}</a> </h4>
-                                                <input type="number" id="number{{cart.product.id}}" min="0" value="{{cart.quantity}}">
-                                                <a class="btn-proudct" data-price="{{cart.product.price}}" onclick="add_cart({{cart.product.id}}, {{cart.product.price}})" id="add_c"><i class="fa fa-shopping-bag"></i> Actualizarlo en carrito</a>
-                                                <p><label>Vendedor:</label> <a href="{% url 'userprofile:vendor' cart.product.seller.id %}">{{cart.product.seller}}</a> </p>
-                                                <p><label>Price:</label> ${{cart.product.price}}</p>
-                                            </div><!--/.detils-->
-                                            <div class="total">
-                                                <p id="total{{cart.product.id}}"><label>Precio Total:</label> ${{cart.total_cost|floatformat:2}}
-                                                    </p>
-                                                <p class="delete pull-right" onclick="remove({{cart.id}})"><i class="fa fa-trash" ></i> Eliminar</p>
-                                            </div><!--/.total-->
-                                        </div><!--/.detils-card-->
-                                    </li>
+                                {% for cart in cart.products %}
+                                <li id="cart{{cart.id}}">
+                                    <div class="detils-card">
+                                        <img src="{{cart.product.images.all.0.image.url}}" alt="">
 
-                                    {% endfor %}
-                                        <form method="post" action={{action_url}}>
-    <input name="merchantId" type="hidden" value="{{cart.merchant_id}}" >
-    <input name="referenceCode" type="hidden" value="{{cart.reference_code}}" >
-    <input name="description" type="hidden" value="{{description}}" >
-    <input name="amount" type="hidden" value="{{cart.amount}}" >
-    <input name="tax" type="hidden" value="{{cart.tax}}" >
-    <input name="taxReturnBase" type="hidden" value="{{cart.base}}" >
-    <input name="signature" type="hidden" value="{{cart.signature}}" >
-    <input name="accountId" type="hidden" value="{{account_id}}" >
-    <input name="currency" type="hidden" value="{{currency}}" >
-    <input name="buyerFullName" type="hidden" value="{{buyer_name}}" >
-    <input name="buyerEmail" type="hidden" value="{{buyer_email}}" >
-    <input name="shippingAddress" type="hidden" value="k2 n 12 34" >
-    <input name="shippingCity" type="hidden" value="Tunja" >
-    <input name="shippingCountry" type="hidden" value="COP" >
-    <input name="telephone" type="hidden" value="3141234567" >
-    <input name="test" type="hidden" value="1" >
-    <input name="extra1" type="hidden"  value="{{ request.user.id }}" >
-    <input name="extra2" type="hidden" value="{{cart.seller.id}}">
-    <input name="responseUrl" type="hidden" value="{{response_url}}" >
-    <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}" >
-    <input class="button" name="Submit" type="submit" value="Proceder con pago" >
-                                            <!--<a class="btn-card">Proceder con pago</a>-->
-</form>
+                                        <div class="detils">
+                                            <h4><a href="{% url 'products:product' cart.product.id %}">{{cart.product.name}}</a>
+                                            </h4>
+                                            <input type="number" id="number{{cart.product.id}}" min="0"
+                                                   value="{{cart.quantity}}">
+                                            <a class="btn-proudct" data-price="{{cart.product.price}}"
+                                               onclick="add_cart({{cart.product.id}}, {{cart.product.price}})"
+                                               id="add_c"><i class="fa fa-shopping-bag"></i> Actualizarlo en carrito</a>
 
-                                    {{cart.amount}}
-                                    {% else %}
-                                        <p>Tienes que añadir algunos productos al carrito.</p>
-                                    {% endif %}
-                                </ul>
-                            </div><!--/.panel-body-->
-                        </div><!--/.panel-->
-                        {% endfor %}
-                    </div><!--/.left-card-->
-                </div><!--/.col-->
-                <div class="col-md-4">
-                    <div class="right-card">
-                        <div class="panel panel-default panel-responsive">
-                            <div class="panel-heading text-center"><strong>Resumen</strong></div>
-                            <div class="panel-body">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <label>Numero de Artículos</label> <span class="badge" id="number_of_products">{{number_of_products}}</span>
-                                    </li>
-                                    <li>
-                                        <label>Transporte</label> <span>Contraentrega</span>
-                                    </li>
-                                    <li>
-                                        <label>Total</label> <span class="badge" id="total_price">${{total_price|floatformat:2}}</span>
-                                    </li>
-                                    <li class="text-center">
-                                        <p>
-                                            así como el es¬tímulo hacia la asociatividad y formalización como artesano em¬prendedor. </br> Nota: Por políticas cada pago se realiza a la cuenta de cada vendedor, por lo que deberá realizar
-tantos pagos como vendedores tenga en el carrito de compras.
-                                        </p>
+                                            <p><label>Vendedor:</label> <a
+                                                    href="{% url 'userprofile:vendor' cart.product.seller.id %}">{{cart.product.seller}}</a>
+                                            </p>
+
+                                            <p><label>Price:</label> ${{cart.product.price}}</p>
+                                        </div><!--/.detils-->
+                                        <div class="total">
+                                            <p id="total{{cart.product.id}}"><label>Precio Total:</label>
+                                                ${{cart.total_cost|floatformat:2}}
+                                            </p>
+
+                                            <p class="delete pull-right" onclick="remove({{cart.id}})"><i
+                                                    class="fa fa-trash"></i> Eliminar</p>
+                                        </div><!--/.total-->
+                                    </div><!--/.detils-card-->
+                                </li>
+
+                                {% endfor %}
+                                <form method="post" action={{action_url}}>
+                                    <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
+                                    <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
+                                    <input name="description" type="hidden" value="{{description}}">
+                                    <input name="amount" type="hidden" value="{{cart.amount}}">
+                                    <input name="tax" type="hidden" value="{{cart.tax}}">
+                                    <input name="taxReturnBase" type="hidden" value="{{cart.base}}">
+                                    <input name="signature" type="hidden" value="{{cart.signature}}">
+                                    <input name="accountId" type="hidden" value="{{account_id}}">
+                                    <input name="currency" type="hidden" value="{{currency}}">
+                                    <input name="buyerFullName" type="hidden" value="{{buyer_name}}">
+                                    <input name="buyerEmail" type="hidden" value="{{buyer_email}}">
+                                    <input name="shippingAddress" type="hidden" value="k2 n 12 34">
+                                    <input name="shippingCity" type="hidden" value="Tunja">
+                                    <input name="shippingCountry" type="hidden" value="COP">
+                                    <input name="telephone" type="hidden" value="3141234567">
+                                    <input name="test" type="hidden" value="1">
+                                    <input name="extra1" type="hidden" value="{{ request.user.id }}">
+                                    <input name="extra2" type="hidden" value="{{cart.seller.id}}">
+                                    <input name="responseUrl" type="hidden" value="{{response_url}}">
+                                    <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}">
+                                    <input class="button" name="Submit" type="submit" value="Proceder con pago">
+                                    <!--<a class="btn-card">Proceder con pago</a>-->
+                                </form>
+
+                                {{cart.amount}}
+                                {% else %}
+                                <p>Tienes que añadir algunos productos al carrito.</p>
+                                {% endif %}
+                            </ul>
+                        </div><!--/.panel-body-->
+                    </div><!--/.panel-->
+                    {% endfor %}
+                </div><!--/.left-card-->
+            </div><!--/.col-->
+            <div class="col-md-4">
+                <div class="right-card">
+                    <div class="panel panel-default panel-responsive">
+                        <div class="panel-heading text-center"><strong>Resumen</strong></div>
+                        <div class="panel-body">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <label>Numero de Artículos</label> <span class="badge" id="number_of_products">{{number_of_products}}</span>
+                                </li>
+                                <li>
+                                    <label>Transporte</label> <span>Contraentrega</span>
+                                </li>
+                                <li>
+                                    <label>Total</label> <span class="badge" id="total_price">${{total_price|floatformat:2}}</span>
+                                </li>
+                                <li class="text-center">
+                                    <p>
+                                        así como el es¬tímulo hacia la asociatividad y formalización como artesano
+                                        em¬prendedor. </br> Nota: Por políticas cada pago se realiza a la cuenta de cada
+                                        vendedor, por lo que deberá realizar
+                                        tantos pagos como vendedores tenga en el carrito de compras.
+                                    </p>
 
 
-                                    </li>
-                                </ul>
-                            </div><!--/.panel-body-->
-                        </div><!--/.panel-->
-                    </div><!--/.left-card-->
-                </div><!--/.col-->
-            </div><!--/.row-->
-        </div><!--/.container-->
-    </div>
-    <!--card-->
+                                </li>
+                            </ul>
+                        </div><!--/.panel-body-->
+                    </div><!--/.panel-->
+                </div><!--/.left-card-->
+            </div><!--/.col-->
+        </div><!--/.row-->
+    </div><!--/.container-->
+</div>
+<!--card-->
 <script>
     function remove(cart){
         $.ajax({
@@ -142,5 +156,9 @@ tantos pagos como vendedores tenga en el carrito de compras.
                 });
         }
     }
+    $(document).ajaxStop(function(){
+        window.location.reload();
+    });
+
 </script>
 {%endblock%}
