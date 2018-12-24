@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/categories/', CategoriesView.as_view()),
     path('api/subcatincat/<int:pk>/', SubCatInCat.as_view()),
     path('api/orders/', OrderView.as_view()),
+    path('api/cartformobile/', CartViewForMobile.as_view()),
     path('category/<int:pk>/', sub_categories, name='category'),
     path('subcategory/<int:pk>/', products_view, name='subcategory'),
     path('product/<int:pk>/', product_view, name='product'),

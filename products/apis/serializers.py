@@ -116,9 +116,3 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['id', 'seller', 'status', 'rated', 'order_items', 'total_price']
 
-
-class UserCartSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Cart
-        fields = ['id' , '']

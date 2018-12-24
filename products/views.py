@@ -152,7 +152,7 @@ def cart_view(request):
         test = '0'
         host = 'https://peaku.co/'
 
-    response_url = host + 'products/response/'
+    response_url = host
     confirmation_url = host + 'products/payment_confirmation/'
     description = "this is test for buying "
 
