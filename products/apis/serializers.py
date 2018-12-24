@@ -95,9 +95,14 @@ class CartListSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    first_subcat_id = serializers.SerializerMethodField()
+
     class Meta:
         model = Category
-        fields = ['id', 'name', 'image']
+        fields = ['id', 'name', 'image', 'first_subcat_id']
+
+    def get_first_subcat_id(self, category):
+        return category.subcategories.first().id
 
 
 class OrderItemsSerializer(serializers.ModelSerializer):
