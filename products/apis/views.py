@@ -134,7 +134,7 @@ class CartViewForMobile(RetrieveAPIView):
             base = str(round(amount / 100 * 83, 2))
             signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
             small_carts.append({
-                'seller': seller.values(),
+                'seller': seller.name,
                 'products': products.values(),
                 'APIKEY': apikey,
                 'merchant_id': merchant_id,
