@@ -168,7 +168,7 @@ class CartViewForMobile(RetrieveAPIView):
             form.replace('{{cart.signature}}', signature)
             form.replace('{{account_id}}', str(512321))
             form.replace('{{currency}}', 'COP')
-            form.replace('{{buyer_name}}', self.request.user.buyer.name)
+            form.replace('{{buyer_name}}', self.request.user.username)
             form.replace('{{buyer_email}}', self.request.user.email)
             form.replace('{{ request.user.id }}', request.user.id)
             form.replace('{{cart.seller.id}}', seller.id)
