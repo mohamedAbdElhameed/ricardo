@@ -7,7 +7,7 @@ from rest_framework import viewsets
 from rest_framework.generics import RetrieveAPIView, get_object_or_404, ListAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.core import serializers as sr
+
 from ricardo import settings
 from userprofile.models import Seller, Buyer
 from products.models import *
@@ -134,8 +134,8 @@ class CartViewForMobile(RetrieveAPIView):
             base = str(round(amount / 100 * 83, 2))
             signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
             small_carts.append({
-                'seller': sr.serialize('json', [seller, ]),
-                'products': sr.serialize('json', [products, ]),
+                'seller': seller.values(),
+                'products': products.values(),
                 'APIKEY': apikey,
                 'merchant_id': merchant_id,
                 'amount': str(amount),
