@@ -170,8 +170,8 @@ class CartViewForMobile(RetrieveAPIView):
             form.replace('{{currency}}', 'COP')
             form.replace('{{buyer_name}}', self.request.user.username)
             form.replace('{{buyer_email}}', self.request.user.email)
-            form.replace('{{ request.user.id }}', request.user.id)
-            form.replace('{{cart.seller.id}}', seller.id)
+            form.replace('{{ request.user.id }}', str(request.user.id))
+            form.replace('{{cart.seller.id}}', str(seller.id))
             form.replace('{{response_url}}', 'http://www.artesaniasdeboyaca.com/')
             form.replace('{{confirmation_url}}', 'http://www.artesaniasdeboyaca.com/products/payment_confirmation/')
             small_carts.append({
