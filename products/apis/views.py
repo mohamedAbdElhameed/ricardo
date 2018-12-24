@@ -107,7 +107,6 @@ class OrderView(ListAPIView):
 
 
 class CartViewForMobile(RetrieveAPIView):
-
     def get(self, request, *args, **kwargs):
         user = request.user
         carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user))
@@ -132,17 +131,60 @@ class CartViewForMobile(RetrieveAPIView):
             currency = 'COP'
             tax = str(round(amount / 100 * 17, 2))
             base = str(round(amount / 100 * 83, 2))
-            signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
+            signature = hashlib.md5(
+                (apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode(
+                    'utf-8')).hexdigest()
+            form = '''
+                <form method="post" action={{action_url}}>
+                                    <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
+                                    <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
+                                    <input name="description" type="hidden" value="{{description}}">
+                                    <input name="amount" type="hidden" value="{{cart.amount}}">
+                                    <input name="tax" type="hidden" value="{{cart.tax}}">
+                                    <input name="taxReturnBase" type="hidden" value="{{cart.base}}">
+                                    <input name="signature" type="hidden" value="{{cart.signature}}">
+                                    <input name="accountId" type="hidden" value="{{account_id}}">
+                                    <input name="currency" type="hidden" value="{{currency}}">
+                                    <input name="buyerFullName" type="hidden" value="{{buyer_name}}">
+                                    <input name="buyerEmail" type="hidden" value="{{buyer_email}}">
+                                    <input name="shippingAddress" type="hidden" value="k2 n 12 34">
+                                    <input name="shippingCity" type="hidden" value="Tunja">
+                                    <input name="shippingCountry" type="hidden" value="COP">
+                                    <input name="telephone" type="hidden" value="3141234567">
+                                    <input name="test" type="hidden" value="1">
+                                    <input name="extra1" type="hidden" value="{{ request.user.id }}">
+                                    <input name="extra2" type="hidden" value="{{cart.seller.id}}">
+                                    <input name="responseUrl" type="hidden" value="{{response_url}}">
+                                    <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}">
+                                    <input class="button" name="Submit" type="submit" value="Proceder con pago">
+                                </form>
+        '''
+            form.replace('{{cart.merchant_id}}', merchant_id)
+            form.replace('{{cart.reference_code}}', reference_code)
+            form.replace('{{description}}', 'paying')
+            form.replace('{{cart.amount}}', amount)
+            form.replace('{{cart.tax}}', tax)
+            form.replace('{{cart.base}}', base)
+            form.replace('{{cart.signature}}', signature)
+            form.replace('{{account_id}}', str(512321))
+            form.replace('{{currency}}', 'COP')
+            form.replace('{{buyer_name}}', self.request.user.buyer.name)
+            form.replace('{{buyer_email}}', self.request.user.email)
+            form.replace('{{ request.user.id }}', request.user.id)
+            form.replace('{{cart.seller.id}}', seller.id)
+            form.replace('{{response_url}}', 'http://www.artesaniasdeboyaca.com/')
+            form.replace('{{confirmation_url}}', 'http://www.artesaniasdeboyaca.com/products/payment_confirmation/')
             small_carts.append({
                 'seller': seller.name,
                 'products': products.values('id', 'product', 'quantity'),
-                'APIKEY': apikey,
-                'merchant_id': merchant_id,
-                'amount': str(amount),
-                'signature': signature,
-                'reference_code': reference_code,
-                'tax': tax,
-                'base': base,
+                'payment_form': form,
+                # 'APIKEY': apikey,
+                # 'merchant_id': merchant_id,
+                'amount': amount,
+                # 'signature': signature,
+                # 'reference_code': reference_code,
+                # 'tax': tax,
+                # 'base': base,
                 'number_of_products': number_of_products,
             })
         buyer = user.buyer
@@ -172,14 +214,14 @@ class CartViewForMobile(RetrieveAPIView):
             'small_carts': small_carts,
             'number_of_products': number_of_products,
             "total_price": total_price,
-            "action_url": action_url,
-            "account_id": account_id,
-            "currency": currency,
-            "test": test,    # to test credit card
-            "description": description,
-            "buyer_name": buyer.user.username,
-            "buyer_email": buyer.user.email,
-            "response_url": response_url,
-            "confirmation_url": confirmation_url,
+            # "action_url": action_url,
+            # "account_id": account_id,
+            # "currency": currency,
+            # "test": test,  # to test credit card
+            # "description": description,
+            # "buyer_name": buyer.user.username,
+            # "buyer_email": buyer.user.email,
+            # "response_url": response_url,
+            # "confirmation_url": confirmation_url,
         }
         return Response(context)
