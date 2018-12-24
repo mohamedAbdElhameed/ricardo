@@ -169,7 +169,6 @@ class CartViewForMobile(RetrieveAPIView):
             total_price += product.quantity * product.product.price
 
         context = {
-            'carts': carts,
             'small_carts': small_carts,
             'number_of_products': number_of_products,
             "total_price": total_price,
