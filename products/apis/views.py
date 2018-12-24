@@ -159,21 +159,21 @@ class CartViewForMobile(RetrieveAPIView):
                                     <input class="button" name="Submit" type="submit" value="Proceder con pago">
                                 </form>
         '''
-            form.replace('{{cart.merchant_id}}', merchant_id)
-            form.replace('{{cart.reference_code}}', reference_code)
-            form.replace('{{description}}', 'paying')
-            form.replace('{{cart.amount}}', str(amount))
-            form.replace('{{cart.tax}}', str(tax))
-            form.replace('{{cart.base}}', str(base))
-            form.replace('{{cart.signature}}', signature)
-            form.replace('{{account_id}}', str(512321))
-            form.replace('{{currency}}', 'COP')
-            form.replace('{{buyer_name}}', self.request.user.username)
-            form.replace('{{buyer_email}}', self.request.user.email)
-            form.replace('{{ request.user.id }}', str(request.user.id))
-            form.replace('{{cart.seller.id}}', str(seller.id))
-            form.replace('{{response_url}}', 'http://www.artesaniasdeboyaca.com/')
-            form.replace('{{confirmation_url}}', 'http://www.artesaniasdeboyaca.com/products/payment_confirmation/')
+            form = form.replace('{{cart.merchant_id}}', merchant_id)
+            form = form.replace('{{cart.reference_code}}', reference_code)
+            form = form.replace('{{description}}', 'paying')
+            form = form.replace('{{cart.amount}}', str(amount))
+            form = form.replace('{{cart.tax}}', str(tax))
+            form = form.replace('{{cart.base}}', str(base))
+            form = form.replace('{{cart.signature}}', signature)
+            form = form.replace('{{account_id}}', str(512321))
+            form = form.replace('{{currency}}', 'COP')
+            form = form.replace('{{buyer_name}}', self.request.user.username)
+            form = form.replace('{{buyer_email}}', self.request.user.email)
+            form = form.replace('{{ request.user.id }}', str(request.user.id))
+            form = form.replace('{{cart.seller.id}}', str(seller.id))
+            form = form.replace('{{response_url}}', 'http://www.artesaniasdeboyaca.com/')
+            form = form.replace('{{confirmation_url}}', 'http://www.artesaniasdeboyaca.com/products/payment_confirmation/')
             small_carts.append({
                 'seller': seller.name,
                 'products': products.values('id', 'product', 'quantity'),
