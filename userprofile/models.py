@@ -25,9 +25,12 @@ class City(models.Model):
 class Seller(Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, help_text=_("User"), verbose_name=_("User"))
     name = models.CharField(max_length=50, help_text=_("Name"), verbose_name=_("Name"))
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, help_text=_("Longitude"), verbose_name=_("Longitude"))
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, help_text=_("Latitude"), verbose_name=_("Latitude"))
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True, help_text=_("City"), verbose_name=_("City"))
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, help_text=_("Longitude"),
+                                    verbose_name=_("Longitude"))
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, help_text=_("Latitude"),
+                                   verbose_name=_("Latitude"))
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True, help_text=_("City"),
+                             verbose_name=_("City"))
     address = models.TextField(help_text=_("Address"), verbose_name=_("Address"))
     avatar = models.ImageField(help_text=_("Avatar"), verbose_name=_("Avatar"))
     description = models.TextField(help_text=_("Description"), verbose_name=_("Description"))
@@ -48,9 +51,11 @@ class Seller(Model):
 
 
 class Buyer(Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='buyer', help_text=_("User"), verbose_name=_("User"))
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='buyer', help_text=_("User"),
+                                verbose_name=_("User"))
     avatar = models.CharField(max_length=50, null=True, blank=True, help_text=_("Avatar"), verbose_name=_("Avatar"))
-    phone_number = models.CharField(max_length=15, null=True, blank=True, help_text=_("Phone Number"), verbose_name=_("Phone Number"))
+    phone_number = models.CharField(max_length=15, null=True, blank=True, help_text=_("Phone Number"),
+                                    verbose_name=_("Phone Number"))
     address = models.CharField(max_length=250, null=True, blank=True, help_text=_("Address"), verbose_name=_("Address"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
@@ -64,8 +69,10 @@ class Buyer(Model):
 
 
 class Review(models.Model):
-    seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True, blank=True, help_text=_("Seller"), verbose_name=_("Seller"))
-    buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True, blank=True, help_text=_("Buyer"), verbose_name=_("Buyer"))
+    seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True, blank=True, help_text=_("Seller"),
+                               verbose_name=_("Seller"), related_name='reviews')
+    buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True, blank=True, help_text=_("Buyer"),
+                              verbose_name=_("Buyer"))
     details = models.TextField(help_text=_("Details"), verbose_name=_("Details"))
     rate = models.FloatField(help_text=_("Rate"), verbose_name=_("Rate"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))

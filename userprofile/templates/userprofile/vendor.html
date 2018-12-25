@@ -5,101 +5,138 @@
 <link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
 <style>
     #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
+    height: 400px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+    }
 </style>
 {% endblock %}
 {%block content%}
-   <!--.vendors-->
-    <div class="vendors">
-        <div class="container">
-            <div class="details-product">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="image-vendor">
-                            <img src="{{seller.avatar.url}}" alt="">
-                            <div class="vendor-rate text-center">
-                                {% for i in range %}
-                                        {% if rate >= i %}
-                                            <i class="fa fa-star"></i>
-                                        {% endif %}
-
-                                    {% endfor %}
-                                    {% if remainder > .00001%}
-                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                    {% endif %}
-                                    {% for i in range2 %}
-                                        <i class="fa fa-star-o"></i>
-                                    {% endfor %}
-                            </div><!--/.vendor-rate-->
-                        </div><!--/.image-vendor-->
-                    </div><!--/.col-->
-                    <div class="col-md-6">
-                        <div class="vendor-name">
-                            <h2>{{seller.name}}</h2>
-                            <ul class="list-unstyled">
-                                <li><i class="fa fa-map-marker"></i>{{seller.city.name}}</li>
-                                <li><i class="fa fa-phone"></i> {{seller.phone_number}}</li>
-                                <li><i class="fa fa-send"></i> {{seller.user.email}}</li>
-                            </ul>
-                        </div><!--vendor-name-->
-                        <div class="caption">
-                            <h3>Description</h3>
-                            <p>
-                                {{seller.description}}
-                            </p>
-                        </div><!--/.caption-->
-                    </div><!--/.col-->
-                </div><!--/.row-->
-            </div><!--/.details-product-->
-        </div><!--/.container-->
-    </div>
-    <!--/.vendors-->
-
-    <!--.proudcts-->
-    <div class="proudcts vendors-page">
-        <div class="container">
-            <h2 class="text-center">Proudctos</h2>
-            <hr>
+<!--.vendors-->
+<div class="vendors">
+    <div class="container">
+        <div class="details-product">
             <div class="row">
-                {% for product in seller.seller_products.all %}
-                {% if product.active %}
-                <div class="col-md-3">
-                    <div class="proudct">
-                        <a href="{% url 'products:product' product.id %}">
-                            <div class="img-proudct">
-                                <img class="img-responsive" src="{{product.images.all.0.image.url}}" alt="">
-                            </div><!--/.img-proudct-->
-                            <h4>{{product.name}}</h4>
-                            <span>{{product.price}}$</span>
-                        </a>
-                    </div><!--/.proudct-->
-                </div><!--/.col-->
-                {% endif %}
-                {% endfor %}
-            </div><!--/.row-->
-        </div><!--/.container-->
-    </div>
+                <div class="col-md-6">
+                    <div class="image-vendor">
+                        <img src="{{seller.avatar.url}}" alt="">
 
-    <!--/.proudcts-->
-            <div id="map"></div>
+                        <div class="vendor-rate text-center">
+                            {% for i in range %}
+                            {% if rate >= i %}
+                            <i class="fa fa-star"></i>
+                            {% endif %}
+
+                            {% endfor %}
+                            {% if remainder > .00001%}
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            {% endif %}
+                            {% for i in range2 %}
+                            <i class="fa fa-star-o"></i>
+                            {% endfor %}
+                        </div><!--/.vendor-rate-->
+                    </div><!--/.image-vendor-->
+                </div><!--/.col-->
+                <div class="col-md-6">
+                    <div class="vendor-name">
+                        <h2>{{seller.name}}</h2>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-map-marker"></i>{{seller.city.name}}</li>
+                            <li><i class="fa fa-phone"></i> {{seller.phone_number}}</li>
+                            <li><i class="fa fa-send"></i> {{seller.user.email}}</li>
+                        </ul>
+                    </div><!--vendor-name-->
+                    <div class="caption">
+                        <h3>Description</h3>
+
+                        <p>
+                            {{seller.description}}
+                        </p>
+                    </div><!--/.caption-->
+                </div><!--/.col-->
+            </div><!--/.row-->
+        </div><!--/.details-product-->
+    </div><!--/.container-->
+</div>
+<!--/.vendors-->
+
+<!--.proudcts-->
+<div class="proudcts vendors-page">
+    <div class="container">
+        <h2 class="text-center">Proudctos</h2>
+        <hr>
+        <div class="row">
+            {% for product in seller.seller_products.all %}
+            {% if product.active %}
+            <div class="col-md-3">
+                <div class="proudct">
+                    <a href="{% url 'products:product' product.id %}">
+                        <div class="img-proudct">
+                            <img class="img-responsive" src="{{product.images.all.0.image.url}}" alt="">
+                        </div><!--/.img-proudct-->
+                        <h4>{{product.name}}</h4>
+                        <span>{{product.price}}$</span>
+                    </a>
+                </div><!--/.proudct-->
+            </div><!--/.col-->
+            {% endif %}
+            {% endfor %}
+        </div><!--/.row-->
+    </div><!--/.container-->
+</div>
+
+<!--/.proudcts-->
+<div class="rate_vendor_map">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                {% for review in seller.reviews.all %}
+
+                <div class="rev_user">
+                    <div class="review">
+                        <li class="image-review">
+                            <img class="img-responsive" src="{{review.buyer.avatar.url}}">
+                        </li>
+                        <li>
+                            <h3>{{review.buyer.user.username}}</h3>
+
+                                <div><span class="stars-container stars-{% widthratio review.rate 1 20 %}">★★★★★</span></div>
+
+                            <p>
+                                {{review.details}}
+                            </p>
+                        </li>
+                    </div><!--/.review-->
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="col-md-6">
+                <div class="maps_vendor">
+                    <div id="map"></div>
+                </div><!--/.maps-->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 // Initialize and add the map
 function initMap() {
   // The location of Uluru
-  var uluru = {lat: {{seller.latitude}}, lng: {{seller.longitude}}}
+  var uluru = {lat: {{seller.latitude|safe}}, lng: {{seller.longitude|safe}}}
   // The map, centered at Uluru
   var map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: uluru});
   // The marker, positioned at Uluru
   var marker = new google.maps.Marker({position: uluru, map: map});
 }
-    </script>
-            <div class="col-md-12">
-                <div class="row">
-                    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFtHE8VOIuHl27sqebPeWN44C1ASjmxn8&callback=initMap">
-    </script>
-                </div>
-            </div>
+
+
+</script>
+<div class="col-md-6">
+    <div class="row">
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFtHE8VOIuHl27sqebPeWN44C1ASjmxn8&callback=initMap">
+        </script>
+    </div>
+</div>
 {%endblock%}

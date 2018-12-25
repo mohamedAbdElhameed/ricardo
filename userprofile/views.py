@@ -40,6 +40,7 @@ def sellers_view(request):
 def vendor_view(request, pk):
     categories = Category.objects.all()
     seller = Seller.objects.get(id=pk)
+    print(seller.reviews)
     sign_up_form = SignUpForm()
     sign_in_form = LoginForm()
     if seller.number_of_rates == 0:
