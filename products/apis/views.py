@@ -1,13 +1,11 @@
 import hashlib
 from datetime import datetime
-
 from django.db.models import Sum
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.generics import RetrieveAPIView, get_object_or_404, ListAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from ricardo import settings
 from userprofile.models import Seller, Buyer
 from products.models import *
@@ -173,11 +171,23 @@ class CartViewForMobile(RetrieveAPIView):
             form = form.replace('{{ request.user.id }}', str(request.user.id))
             form = form.replace('{{cart.seller.id}}', str(seller.id))
             form = form.replace('{{response_url}}', 'http://www.artesaniasdeboyaca.com/')
-            form = form.replace('{{confirmation_url}}', 'http://www.artesaniasdeboyaca.com/products/payment_confirmation/')
+            form = form.replace('{{confirmation_url}}',
+                                'http://www.artesaniasdeboyaca.com/products/payment_confirmation/')
             form = form.replace('{{action_url}}', "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/")
             small_carts.append({
                 'seller': seller.name,
-                'data': products.values(),
+                # 'data': products.values('id', 'product', 'quantity'),
+                'data': [
+                    {
+                        "id": cart.id,
+                        "product": {
+                            'price': cart.product.price,
+                            'name': cart.product.name,
+                            'image': cart.product.images[0].url or None
+                        },
+                        "quantity": cart.quantity
+                    }
+                    for cart in products],
                 'payment_form': form,
                 # 'APIKEY': apikey,
                 # 'merchant_id': merchant_id,
