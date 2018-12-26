@@ -177,7 +177,7 @@ class CartViewForMobile(RetrieveAPIView):
             form = form.replace('{{action_url}}', "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/")
             small_carts.append({
                 'seller': seller.name,
-                'data': products,
+                'data': products.values(),
                 'payment_form': form,
                 # 'APIKEY': apikey,
                 # 'merchant_id': merchant_id,
