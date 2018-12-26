@@ -181,9 +181,10 @@ class CartViewForMobile(RetrieveAPIView):
                     {
                         "id": cart.id,
                         "product": {
+                            'id': cart.product.id,
                             'price': cart.product.price,
                             'name': cart.product.name,
-                            # 'image': request.build_absolute_uri(cart.product.images.all()[0].image) or None
+                            'image': request.build_absolute_uri(cart.product.images.all()[0].image.url) or None
                         },
                         "quantity": cart.quantity
                     }
