@@ -183,7 +183,7 @@ class CartViewForMobile(RetrieveAPIView):
                         "product": {
                             'price': cart.product.price,
                             'name': cart.product.name,
-                            'image': cart.product.images.all()[0].image.url or None
+                            'image': cart.product.images.all()[0].image or None
                         },
                         "quantity": cart.quantity
                     }
