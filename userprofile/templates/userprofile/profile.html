@@ -15,12 +15,12 @@
                     <h4>Datos de Cuenta</h4>
                     <hr>
                     <ul>
-                        <li><strong>Usuario:</strong> {{request.user.username}} <a href="#">Editar</a></li>
-                        <li><strong>Email:</strong> {{request.user.email}} <a href="#">Editar</a></li>
+                        <li><strong>Usuario:</strong> {{request.user.username}} <a href="{% url 'userprofile:profile_change' %}">Editar</a></li>
+                        <li><strong>Email:</strong> {{request.user.email}} </li>
                         <li><strong>Clave:</strong> **************** <a href="{% url 'userprofile:change_password' %}">Editar</a></li>
                         <hr/>
                         {% if request.user.buyer.avatar %}
-                        <li><strong>Avatar:</strong> <img src="{{request.user.buyer.avatar.url}}" width="300px" height="300px"> <a href="{% url 'userprofile:picture' %}">Editar</a></li>
+                        <li><strong>Avatar:</strong> <img src="{{request.user.buyer.avatar.url}}" width="200px" height="200px"> <a href="{% url 'userprofile:picture' %}">Editar</a></li>
                         {% else %}
                         <li><strong>Avatar:</strong> <img src="https://www.qualiscare.com/wp-content/uploads/2017/08/default-user.png" width="300px" height="300px"> <a href="{% url 'userprofile:picture' %}">Editar</a></li>
                         {% endif %}

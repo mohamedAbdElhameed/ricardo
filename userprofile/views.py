@@ -13,7 +13,7 @@ from products.models import Category
 from rest_framework.authtoken.models import Token
 
 from ricardo import settings
-from userprofile.forms import ContactForm, SignUpForm, LoginForm, PasswordForm
+from userprofile.forms import ContactForm, SignUpForm, LoginForm, PasswordForm, ProfileForm
 from userprofile.models import Seller, Contact, Buyer
 from django.contrib import messages
 
@@ -281,5 +281,18 @@ def save_uploaded_picture(request):
         buyer.avatar = request.user.username + '.jpg'
         buyer.save()
         return HttpResponse(settings.MEDIA_URL + '/' + request.user.username + '.jpg')
-    except Exception :
+    except Exception:
         return HttpResponseBadRequest()
+
+
+@login_required
+def profile_change(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user.buyer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, u'Your profile were successfully edited.')
+            return redirect('userprofile:profile_change')
+    else:
+        form = ProfileForm(instance=request.user.buyer)
+    return render(request, 'userprofile/profile_edit.html', {'form': form})

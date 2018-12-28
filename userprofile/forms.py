@@ -1,5 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
+
+from userprofile.models import Buyer
 
 
 class ContactForm(forms.Form):
@@ -104,3 +107,16 @@ class PasswordForm(PasswordChangeForm):
                                     widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     new_password2 = forms.CharField(label='Confirmar contraseña',
                                     widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+
+class ProfileForm(forms.ModelForm):
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=15, required=False)
+    address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), max_length=250, required=False)
+    # public_email = forms.CharField(widget=forms.EmailInput(attrs={ 'class': 'form-control' }), max_length=254, required=False)
+    # url = forms.CharField(widget=forms.TextInput(attrs={ 'class': 'form-control' }), max_length=50, required=False)
+    # institution = forms.CharField(widget=forms.TextInput(attrs={ 'class': 'form-control' }), max_length=50, required=False)
+    # location = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=50, required=False)
+
+    class Meta:
+        model = Buyer
+        fields = ['phone_number', 'address']
