@@ -94,7 +94,11 @@
                 <div class="rev_user">
                     <div class="review">
                         <li class="image-review">
+                            {% if review.buyer.avatar %}
                             <img class="img-responsive" src="{{review.buyer.avatar.url}}">
+                            {% else %}
+                            <img class="img-responsive" src="https://www.qualiscare.com/wp-content/uploads/2017/08/default-user.png" >
+                            {% endif %}
                         </li>
                         <li>
                             <h3>{{review.buyer.user.username}}</h3>

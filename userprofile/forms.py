@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
 
+
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=50, widget=forms.TextInput(
         attrs={
@@ -95,7 +96,11 @@ class LoginForm(forms.Form):
     ))
     remember_me = forms.BooleanField(required=False, widget=forms.CheckboxInput())
 
+
 class PasswordForm(PasswordChangeForm):
-    old_password = forms.CharField(label='Old password', widget=forms.PasswordInput(attrs={ 'class': 'form-control' }))
-    new_password1 = forms.CharField(label='New password', widget=forms.PasswordInput(attrs={ 'class': 'form-control' }))
-new_password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput(attrs={ 'class': 'form-control' }))
+    old_password = forms.CharField(label='Contraseña anterior',
+                                   widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    new_password1 = forms.CharField(label='Nueva contraseña',
+                                    widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    new_password2 = forms.CharField(label='Confirmar contraseña',
+                                    widget=forms.PasswordInput(attrs={'class': 'form-control'}))

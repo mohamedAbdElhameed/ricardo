@@ -53,7 +53,7 @@ class Seller(Model):
 class Buyer(Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='buyer', help_text=_("User"),
                                 verbose_name=_("User"))
-    avatar = models.CharField(max_length=50, null=True, blank=True, help_text=_("Avatar"), verbose_name=_("Avatar"))
+    avatar = models.ImageField(null=True, blank=True, help_text=_("Avatar"), verbose_name=_("Avatar"))
     phone_number = models.CharField(max_length=15, null=True, blank=True, help_text=_("Phone Number"),
                                     verbose_name=_("Phone Number"))
     address = models.CharField(max_length=250, null=True, blank=True, help_text=_("Address"), verbose_name=_("Address"))

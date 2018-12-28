@@ -1,15 +1,18 @@
+import os
 from decimal import Decimal
-
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render, redirect
+from PIL import Image
 from django import http
 # Create your views here.
 from products.models import Category
 from rest_framework.authtoken.models import Token
+
+from ricardo import settings
 from userprofile.forms import ContactForm, SignUpForm, LoginForm, PasswordForm
 from userprofile.models import Seller, Contact, Buyer
 from django.contrib import messages
@@ -57,11 +60,11 @@ def vendor_view(request, pk):
         'sign_in_form': sign_in_form,
         'categories': categories,
         'seller': seller,
-        "rate": (rate//1),
+        "rate": (rate // 1),
         "remainder": rate % 1,
         "the_rate": rate,
-        "range": range(1, int(rate//1+1)),
-        "range2": range(1, int(5-(rate//1+1))+flag)
+        "range": range(1, int(rate // 1 + 1)),
+        "range2": range(1, int(5 - (rate // 1 + 1)) + flag)
     }
     return render(request, 'userprofile/vendor.html', context)
 
@@ -133,7 +136,8 @@ def signup(request):
             buyer = Buyer(user=user)
             buyer.save()
             Token.objects.create(user=user)
-            messages.add_message(request, messages.SUCCESS, 'El usuario ha sido registrado, por favor ingrese con sus datos.')
+            messages.add_message(request, messages.SUCCESS,
+                                 'El usuario ha sido registrado, por favor ingrese con sus datos.')
             return HttpResponseRedirect('/')
 
 
@@ -204,3 +208,78 @@ def profile(request):
     }
 
     return render(request, 'userprofile/profile.html', context)
+
+
+@login_required
+def password(request):
+    if request.method == 'POST':
+        form = PasswordForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, u'Contraseña cambiada con éxito.')
+            update_session_auth_hash(request, form.user)
+        else:
+            messages.error(request, u'Por favor, corrija el error a continuación.')
+    else:
+        form = PasswordForm(request.user)
+    return render(request, 'userprofile/change_password.html', {'form': form})
+
+
+@login_required
+def picture(request):
+    uploaded_picture = False
+    try:
+        if request.GET['upload_picture'] == 'uploaded':
+            uploaded_picture = True
+    except Exception:
+        uploaded_picture = False
+    return render(request, 'userprofile/picture.html', {'uploaded_picture': uploaded_picture})
+
+
+@login_required
+def upload_picture(request):
+    try:
+        f = request.FILES['picture']
+        ext = os.path.splitext(f.name)[1].lower()
+        valid_extensions = ['.gif', '.png', '.jpg', '.jpeg', '.bmp']
+        if ext in valid_extensions:
+            filename = settings.MEDIA_ROOT + '/' + request.user.username + '_tmp.jpg'
+            with open(filename, 'wb+') as destination:
+                for chunk in f.chunks():
+                    destination.write(chunk)
+            im = Image.open(filename)
+            width, height = im.size
+            if width > 560:
+                new_width = 560
+                new_height = (height * 560) / width
+                new_size = new_width, new_height
+                im.thumbnail(new_size, Image.ANTIALIAS)
+                im.save(filename)
+            return redirect('/userprofile/picture/?upload_picture=uploaded')
+        else:
+            messages.error(request, u'Invalid file format.')
+    except Exception:
+        messages.error(request, u'An expected error occurred.')
+    return redirect('/userprofile/picture/')
+
+
+@login_required
+def save_uploaded_picture(request):
+    # try:
+        x = int(request.POST['x'])
+        y = int(request.POST['y'])
+        w = int(request.POST['w'])
+        h = int(request.POST['h'])
+        tmp_filename = settings.MEDIA_ROOT + '/' + request.user.username + '_tmp.jpg'
+        filename = settings.MEDIA_ROOT + '/' + request.user.username + '.jpg'
+        im = Image.open(tmp_filename)
+        cropped_im = im.crop((x, y, w + x, h + y))
+        cropped_im.thumbnail((200, 200), Image.ANTIALIAS)
+        cropped_im.save(filename)
+        os.remove(tmp_filename)
+        buyer = request.user.buyer
+        buyer.avatar = filename
+        buyer.save()
+        return HttpResponse(settings.MEDIA_URL + '/' + request.user.username + '.jpg')
+    # except Exception :
+    #     return HttpResponseBadRequest()

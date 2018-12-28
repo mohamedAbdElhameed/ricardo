@@ -1,7 +1,8 @@
+from django.conf.urls import url
 from django.urls import path, include
 
 from products.views import sub_categories, products_view, product_view
-from userprofile.views import sellers_view, vendor_view, we_view, contact_view, signup, signin, log_out, profile
+from userprofile.views import *
 from userprofile.apis.views import *
 
 from . import views
@@ -22,5 +23,9 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('signin/', signin, name='signin'),
     path('logout/', log_out, name='logout'),
-    path('profile/', profile, name='profile')
+    path('profile/', profile, name='profile'),
+    path('password/', password, name='change_password'),
+    path('picture/', picture, name='picture'),
+    url(r'^upload_picture/$', upload_picture, name='upload_picture'),
+    url(r'^save_uploaded_picture/$', save_uploaded_picture, name='save_uploaded_picture'),
 ]

@@ -1332,8 +1332,8 @@
 
 .rev_user .review li.image-review {
     position: relative;
-    left: 38px;
-    top: 8px;
+    left: -78px;
+    top: 0px;
     background-color: #fff;
     box-shadow: -4px 0 15px -7px #333;
     border-radius: 50%;
