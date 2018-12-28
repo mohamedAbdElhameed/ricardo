@@ -42,7 +42,7 @@
                     <h3 class="panel-title">Profile picture</h3>
                 </div>
                 <div class="panel-body">
-                    {% if request.user.buyer.avatar.url %}
+                    {% if request.user.buyer.avatar %}
                     <img src="{{ request.user.buyer.avatar.url }}" style="width: 200px;" class="thumbnail profile-picture">
                     {% else %}
                     <img src="https://www.qualiscare.com/wp-content/uploads/2017/08/default-user.png" style="width: 200px;" class="thumbnail profile-picture">
