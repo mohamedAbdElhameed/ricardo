@@ -1,6 +1,5 @@
 from django.urls import path, include
-from products.views import sub_categories, products_view, product_view, cart_view, delete_cart_element, add_to_cart, \
-    total_price_and_items, payment_confirmation, order_view
+from products.views import *
 from rest_framework.routers import DefaultRouter
 from products.apis.views import *
 from . import views
@@ -26,5 +25,6 @@ urlpatterns = [
     path('cart/add/<int:product>/<int:quantity>/', add_to_cart, name='add_to_cart'),
     path('cart/total/', total_price_and_items, name='total_price'),
     path('payment_confirmation/', payment_confirmation, name='payment_confirmation'),
-    path('orders/', order_view, name='orders')
+    path('orders/', order_view, name='orders'),
+    path('addreview/<int:pk>/', add_review, name='addreview')
 ]

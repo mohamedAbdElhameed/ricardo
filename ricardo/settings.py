@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'rest_framework.authtoken',
     'corsheaders',
+    'likert_field',
+
 
 ]
 

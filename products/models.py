@@ -156,7 +156,6 @@ class Order(models.Model):
     @register.simple_tag
     def total_price(self):
         items = self.order_items.all()
-        print(items)
         price = 0
         for item in items:
             price += item.product.price * item.quantity

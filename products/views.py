@@ -12,11 +12,12 @@ from django.shortcuts import render
 from django.utils.datetime_safe import datetime
 from django.views.decorators.csrf import csrf_exempt
 
+from products.forms import SurveyForm
 from products.models import Category, SubCategory, Product, Cart, Order, OrderItem
 from ricardo import settings
 from start.views import index
 from userprofile.forms import LoginForm, SignUpForm
-from userprofile.models import Buyer, Seller
+from userprofile.models import Buyer, Seller, Review
 
 
 def sub_categories(request, pk):
@@ -273,10 +274,29 @@ def order_view(request):
     buyer = request.user.buyer
 
     orders = Order.objects.filter(buyer=buyer)
-
+    form = SurveyForm()
     context = {
+        'form': form,
         'categories': categories,
         'orders': orders,
     }
 
     return render(request, 'products/orders.html', context)
+
+
+def add_review(request, pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        form = SurveyForm(request.POST)
+        if form.is_valid():
+            rate = float(request.POST['rate'])
+            review = request.POST['review']
+            review = Review(seller=order.seller, buyer=order.buyer, rate=rate, details=review)
+            order.rated = True
+            order.save()
+            review.save()
+
+
+        else:
+            return HttpResponse('this form it not valid')
+    return order_view(request)

@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
-
+from likert_field.models import LikertField
 User._meta.get_field('username')._unique = True
 User._meta.get_field('email')._unique = True
 User._meta.get_field('email')._required = True
@@ -74,7 +74,7 @@ class Review(models.Model):
     buyer = models.ForeignKey(Buyer, on_delete=models.SET_NULL, null=True, blank=True, help_text=_("Buyer"),
                               verbose_name=_("Buyer"))
     details = models.TextField(help_text=_("Details"), verbose_name=_("Details"))
-    rate = models.FloatField(help_text=_("Rate"), verbose_name=_("Rate"))
+    rate = LikertField(help_text=_("Rate"), verbose_name=_("Rate"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
 

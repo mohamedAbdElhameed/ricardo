@@ -1163,7 +1163,7 @@
 }
 
 .profileUser .veiw_text .Pededos .showReviwe {
-    position: absolute;
+    position: relative;
     left: 10%;
     background-color: #fff;
     border-radius: 20px;
