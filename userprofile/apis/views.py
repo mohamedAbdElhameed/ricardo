@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.generics import RetrieveAPIView, CreateAPIView, ListAPIView
+from rest_framework.generics import RetrieveAPIView, CreateAPIView, ListAPIView, RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
@@ -83,3 +83,10 @@ class ReviewView(CreateAPIView):
         order.rated = True
         order.save()
         return super().post(request, *args, **kwargs)
+
+
+class BuyerProfileView(RetrieveUpdateAPIView):
+    serializer_class = BuyerProfileSerializer
+
+    def get_object(self):
+        return self.request.user.buyer

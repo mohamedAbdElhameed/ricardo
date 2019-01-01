@@ -16,6 +16,7 @@ urlpatterns = [
     path("api/register/", UserCreate.as_view(), name="user_create"),
     path("api/login/", LoginView.as_view(), name="login"),
     path('api/review/', ReviewView.as_view()),
+    path('api/profile/', BuyerProfileView.as_view(), name='profile'),
     path('sellers/', sellers_view, name='sellers'),
     path('vendor/<int:pk>/', vendor_view, name='vendor'),
     path('we/', we_view, name='we'),
@@ -28,5 +29,5 @@ urlpatterns = [
     path('picture/', picture, name='picture'),
     url(r'^upload_picture/$', upload_picture, name='upload_picture'),
     url(r'^save_uploaded_picture/$', save_uploaded_picture, name='save_uploaded_picture'),
-    path('profile_change/', profile_change, name='profile_change')
+    path('profile_change/', profile_change, name='profile_change'),
 ]

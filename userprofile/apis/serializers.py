@@ -87,3 +87,9 @@ class ReviewSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['buyer'] = self.context['request'].user.buyer
         return super().create(validated_data)
+
+
+class BuyerProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Buyer
+        fields = ['avatar', 'phone_number', 'address', ]
