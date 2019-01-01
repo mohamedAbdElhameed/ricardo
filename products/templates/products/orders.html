@@ -3,7 +3,8 @@
 {% load likert_fa_stars %}
 {% block extrainhead %}
 <link rel="stylesheet" href={% static "/start/css/style-pages.css" %}>
- <link rel="stylesheet" href={% static "/start/css/star-rating.min.css" %} media="screen, projector, print" type="text/css">
+<link rel="stylesheet" href={%
+      static "/start/css/star-rating.min.css" %} media="screen, projector, print" type="text/css">
 {% endblock %}
 {%block content%}
 
@@ -39,11 +40,11 @@
                                 <div class="detailsProudct">
 
                                     <li>
-     <form method="post" action="{% url 'products:addreview' order.id%}">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Save</button>
-</form>
+                                        <form method="post" action="{% url 'products:addreview' order.id%}">
+                                            {% csrf_token %}
+                                            {{form.as_p}}
+                                            <button type="submit">Save</button>
+                                        </form>
                                         <br>
                                     </li>
                                 </div>
@@ -58,7 +59,7 @@
                     </div>
                 </div>
             </div>
-<hr width="55%" align="left">
+            <hr width="55%" align="left">
             <div class="row">
                 {% for item in order.order_items.all %}
                 <div class="col-md-3">
@@ -86,8 +87,6 @@
 
 
         </div>
-    </div>
-</div>
     </div>
 </div>
 <script src={% static "/start/js/star-rating.min.js"%} type="text/javascript" charset="utf-8"></script>
