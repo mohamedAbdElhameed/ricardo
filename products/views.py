@@ -125,8 +125,8 @@ def cart_view(request):
             amount += product.product.price * product.quantity
             number_of_products += product.quantity
         currency = 'COP'
-        tax = str(round(amount / 100 * 17, 2))
-        base = str(round(amount / 100 * 83, 2))
+        tax = str(0)
+        base = str(amount)
         signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
         small_carts.append({
             'seller': seller,

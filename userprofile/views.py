@@ -11,7 +11,7 @@ from django import http
 # Create your views here.
 from products.models import Category
 from rest_framework.authtoken.models import Token
-
+import time
 from ricardo import settings
 from userprofile.forms import ContactForm, SignUpForm, LoginForm, PasswordForm, ProfileForm
 from userprofile.models import Seller, Contact, Buyer
@@ -265,23 +265,24 @@ def upload_picture(request):
 
 @login_required
 def save_uploaded_picture(request):
-    try:
+    # try:
         x = int(request.POST['x'])
         y = int(request.POST['y'])
         w = int(request.POST['w'])
         h = int(request.POST['h'])
+        time_now = str(int(round(time.time() * 1000)))
         tmp_filename = settings.MEDIA_ROOT + '/' + request.user.username + '_tmp.jpg'
-        filename = settings.MEDIA_ROOT + '/' + request.user.username + '.jpg'
+        filename = settings.MEDIA_ROOT + '/' + request.user.username + time_now + '.jpg'
         im = Image.open(tmp_filename)
         cropped_im = im.crop((x, y, w + x, h + y))
         cropped_im.thumbnail((200, 200), Image.ANTIALIAS)
         cropped_im.save(filename)
         os.remove(tmp_filename)
         buyer = request.user.buyer
-        buyer.avatar = request.user.username + '.jpg'
+        buyer.avatar = filename
         buyer.save()
-        return HttpResponse(settings.MEDIA_URL + '/' + request.user.username + '.jpg')
-    except Exception:
+        return HttpResponse(settings.MEDIA_URL + '/' + request.user.username + time_now + '.jpg')
+    # except Exception:
         return HttpResponseBadRequest()
 
 

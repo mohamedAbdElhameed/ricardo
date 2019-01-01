@@ -43,7 +43,7 @@
                         </div><!--/.skitter-->
                         <!--****/SKITTER****-->
                         <div class="caption">
-                            <h3>Description</h3>
+                            <h3>Descripción</h3>
                             <p>
                                 {{product.description}}
                             </p>
@@ -52,7 +52,7 @@
                     <div class="col-md-6">
                         <div class="details">
                             <ul class="list-unstyled">
-                                <h4>Coucho</h4>
+                                <h4>{{product.name}}</h4>
                                 <li><b><i class="fa fa-map-marker"></i> Municipio: </b><span>{{product.seller.city.name}}</span></li>
                                 {% for attribute in product.additional_attributes.all %}
                                 <li><b><i class="fa fa-map-marker"></i> {{attribute.product_additional_attribute.name}}: </b><span>{{attribute.additional_attribute_value}}</span></li>
@@ -89,12 +89,12 @@
                                 </span>
                             </a>
                             <div class="about-vendor">
-                                <strong><p>calling extra attention</p></strong>
-                                <span class="pull-left"><i class="fa fa-money"></i> $12.000 Ciduas</span>
+                                <strong><p>costo estimado de envío</p></strong>
+                                <span class="pull-left"><i class="fa fa-money"></i> $12.000 Capitales</span>
                                 <span class="pull-right"><i class="fa fa-money"></i> $20.000 Nacional</span>
                                 <br>
                                 <br>
-                                <strong class="text-center"><p>"calling extra attention"</p></strong>
+                                <strong class="text-center"><p>"envío contraentrega"</p></strong>
                             </div><!--/.about-vendor-->
                         </div><!--/.acount-->
                     </div><!--/.col-->
