@@ -127,8 +127,8 @@ class CartViewForMobile(RetrieveAPIView):
                 amount += product.product.price * product.quantity
                 number_of_products += product.quantity
             currency = 'COP'
-            tax = str(round(amount / 100 * 17, 2))
-            base = str(round(amount / 100 * 83, 2))
+            tax = str(0)
+            base = str(amount)
             signature = hashlib.md5(
                 (apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode(
                     'utf-8')).hexdigest()
@@ -154,7 +154,7 @@ class CartViewForMobile(RetrieveAPIView):
                                     <input name="extra2" type="hidden" value="{{cart.seller.id}}">
                                     <input name="responseUrl" type="hidden" value="{{response_url}}">
                                     <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}">
-                                    <input class="button" name="Submit" type="submit" value="Proceder con pago">
+                                    <input class="button" name="Submit" type="submit" value="Proceder con pago" style="align:center; font-size:72px; padding:30px;margin-top:200px">
                                 </form>
         '''
             form = form.replace('{{cart.merchant_id}}', merchant_id)
