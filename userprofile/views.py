@@ -265,7 +265,7 @@ def upload_picture(request):
 
 @login_required
 def save_uploaded_picture(request):
-    # try:
+    try:
         x = int(request.POST['x'])
         y = int(request.POST['y'])
         w = int(request.POST['w'])
@@ -279,10 +279,10 @@ def save_uploaded_picture(request):
         cropped_im.save(filename)
         os.remove(tmp_filename)
         buyer = request.user.buyer
-        buyer.avatar = filename
+        buyer.avatar = request.user.username + time_now + '.jpg'
         buyer.save()
         return HttpResponse(settings.MEDIA_URL + '/' + request.user.username + time_now + '.jpg')
-    # except Exception:
+    except Exception:
         return HttpResponseBadRequest()
 
 
