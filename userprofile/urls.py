@@ -17,6 +17,7 @@ urlpatterns = [
     path("api/login/", LoginView.as_view(), name="login"),
     path('api/review/', ReviewView.as_view()),
     path('api/profile/', BuyerProfileView.as_view(), name='profile'),
+    path('api/change_password/', ChangePasswordView.as_view(), name='change_password'),
     path('sellers/', sellers_view, name='sellers'),
     path('vendor/<int:pk>/', vendor_view, name='vendor'),
     path('we/', we_view, name='we'),

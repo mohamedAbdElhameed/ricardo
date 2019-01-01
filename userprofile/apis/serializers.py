@@ -93,3 +93,11 @@ class BuyerProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Buyer
         fields = ['avatar', 'phone_number', 'address', ]
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
