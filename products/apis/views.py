@@ -133,7 +133,7 @@ class CartViewForMobile(RetrieveAPIView):
                 (apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode(
                     'utf-8')).hexdigest()
             form = '''
-                <form method="post" action="{{action_url}}">
+                <form method="post" action="{{action_url}}" style="text-align:center">
                                     <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
                                     <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
                                     <input name="description" type="hidden" value="{{description}}">
