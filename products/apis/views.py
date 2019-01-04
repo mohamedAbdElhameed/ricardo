@@ -133,7 +133,7 @@ class CartViewForMobile(RetrieveAPIView):
                 (apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode(
                     'utf-8')).hexdigest()
             form = '''
-                <form method="post" action="{{action_url}}" style="text-align:center">
+                <form id="lol" method="post" action="{{action_url}}" style="text-align:center">
                                     <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
                                     <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
                                     <input name="description" type="hidden" value="{{description}}">
@@ -156,6 +156,7 @@ class CartViewForMobile(RetrieveAPIView):
                                     <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}">
                                     <input class="button" name="Submit" type="submit" value="Proceder con pago" style="align:center; font-size:72px; padding:30px;margin-top:200px">
                                 </form>
+                                <script>document.getElementById('lol').submit();</script>
         '''
             form = form.replace('{{cart.merchant_id}}', merchant_id)
             form = form.replace('{{cart.reference_code}}', reference_code)
