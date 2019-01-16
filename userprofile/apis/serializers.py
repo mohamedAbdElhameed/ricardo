@@ -92,16 +92,24 @@ class ReviewSerializer(serializers.ModelSerializer):
 class BuyerProfileSerializer(serializers.ModelSerializer):
     user_name = serializers.SerializerMethodField()
     email = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Buyer
-        fields = ['avatar', 'phone_number', 'address', 'user_name', 'email']
+        fields = ['avatar', 'phone_number', 'address', 'user_name', 'email', 'first_name', 'last_name']
 
     def get_user_name(self, buyer):
         return buyer.user.username
 
     def get_email(self, buyer):
         return buyer.user.email
+
+    def get_first_name(self, buyer):
+        return buyer.user.first_name
+
+    def get_last_name(self, buyer):
+        return buyer.user.last_name
 
 
 class ChangePasswordSerializer(serializers.Serializer):
