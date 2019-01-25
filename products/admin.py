@@ -21,7 +21,7 @@ class RequiredInlineFormSet(BaseInlineFormSet):
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    extra = 1
+    extra = 0
     formset = RequiredInlineFormSet
 
 
@@ -68,6 +68,11 @@ class ProductAdmin(admin.ModelAdmin):
             self.list_editable = ['active']
 
         return super(ProductAdmin, self).get_list_display(request)
+
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'seller', None) is None:
+            obj.seller = request.user
+        super(ProductAdmin, self).save_model(request, obj, form, change)
 
 
 class CategoryAdmin(admin.ModelAdmin):
