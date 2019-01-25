@@ -116,6 +116,7 @@ def cart_view(request):
     for seller in sellers:
         apikey = seller.APIKEY or '4Vj8eK4rloUd272L48hsrarnUA'
         merchant_id = seller.merchant_id or '508029'
+        account_id = seller.account_id or '512321'
         date = str(datetime.now())
         reference_code = str(user.buyer.id) + str(seller.name) + date
         products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller)
@@ -126,13 +127,14 @@ def cart_view(request):
             number_of_products += product.quantity
         currency = 'COP'
         tax = str(0)
-        base = str(amount)
+        base = str(0)
         signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
         small_carts.append({
             'seller': seller,
             'products': products,
             'APIKEY': apikey,
             'merchant_id': merchant_id,
+            'account_id': account_id,
             'amount': str(amount),
             'signature': signature,
             'reference_code': reference_code,
@@ -144,14 +146,14 @@ def cart_view(request):
     currency = 'COP'
     if settings.DEBUG:
         action_url = "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
-        account_id = '512321'
+        # account_id = '512321'
         test = '1'
         host = 'http://www.artesaniasdeboyaca.com/'
     else:
         action_url = "https://checkout.payulatam.com/ppp-web-gateway-payu"
-        account_id = '512321'
+        # account_id = '512321'
         test = '0'
-        host = 'https://peaku.co/'
+        host = 'http://www.artesaniasdeboyaca.com/'
 
     response_url = host
     confirmation_url = host + 'products/payment_confirmation/'
@@ -170,7 +172,7 @@ def cart_view(request):
         'number_of_products': number_of_products,
         "total_price": total_price,
         "action_url": action_url,
-        "account_id": account_id,
+        # "account_id": account_id,
         "currency": currency,
         "test": test,    # to test credit card
         "description": description,

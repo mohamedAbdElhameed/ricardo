@@ -61,7 +61,7 @@
                                     <input name="tax" type="hidden" value="{{cart.tax}}">
                                     <input name="taxReturnBase" type="hidden" value="{{cart.base}}">
                                     <input name="signature" type="hidden" value="{{cart.signature}}">
-                                    <input name="accountId" type="hidden" value="{{account_id}}">
+                                    <input name="accountId" type="hidden" value="{{cart.account_id}}">
                                     <input name="currency" type="hidden" value="{{currency}}">
                                     <input name="buyerFullName" type="hidden" value="{{buyer_name}}">
                                     <input name="buyerEmail" type="hidden" value="{{buyer_email}}">
@@ -69,7 +69,7 @@
                                     <input name="shippingCity" type="hidden" value="Tunja">
                                     <input name="shippingCountry" type="hidden" value="COP">
                                     <input name="telephone" type="hidden" value="3141234567">
-                                    <input name="test" type="hidden" value="1">
+                                    <input name="test" type="hidden" value={{test}}>
                                     <input name="extra1" type="hidden" value="{{ request.user.id }}">
                                     <input name="extra2" type="hidden" value="{{cart.seller.id}}">
                                     <input name="responseUrl" type="hidden" value="{{response_url}}">

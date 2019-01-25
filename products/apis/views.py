@@ -118,6 +118,7 @@ class CartViewForMobile(RetrieveAPIView):
         for seller in sellers:
             apikey = seller.APIKEY or '4Vj8eK4rloUd272L48hsrarnUA'
             merchant_id = seller.merchant_id or '508029'
+            account_id = seller.account_id or '512321'
             date = str(datetime.now())
             reference_code = str(user.buyer.id) + str(seller.name) + date
             products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller)
@@ -128,7 +129,7 @@ class CartViewForMobile(RetrieveAPIView):
                 number_of_products += product.quantity
             currency = 'COP'
             tax = str(0)
-            base = str(amount)
+            base = str(0)
             signature = hashlib.md5(
                 (apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode(
                     'utf-8')).hexdigest()
@@ -149,7 +150,7 @@ class CartViewForMobile(RetrieveAPIView):
                                     <input name="shippingCity" type="hidden" value="Tunja">
                                     <input name="shippingCountry" type="hidden" value="COP">
                                     <input name="telephone" type="hidden" value="3141234567">
-                                    <input name="test" type="hidden" value="1">
+                                    <input name="test" type="hidden" value="0">
                                     <input name="extra1" type="hidden" value="{{ request.user.id }}">
                                     <input name="extra2" type="hidden" value="{{cart.seller.id}}">
                                     <input name="responseUrl" type="hidden" value="{{response_url}}">
@@ -165,7 +166,7 @@ class CartViewForMobile(RetrieveAPIView):
             form = form.replace('{{cart.tax}}', str(tax))
             form = form.replace('{{cart.base}}', str(base))
             form = form.replace('{{cart.signature}}', signature)
-            form = form.replace('{{account_id}}', str(512321))
+            form = form.replace('{{account_id}}', account_id)
             form = form.replace('{{currency}}', 'COP')
             form = form.replace('{{buyer_name}}', self.request.user.username)
             form = form.replace('{{buyer_email}}', self.request.user.email)

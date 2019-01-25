@@ -110,8 +110,10 @@ class PasswordForm(PasswordChangeForm):
 
 
 class ProfileForm(forms.ModelForm):
-    phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=15, required=False)
-    address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), max_length=250, required=False)
+    phone_number = forms.CharField(label='Número de Teléfono', widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=15, required=False)
+    address = forms.CharField(label='Dirección', widget=forms.Textarea(attrs={'class': 'form-control'}), max_length=250, required=False)
+    full_name = forms.CharField(label="nombre completo", widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=150, required=False)
+    national_id = forms.CharField(label="Documento" , widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=20, required=False)
     # public_email = forms.CharField(widget=forms.EmailInput(attrs={ 'class': 'form-control' }), max_length=254, required=False)
     # url = forms.CharField(widget=forms.TextInput(attrs={ 'class': 'form-control' }), max_length=50, required=False)
     # institution = forms.CharField(widget=forms.TextInput(attrs={ 'class': 'form-control' }), max_length=50, required=False)
@@ -119,4 +121,4 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Buyer
-        fields = ['phone_number', 'address']
+        fields = ['full_name', 'national_id', 'phone_number', 'address']

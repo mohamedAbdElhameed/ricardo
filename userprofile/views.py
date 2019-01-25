@@ -173,7 +173,7 @@ def signin(request):
                 if not form.cleaned_data['remember_me']:
                     request.session.set_expiry(0)
             else:
-                messages.add_message(request, messages.ERROR, 'bad credentials')
+                messages.add_message(request, messages.ERROR, 'Datos incorrectos')
             return HttpResponseRedirect('/')
 
 
@@ -259,6 +259,7 @@ def upload_picture(request):
         else:
             messages.error(request, u'Invalid file format.')
     except Exception:
+        print(Exception)
         messages.error(request, u'An expected error occurred.')
     return redirect('/userprofile/picture/')
 
@@ -292,7 +293,7 @@ def profile_change(request):
         form = ProfileForm(request.POST, instance=request.user.buyer)
         if form.is_valid():
             form.save()
-            messages.success(request, u'Your profile were successfully edited.')
+            messages.success(request, u'Su perfil se ha actualizado correctamente.')
             return redirect('userprofile:profile_change')
     else:
         form = ProfileForm(instance=request.user.buyer)

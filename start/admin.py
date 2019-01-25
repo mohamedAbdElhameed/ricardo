@@ -30,6 +30,6 @@ class StartDetailAdmin(admin.ModelAdmin):
 
 admin.site.register(StartDetail, StartDetailAdmin)
 
-admin.site.site_header = "Ricardo"
-admin.site.site_title = "Ricardo"
-admin.site.index_title = "Ricardo"
+admin.site.site_header = "Artesanías de Boyacá"
+admin.site.site_title = "Artesanías de Boyacá"
+admin.site.index_title = "Artesanías de Boyacá"

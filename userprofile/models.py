@@ -38,6 +38,7 @@ class Seller(Model):
     number_of_rates = models.IntegerField(default='0', help_text=_("Number"), verbose_name=_("Number"))
     phone_number = models.CharField(max_length=20, help_text=_("Phone Number"), verbose_name=_("Phone Number"))
     APIKEY = models.CharField(max_length=100, null=True, blank=True)
+    account_id = models.CharField(max_length=100, null=True, blank=True)
     merchant_id = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
@@ -57,6 +58,8 @@ class Buyer(Model):
     phone_number = models.CharField(max_length=15, null=True, blank=True, help_text=_("Phone Number"),
                                     verbose_name=_("Phone Number"))
     address = models.CharField(max_length=250, null=True, blank=True, help_text=_("Address"), verbose_name=_("Address"))
+    full_name = models.CharField(max_length=150, null=True, blank=True, help_text=_("full_name"), verbose_name=_("full_name"))
+    national_id = models.CharField(max_length=20, null=True, blank=True, help_text=_("national_id"), verbose_name=_("national_id"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
 

@@ -39,7 +39,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Profile picture</h3>
+                    <h3 class="panel-title">Foto de perfil</h3>
                 </div>
                 <div class="panel-body">
                     {% if request.user.buyer.avatar %}
@@ -49,7 +49,7 @@
                     {% endif %}
                 </div>
                 <div class="panel-footer">
-                    <button type="button" class="btn btn-primary" id="btn-upload-picture">Upload new picture</button>
+                    <button type="button" class="btn btn-primary" id="btn-upload-picture">subir nueva foto</button>
                 </div>
             </div>
 
@@ -59,12 +59,12 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Crop Profile Picture</h4>
+                            <h4 class="modal-title">Foto de perfil de cultivo</h4>
                         </div>
                         <div class="modal-body">
                             {% if uploaded_picture %}
                             <div class="selected-picture">
-                                <p>Crop the profile picture and then click on the <strong>Save Picture</strong> button
+                                <p>Recorta la imagen de perfil y luego haz clic en <strong>Guardar imagen</strong> botón
                                 </p>
                                 <img src="{{ MEDIA_URL }}/{{ request.user.username }}_tmp.jpg"
                                      id="crop-picture">
@@ -76,8 +76,8 @@
                             {% endif %}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success btn-save-picture">Save picture</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-success btn-save-picture">Guardar imagen</button>
                         </div>
                     </div>
                 </div>
