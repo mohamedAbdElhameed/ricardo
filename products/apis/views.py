@@ -175,7 +175,7 @@ class CartViewForMobile(RetrieveAPIView):
             form = form.replace('{{response_url}}', 'http://www.artesaniasdeboyaca.com/')
             form = form.replace('{{confirmation_url}}',
                                 'http://www.artesaniasdeboyaca.com/products/payment_confirmation/')
-            form = form.replace('{{action_url}}', "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/")
+            form = form.replace('{{action_url}}', "https://checkout.payulatam.com/ppp-web-gateway-payu/")
             small_carts.append({
                 'seller': seller.name,
                 # 'data': products.values('id', 'product', 'quantity'),
