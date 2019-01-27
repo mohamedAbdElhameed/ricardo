@@ -25,6 +25,9 @@ def sellers_view(request):
     sign_in_form = LoginForm()
     positions = []
     for seller in sellers:
+        if seller.latitude is None or seller.longitude is None:
+            continue
+
         if seller.city:
             positions.append([seller.city.name, float(seller.latitude), float(seller.longitude)])
         else:

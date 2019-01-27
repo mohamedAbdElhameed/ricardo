@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from rest_auth.views import PasswordResetView
 from rest_framework import status
 from rest_framework.generics import RetrieveAPIView, CreateAPIView, ListAPIView, RetrieveUpdateAPIView, UpdateAPIView
 from rest_framework.response import Response
@@ -121,3 +122,18 @@ class ChangePasswordView(UpdateAPIView):
             }, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ResetMyPassword(PasswordResetView):
+
+    def post(self, request, *args, **kwargs):
+        email = request.data['email']
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            user = None
+        if user is None:
+            return Response({
+                'detail': 'Este correo electrónico no existe en el sistema.',
+            }, status.HTTP_400_BAD_REQUEST)
+        return super().post(request, *args, **kwargs)

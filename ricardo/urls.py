@@ -28,4 +28,5 @@ urlpatterns = [
     path('products/', include('products.urls', namespace='products')),
     path('stories/', include('stories.urls', namespace='stories')),
     path('userprofile/', include('userprofile.urls', namespace='userprofile')),
+    url('^', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + staticfiles_urlpatterns()

@@ -23,8 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^kpr3e&)lr@b^np#v-ah5c9rwk3+9q^u*pjp(uv+#xwi(hfd_b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+DEBUG = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL=True
 CORS_ORIGIN_WHITELIST = (
@@ -149,7 +149,11 @@ LANGUAGES = (
     ('es', _('Spanish')),
     ('en', _('English')),
 )
-
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "millemille660@gmail.com"
+EMAIL_HOST_PASSWORD = 'jarjarjar'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 MULTILINGUAL_LANGUAGES = (
     "en-us",
     "es",
