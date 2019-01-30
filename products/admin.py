@@ -73,7 +73,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'seller', None) is None:
-            obj.seller = Seller.objegt.get(user=request.user)
+            obj.seller = Seller.objects.get(user=request.user)
         super(ProductAdmin, self).save_model(request, obj, form, change)
 
 
