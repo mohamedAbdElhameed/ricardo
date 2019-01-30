@@ -11,20 +11,21 @@ from .models import Category, Product, ProductImage, ProductAdditionalAttributeV
     ProductAdditionalAttributeName, SubCategory, Cart, Order, OrderItem, Status, OrderProxy
 
 
-class RequiredInlineFormSet(BaseInlineFormSet):
-    def _construct_form(self, i, **kwargs):
-        """
-        Override the method to change the form attribute empty_permitted
-        """
-        form = super(RequiredInlineFormSet, self)._construct_form(i, **kwargs)
-        form.empty_permitted = False
-        return form
+class AtLeastOneRequiredInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        """Check that at least one service has been entered."""
+        super(AtLeastOneRequiredInlineFormSet, self).clean()
+        if any(self.errors):
+            return
+        if not any(cleaned_data and not cleaned_data.get('DELETE', False)
+            for cleaned_data in self.cleaned_data):
+            raise forms.ValidationError('Al menos una imagen requerida.')
 
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 0
-    formset = RequiredInlineFormSet
+    formset = AtLeastOneRequiredInlineFormSet
 
 
 class ProductAdditionalAttributeValueInline(admin.TabularInline):

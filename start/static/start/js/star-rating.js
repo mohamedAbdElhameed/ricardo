@@ -229,11 +229,11 @@
         showCaption: true,
         defaultCaption: '{rating} Stars',
         starCaptions: {
-            1: 'One Star',
-            2: 'Two Stars',
-            3: 'Three Stars',
-            4: 'Four Stars',
-            5: 'Five Stars'
+            1: 'Una Estrella',
+            2: 'Dos Estrellas',
+            3: 'Tres Estrellas',
+            4: 'Cuatro Estrellas',
+            5: 'Cinco Estrellas'
         },
         starCaptionClasses: {
             1: 'label label-danger',
@@ -244,7 +244,7 @@
         },
         clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
         clearButtonTitle: 'Clear',
-        clearCaption: 'Not Rated',
+        clearCaption: 'Sin calificar',
         clearCaptionClass: 'label label-default',
         clearValue: 0,
         captionElement: null,
