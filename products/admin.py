@@ -74,6 +74,8 @@ class ProductAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'seller', None) is None:
             obj.seller = Seller.objects.get(user=request.user)
+        if not request.user.is_superuser:
+            obj.active = False
         super(ProductAdmin, self).save_model(request, obj, form, change)
 
 
