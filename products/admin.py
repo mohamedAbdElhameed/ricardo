@@ -5,6 +5,8 @@ from django.forms import BaseInlineFormSet
 from django import forms
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 from django.utils.translation import gettext_lazy as _
+
+from userprofile.models import Seller
 from .models import Category, Product, ProductImage, ProductAdditionalAttributeValue, \
     ProductAdditionalAttributeName, SubCategory, Cart, Order, OrderItem, Status, OrderProxy
 
@@ -71,7 +73,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'seller', None) is None:
-            obj.seller = request.user
+            obj.seller = Seller.objegt.get(user=request.user)
         super(ProductAdmin, self).save_model(request, obj, form, change)
 
 
