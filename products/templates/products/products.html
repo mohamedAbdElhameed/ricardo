@@ -29,7 +29,7 @@
                         <span class="pull-left"><a href="{% url 'userprofile:vendor' product.seller.id%}">
                             <i
                                     class="fa fa-user"></i> {% if product.seller.user.username|length > 18 %}
-                            {{product.seller.user.username|slice:"0:18"}}
+                            {{product.seller.user.username|slice:"0:18"}}...
                             {% else %}
                             {{product.seller.user.username}}
                             {% endif %}
