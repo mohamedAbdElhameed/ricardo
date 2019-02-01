@@ -136,7 +136,7 @@ msgstr "Imagen del producto"
 
 #: .\products\models.py:69
 msgid "Product Images"
-msgstr "Imgenes del producto"
+msgstr "Imagenes del producto"
 
 #: .\products\models.py:78
 msgid "Product Additional Attribute Name"
