@@ -20,7 +20,12 @@
                             <div class="img-proudct">
                                 <img class="img-responsive" src={{product.images.all.0.image.url}} alt="">
                             </div><!--/.img-proudct-->
+                            {% if product.name|length > 18 %}
+                            <h4>{{product.name|slice:"0:18"}}...</h4>
+                            {% else %}
                             <h4>{{product.name}}</h4>
+                            {% endif %}
+
                             <span class="pull-left"><a href="{% url 'userprofile:vendor' product.seller.id%}"><i class="fa fa-user"></i> {{product.seller.user.username}}</a></span>
                             <span class="pull-right">{{product.price}}$</span>
                         </a>
