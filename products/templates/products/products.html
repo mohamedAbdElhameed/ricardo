@@ -6,69 +6,79 @@
 {% endblock %}
 {%block content%}
 <div class="page-proudcts">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li><a href="{% url 'products:category' category.id %}">{{category.name}}</a></li>
-                <li class="active">{{subcategory.name}}</li>
-            </ol><!--/.breadcrumb-->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'products:category' category.id %}">{{category.name}}</a></li>
+            <li class="active">{{subcategory.name}}</li>
+        </ol><!--/.breadcrumb-->
 
-             <div class="row">
-                 {% for product in products %}
-                <div class="col-md-3">
-                    <div class="proudct">
-                        <a href="{% url 'products:product' product.id %}">
-                            <div class="img-proudct">
-                                <img class="img-responsive" src={{product.images.all.0.image.url}} alt="">
-                            </div><!--/.img-proudct-->
-                            {% if product.name|length > 18 %}
-                            <h4>{{product.name|slice:"0:18"}}...</h4>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-3">
+                <div class="proudct">
+                    <a href="{% url 'products:product' product.id %}">
+                        <div class="img-proudct">
+                            <img class="img-responsive" src={{product.images.all.0.image.url}} alt="">
+                        </div><!--/.img-proudct-->
+                        {% if product.name|length > 18 %}
+                        <h4>{{product.name|slice:"0:18"}}...</h4>
+                        {% else %}
+                        <h4>{{product.name}}</h4>
+                        {% endif %}
+
+                        <span class="pull-left"><a href="{% url 'userprofile:vendor' product.seller.id%}">
+                            <i
+                                    class="fa fa-user"></i> {% if product.seller.user.username|length > 18 %}
+                            {{product.seller.user.username|slice:"0:18"}}
                             {% else %}
-                            <h4>{{product.name}}</h4>
+                            {{product.seller.user.username}}
                             {% endif %}
 
-                            <span class="pull-left"><a href="{% url 'userprofile:vendor' product.seller.id%}"><i class="fa fa-user"></i> {{product.seller.user.username}}</a></span>
-                            <span class="pull-right">{{product.price}}$</span>
-                        </a>
-                    </div><!--/.proudct-->
-
-                </div><!--/.col-->
-                 {% endfor %}
-            </div><!--/.row-->
 
 
-            </div><!--/.row-->
-            <nav class="text-center" style="margin-top: 61px;" aria-label="...">
-              <div class="pagination">
+                        </a></span>
+                        <span class="pull-right">{{product.price}}$</span>
+                    </a>
+                </div><!--/.proudct-->
+
+            </div><!--/.col-->
+            {% endfor %}
+        </div><!--/.row-->
+
+
+    </div><!--/.row-->
+    <nav class="text-center" style="margin-top: 61px;" aria-label="...">
+        <div class="pagination">
     <span class="step-links">
         <div class="pagination">
     <span class="step-links">
         {% if products.has_other_pages %}
   <ul class="pagination">
-    {% if products.has_previous %}
+      {% if products.has_previous %}
       <li><a href="?page={{ products.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in products.paginator.page_range %}
-      {% if products.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
       {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      <li class="disabled"><span>&laquo;</span></li>
       {% endif %}
-    {% endfor %}
-    {% if products.has_next %}
+      {% for i in products.paginator.page_range %}
+      {% if products.number == i %}
+      <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+      <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if products.has_next %}
       <li><a href="?page={{ products.next_page_number }}">&raquo;</a></li>
-    {% else %}
+      {% else %}
       <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
+      {% endif %}
   </ul>
 {% endif %}
     </span>
-</div>
+        </div>
     </span>
-</div>
-            </nav>
-        </div><!--/.container-->
-    </div>
+        </div>
+    </nav>
+</div><!--/.container-->
+
 {%endblock%}
 
