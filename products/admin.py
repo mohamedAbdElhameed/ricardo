@@ -183,7 +183,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(OrderAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
+        if request.user.is_superuser or not hasattr(request.user, Seller):
             return qs
         # order_items = OrderItem.objects.filter(product__in= [product for product in request.user.seller.seller_products.all()])
         return qs.filter(seller=request.user.seller)
@@ -211,7 +211,7 @@ class OrderProxyAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(OrderProxyAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
+        if request.user.is_superuser or not hasattr(request.user, Seller):
             return qs
         return qs.filter(seller=request.user.seller)
 
