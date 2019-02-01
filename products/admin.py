@@ -61,7 +61,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ProductAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
+        if request.user.is_superuser or not hasattr(request.user, 'Seller'):
             return qs
         return qs.filter(seller=request.user.seller)
 
