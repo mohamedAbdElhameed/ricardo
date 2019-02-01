@@ -62,7 +62,7 @@
 <!--.proudcts-->
 <div class="proudcts vendors-page">
     <div class="container">
-        <h2 class="text-center">Proudctos</h2>
+        <h2 class="text-center">Productos</h2>
         <hr>
         <div class="row">
             {% for product in seller.seller_products.all %}
@@ -74,7 +74,7 @@
                             <img class="img-responsive" src="{{product.images.all.0.image.url}}" alt="">
                         </div><!--/.img-proudct-->
                         <h4>{{product.name}}</h4>
-                        <span>{{product.price}}$</span>
+                        <span>${{product.price|floatformat:"0"}}</span>
                     </a>
                 </div><!--/.proudct-->
             </div><!--/.col-->
