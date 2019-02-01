@@ -140,10 +140,10 @@ class Order(models.Model):
     def email(self):
         return self.buyer.user.email
 
-    def address(self):
+    def direccion(self):
         return self.buyer.address
 
-    def phone_number(self):
+    def telefono(self):
         return self.buyer.phone_number
 
     def total_quantity(self):

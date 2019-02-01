@@ -140,20 +140,20 @@ class InlineOrderItems(admin.TabularInline):
 
 class OrderAdminForm(forms.ModelForm):
     email = forms.EmailField(help_text=_("Email"), required=False)
-    phone_number = forms.CharField(help_text=_("Phone_Number"), required=False)
-    address = forms.CharField(help_text=_("Address"), required=False)
-    total_price = forms.CharField(required=False)
-    total_quantity = forms.CharField(required=False)
+    telefono = forms.CharField(help_text=_("Phone_Number"), required=False)
+    direccion = forms.CharField(help_text=_("Address"), required=False)
+    precio_total = forms.CharField(required=False)
+    numero_de_productos = forms.CharField(required=False)
 
     class Meta:
         model = Order
-        fields = ['buyer', 'address', 'phone_number', 'email', 'total_price', 'total_quantity', 'status', 'paid']
+        fields = ['buyer', 'direccion', 'telefono', 'email', 'precio_total', 'numero_de_productos', 'status', 'paid']
 
 
 class OrderAdmin(admin.ModelAdmin):
     form = OrderAdminForm
     inlines = [InlineOrderItems, ]
-    list_display = ['id', 'buyer', 'email', 'phone_number', 'address', 'paid', 'status', 'total_quantity', 'total_price']
+    list_display = ['id', 'buyer', 'email', 'telefono', 'direccion', 'paid', 'status', 'numero_de_productos', 'precio_total']
     list_filter = ['buyer', 'paid']
     search_fields = ['buyer__name', 'id']
 
@@ -166,16 +166,15 @@ class OrderAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-    def total_quantity(self, order):
+    def numero_de_productos(self, order):
         items = order.order_items.all()
         quantity = 0
         for item in items:
             quantity += item.quantity
         return quantity
 
-    def total_price(self, order):
+    def precio_total(self, order):
         items = order.order_items.all()
-        print(items)
         price = 0
         for item in items:
             price += item.product.price * item.quantity

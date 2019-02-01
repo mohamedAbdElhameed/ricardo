@@ -189,7 +189,7 @@ msgstr "Estado"
 
 #: .\products\models.py:129
 msgid "Paid"
-msgstr "Pagado"
+msgstr "PayU"
 
 #: .\products\models.py:132
 msgid "you can change the status form the states list"
