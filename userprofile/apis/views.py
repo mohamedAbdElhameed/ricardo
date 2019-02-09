@@ -53,18 +53,17 @@ class LoginView(APIView):
     permission_classes = ()
 
     def post(self, request, ):
-        email = request.data.get("username")
-        username = User.objects.filter(email=email)
-        if len(username) > 0:
-            username = username[0].username
-        else:
-            username = None
+        username = request.data.get("username")
+        email = User.objects.filter(email=username)
+        if len(email) > 0:
+            username = email[0].username
+
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
         if user:
             return Response({"token": user.auth_token.key})
         else:
-            return Response({"error": "Wrong Credentials"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"error": "Datos incorrectos, intente nuevamente."}, status=HTTP_400_BAD_REQUEST)
 
 
 class ReviewView(CreateAPIView):
@@ -111,7 +110,7 @@ class ChangePasswordView(UpdateAPIView):
         if serializer.is_valid():
             # Check old password
             if not self.object.check_password(serializer.data.get("old_password")):
-                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"old_password": ["Contraseña anterior incorrecta."]}, status=status.HTTP_400_BAD_REQUEST)
             # set_password also hashes the password that the user will get
             self.object.set_password(serializer.data.get("new_password"))
             self.object.save()

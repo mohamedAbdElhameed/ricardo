@@ -155,7 +155,7 @@ class CartViewForMobile(RetrieveAPIView):
                                     <input name="extra2" type="hidden" value="{{cart.seller.id}}">
                                     <input name="responseUrl" type="hidden" value="{{response_url}}">
                                     <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}">
-                                    <input class="button" name="Submit" type="submit" value="Proceder con pago" style="align:center; font-size:72px; padding:30px;margin-top:200px">
+                                    <input class="button" name="Submit" type="submit" value="Procesando pago, por favor espere… " style="align:center; font-size:72px; padding:30px;margin-top:200px">
                                 </form>
                                 <script>document.getElementById('lol').submit();</script>
         '''
