@@ -38,7 +38,7 @@ class ProductsInSubCategoryList(ListAPIView):
 
     def get_queryset(self):
         subcategory = SubCategory.objects.get(pk=self.kwargs['pk'])
-        products = subcategory.subcategory_products.all()
+        products = subcategory.subcategory_products.all().filter(active=True)
         return products
 
 
