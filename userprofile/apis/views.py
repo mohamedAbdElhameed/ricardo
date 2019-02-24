@@ -60,10 +60,10 @@ class LoginView(APIView):
 
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
-        if user.seller is not None:
-            return Response({"error": " Debe acceder desde la Plataforma WEB"}, status=HTTP_400_BAD_REQUEST)
 
         if user:
+            if hasattr(user, 'seller'):
+                return Response({"error": " Debe acceder desde la Plataforma WEB"}, status=HTTP_400_BAD_REQUEST)
             return Response({"token": user.auth_token.key})
         else:
             return Response({"error": "Datos incorrectos, intente nuevamente."}, status=HTTP_400_BAD_REQUEST)
