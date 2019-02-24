@@ -139,3 +139,9 @@ class ResetMyPassword(PasswordResetView):
                 'detail': 'Este correo electrónico no existe en el sistema.',
             }, status.HTTP_400_BAD_REQUEST)
         return super().post(request, *args, **kwargs)
+
+class ProfilePatching(UpdateAPIView):
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
