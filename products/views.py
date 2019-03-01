@@ -137,14 +137,14 @@ def cart_view(request):
         currency = 'COP'
         tax = str(0)
         base = str(0)
-        signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(round(float(amount), 2)) + "~" + currency).encode('utf-8')).hexdigest()
+        signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(round(float(amount), 1)) + "~" + currency).encode('utf-8')).hexdigest()
         small_carts.append({
             'seller': seller,
             'products': products,
             'APIKEY': apikey,
             'merchant_id': merchant_id,
             'account_id': account_id,
-            'amount': str(round(float(amount), 2)),
+            'amount': str(round(float(amount), 1)),
             'signature': signature,
             'reference_code': reference_code,
             'tax': tax,
@@ -255,7 +255,7 @@ def payment_confirmation(request):
     amount = request.POST.get('value')
 
     # Decimal validation, Payu requirement
-    amount = round(float(amount), 2)
+    amount = round(float(amount), 1)
 
     if apikey is None:
         apikey = '4Vj8eK4rloUd272L48hsrarnUA'
