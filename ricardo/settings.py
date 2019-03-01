@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^kpr3e&)lr@b^np#v-ah5c9rwk3+9q^u*pjp(uv+#xwi(hfd_b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL=True
@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'likert_field',
-
+    'payulatam',
 
 ]
 

@@ -268,7 +268,7 @@ def payment_confirmation(request):
 
 
     # Important validation to check the integrity of the data
-    create_signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_sale + "~" + str(amount) + "." + "~" + currency + "~" + transaction_final_state).encode('utf-8')).hexdigest()
+    create_signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_sale + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
 
     if transaction_final_state == PAYU_APPROVED_CODE:
         carts = Cart.objects.filter(buyer=buyer, product__seller=extra2)
