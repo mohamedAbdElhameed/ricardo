@@ -258,6 +258,8 @@ def payment_confirmation(request):
     if amount[-1] == 0:
         amount = round(float(amount), 1)
 
+    if apikey is None:
+        apikey = '4Vj8eK4rloUd272L48hsrarnUA'
     print(apikey)
     print(merchant_id)
     print(reference_sale)
