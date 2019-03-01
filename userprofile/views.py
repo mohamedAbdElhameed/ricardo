@@ -16,7 +16,8 @@ from ricardo import settings
 from userprofile.forms import ContactForm, SignUpForm, LoginForm, PasswordForm, ProfileForm
 from userprofile.models import Seller, Contact, Buyer
 from django.contrib import messages
-
+from django.contrib.auth.views import PasswordResetView
+from django.contrib import admin
 
 def sellers_view(request):
     categories = Category.objects.all()
@@ -301,3 +302,11 @@ def profile_change(request):
     else:
         form = ProfileForm(instance=request.user.buyer)
     return render(request, 'userprofile/profile_edit.html', {'form': form})
+
+
+class CustomResetPasswordView(PasswordResetView):
+
+    def get_context_data(self, **kw):
+        context = super().get_context_data(**kw)
+        context['site_header'] = "Artesanías de Boyacá"  # get site header text. For django 2.X it should be getattr(admin.sites.AdminSite, 'site_header')
+        return context

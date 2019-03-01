@@ -46,7 +46,7 @@
                                 {% else %}
                                 {{product.seller.user.username}}
                                 {% endif %}</a></span>
-                        <span class="pull-right">${{product.price}}</span>
+                        <span class="pull-right">${{product.price|floatformat:"0" }}</span>
                     </a>
                 </div><!--/.proudct-->
             </div><!--/.col-->

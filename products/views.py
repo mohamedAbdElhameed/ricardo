@@ -11,6 +11,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.utils.datetime_safe import datetime
 from django.views.decorators.csrf import csrf_exempt
+import time
 
 from products.forms import SurveyForm
 from products.models import Category, SubCategory, Product, Cart, Order, OrderItem
@@ -60,7 +61,7 @@ def product_view(request, pk):
     user = request.user
     buyer = []
     in_cart = False
-    quantity = 0
+    quantity = None
     if user.is_authenticated:
         buyer = Buyer.objects.get(user=user)
         cart = Cart.objects.filter(buyer=buyer, product=product)
@@ -117,14 +118,16 @@ def cart_view(request):
         apikey = seller.APIKEY or '4Vj8eK4rloUd272L48hsrarnUA'
         merchant_id = seller.merchant_id or '508029'
         account_id = seller.account_id or '512321'
-        date = str(datetime.now())
-        reference_code = str(user.buyer.id) + str(seller.name) + date
+        date = str(int(round(time.time() * 1000)))
+        reference_code = str(user.buyer.id) + date
         products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller)
         amount = 0
+        description = ''
         number_of_products = 0
         for product in products:
             amount += product.product.price * product.quantity
             number_of_products += product.quantity
+            description += product.product.name + ' '
         currency = 'COP'
         tax = str(0)
         base = str(0)
@@ -141,6 +144,7 @@ def cart_view(request):
             'tax': tax,
             'base': base,
             'number_of_products': number_of_products,
+            'description': description
         })
     buyer = user.buyer
     currency = 'COP'
@@ -157,7 +161,6 @@ def cart_view(request):
 
     response_url = host
     confirmation_url = host + 'products/payment_confirmation/'
-    description = "this is test for buying "
 
     categories = Category.objects.all()
     number_of_products = carts.aggregate(Sum('quantity'))['quantity__sum']

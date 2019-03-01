@@ -60,11 +60,11 @@
 
                                 <!--<li><b><i class="fa fa-map-marker"></i> Dimensiones: </b><span>jumbotron-style</span></li>-->
                                 <li><b><i class="fa fa-map-marker"></i> categoria: </b><span>{{category.name}}</span></li>
-                                <li><b><i class="fa fa-map-marker"></i> precio: </b><span>$ {{product.price}}</span></li>
+                                <li><b><i class="fa fa-map-marker"></i> precio: </b><span>$ {{product.price|floatformat:"0" }}</span></li>
                             </ul>
                             <a class="btn-proudct" onclick="add_cart({{product.id}})" id="add_c"><i class="fa fa-shopping-bag"></i> {% if not in_cart %} Anadir Al Carrito {% else %}Actualizarlo en carrito{% endif %}</a>
                             <form action="" method="post">
-                                <label>cantidad </label><input id="number" type="number" min="0" value="{{quantity|default_if_none:0}}">
+                                <label>Cantidad </label><input id="number" type="number" min="1" value="{{quantity|default_if_none:1}}">
                             </form>
                         </div><!--/.details-->
                         <div class="acount">

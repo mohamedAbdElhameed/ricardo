@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 from django.conf.urls.static import static
+
+from userprofile.views import CustomResetPasswordView
 from . import settings
 
 urlpatterns = [
@@ -28,5 +30,7 @@ urlpatterns = [
     path('products/', include('products.urls', namespace='products')),
     path('stories/', include('stories.urls', namespace='stories')),
     path('userprofile/', include('userprofile.urls', namespace='userprofile')),
+    path('password_reset/', CustomResetPasswordView.as_view()),
     url('^', include('django.contrib.auth.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + staticfiles_urlpatterns()
