@@ -115,9 +115,15 @@ def cart_view(request):
             sellers.append(item.product.seller)
 
     for seller in sellers:
-        apikey = seller.APIKEY or '4Vj8eK4rloUd272L48hsrarnUA'
-        merchant_id = seller.merchant_id or '508029'
-        account_id = seller.account_id or '512321'
+        if seller.APIKEY is None or seller.merchant_id is None or seller.account_id is None:
+            apikey = '4Vj8eK4rloUd272L48hsrarnUA'
+            merchant_id = '508029'
+            account_id = '512321'
+        else:
+            apikey = seller.APIKEY
+            merchant_id = seller.merchant_id
+            account_id = seller.account_id
+
         date = str(int(round(time.time() * 1000)))
         reference_code = str(user.buyer.id) + date
         products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller)
@@ -131,7 +137,7 @@ def cart_view(request):
         currency = 'COP'
         tax = str(0)
         base = str(0)
-        signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(round(amount,2)) + "~" + currency).encode('utf-8')).hexdigest()
+        signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(round(amount, 2)) + "~" + currency).encode('utf-8')).hexdigest()
         small_carts.append({
             'seller': seller,
             'products': products,
