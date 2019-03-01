@@ -255,8 +255,7 @@ def payment_confirmation(request):
     amount = request.POST.get('value')
 
     # Decimal validation, Payu requirement
-    if amount[-1] == 0:
-        amount = round(float(amount), 2)
+    amount = round(float(amount), 2)
 
     if apikey is None:
         apikey = '4Vj8eK4rloUd272L48hsrarnUA'
