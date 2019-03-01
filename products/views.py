@@ -256,7 +256,7 @@ def payment_confirmation(request):
 
     # Decimal validation, Payu requirement
     if amount[-1] == 0:
-        amount = round(float(amount), 1)
+        amount = round(float(amount), 2)
 
     if apikey is None:
         apikey = '4Vj8eK4rloUd272L48hsrarnUA'
@@ -273,7 +273,8 @@ def payment_confirmation(request):
 
     if transaction_final_state == PAYU_APPROVED_CODE:
         carts = Cart.objects.filter(buyer=buyer, product__seller=extra2)
-
+        print(create_signature)
+        print(sign)
         if create_signature == sign:
             message = '<h1>0K</h1>'
             order = Order.objects.create(buyer=buyer, paid=True, seller=Seller.objects.get(id=int(extra2)))
