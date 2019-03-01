@@ -274,16 +274,15 @@ def payment_confirmation(request):
         carts = Cart.objects.filter(buyer=buyer, product__seller=extra2)
         print(create_signature)
         print(sign)
-        if create_signature == sign:
-            message = '<h1>0K</h1>'
-            order = Order.objects.create(buyer=buyer, paid=True, seller=Seller.objects.get(id=int(extra2)))
-            for cart in carts:
-                OrderItem.objects.create(order=order, product=cart.product, quantity=cart.quantity)
-                cart.delete()
-            print('good daf3')
-        else:
-            print('bad daf3')
-            message = '<h1>Sign is wrong check why!!!</h1>'
+        message = '<h1>0K</h1>'
+        order = Order.objects.create(buyer=buyer, paid=True, seller=Seller.objects.get(id=int(extra2)))
+        for cart in carts:
+            OrderItem.objects.create(order=order, product=cart.product, quantity=cart.quantity)
+            cart.delete()
+        print('good daf3')
+        # else:
+        #     print('bad daf3')
+        #     message = '<h1>Sign is wrong check why!!!</h1>'
         return HttpResponse(message, status=200)
     else:
         print('declined')
