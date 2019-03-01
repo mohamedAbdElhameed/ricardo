@@ -31,7 +31,7 @@
                                             </h4>
                                             <input type="number" id="number{{cart.product.id}}" min="0"
                                                    value="{{cart.quantity}}">
-                                            <a class="btn-proudct" data-price="{{cart.product.price}}"
+                                            <a class="btn-proudct" data-price="{{cart.product.price|floatformat:0}}"
                                                onclick="add_cart({{cart.product.id}}, {{cart.product.price}})"
                                                id="add_c"><i class="fa fa-shopping-bag"></i> Actualizarlo en carrito</a>
 
@@ -39,11 +39,11 @@
                                                     href="{% url 'userprofile:vendor' cart.product.seller.id %}">{{cart.product.seller}}</a>
                                             </p>
 
-                                            <p><label>Price:</label> ${{cart.product.price}}</p>
+                                            <p><label>Price:</label> ${{cart.product.price|floatformat:"0"}}</p>
                                         </div><!--/.detils-->
                                         <div class="total">
                                             <p id="total{{cart.product.id}}"><label>Precio Total:</label>
-                                                ${{cart.total_cost|floatformat:2}}
+                                                ${{cart.total_cost|floatformat:"0"}}
                                             </p>
 
                                             <p class="delete pull-right" onclick="remove({{cart.id}})"><i
@@ -56,7 +56,7 @@
                                 <form method="post" action={{action_url}}>
                                     <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
                                     <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
-                                    <input name="description" type="hidden" value="{{description}}">
+                                    <input name="description" type="hidden" value="{{cart.description}}">
                                     <input name="amount" type="hidden" value="{{cart.amount}}">
                                     <input name="tax" type="hidden" value="{{cart.tax}}">
                                     <input name="taxReturnBase" type="hidden" value="{{cart.base}}">
@@ -65,7 +65,7 @@
                                     <input name="currency" type="hidden" value="{{currency}}">
                                     <input name="buyerFullName" type="hidden" value="{{buyer_name}}">
                                     <input name="buyerEmail" type="hidden" value="{{buyer_email}}">
-                                    <input name="shippingAddress" type="hidden" value="k2 n 12 34">
+                                    <input name="shippingAddress" type="hidden" value="{{user.buyer.address}}">
                                     <input name="shippingCity" type="hidden" value="Tunja">
                                     <input name="shippingCountry" type="hidden" value="COP">
                                     <input name="telephone" type="hidden" value="3141234567">
@@ -78,7 +78,7 @@
                                     <!--<a class="btn-card">Proceder con pago</a>-->
                                 </form>
 
-                                ${{cart.amount}}
+                                ${{cart.amount|floatformat:"0"}}
                                 {% else %}
                                 <p>Tienes que añadir algunos productos al carrito.</p>
                                 {% endif %}
@@ -101,7 +101,7 @@
                                     <label>Transporte</label> <span>Contraentrega</span>
                                 </li>
                                 <li>
-                                    <label>Total</label> <span class="badge" id="total_price">${{total_price|floatformat:2}}</span>
+                                    <label>Total</label> <span class="badge" id="total_price">${{total_price|floatformat:0}}</span>
                                 </li>
                                 <li class="text-center">
                                     <p>
@@ -156,6 +156,10 @@
                 });
         }
     }
+
+
+
+
 
 </script>
 {%endblock%}
