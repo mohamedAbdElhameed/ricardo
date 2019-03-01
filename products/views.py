@@ -187,6 +187,7 @@ def cart_view(request):
         "description": description,
         "buyer_name": buyer.user.username,
         "buyer_email": buyer.user.email,
+        "buyer_phone": buyer.phone_number,
         "response_url": response_url,
         "confirmation_url": confirmation_url,
     }
@@ -236,31 +237,29 @@ def add_to_cart(request, product, quantity):
 def payment_confirmation(request):
     # This is Payu transaction approved code, only for confirmation page, not global variable
     PAYU_APPROVED_CODE = '4'
-    if settings.DEBUG:
-        buyer = Buyer.objects.get(user=request.POST.get('extra1'))
-        extra2 = request.POST.get('extra2')
-        transaction_final_state = PAYU_APPROVED_CODE
-        sign = '1234'
-        create_signature = '1234'
-    else:
-        transaction_final_state = request.POST.get('state_pol')
-        response_code_pol = request.POST.get('response_code_pol')
-        payment_method_type = request.POST.get('payment_method_type')
-        currency = request.POST.get('currency')
-        payment_method_id = request.POST.get('payment_method_id')
-        response_message_pol = request.POST.get('response_message_pol')
-        apikey = '4Vj8eK4rloUd272L48hsrarnUA'
-        sign = request.POST.get('sign')
-        merchant_id = request.POST.get('merchant_id')
-        reference_sale = request.POST.get('reference_sale')
-        amount = request.POST.get('value')
 
-        # Decimal validation, Payu requirement
-        if amount[-1] == 0:
-            amount = round(float(amount), 1)
+    buyer = Buyer.objects.get(user=request.POST.get('extra1'))
+    extra2 = request.POST.get('extra2')
+    # transaction_final_state = PAYU_APPROVED_CODE
 
-        # Important validation to check the integrity of the data
-        create_signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_sale + "~" + str(amount) + "." + "~" + currency + "~" + transaction_final_state).encode('utf-8')).hexdigest()
+    transaction_final_state = request.POST.get('state_pol')
+    response_code_pol = request.POST.get('response_code_pol')
+    payment_method_type = request.POST.get('payment_method_type')
+    currency = request.POST.get('currency')
+    payment_method_id = request.POST.get('payment_method_id')
+    response_message_pol = request.POST.get('response_message_pol')
+    apikey = Seller.objects.get(id=extra2).APIKEY
+    sign = request.POST.get('sign')
+    merchant_id = request.POST.get('merchant_id')
+    reference_sale = request.POST.get('reference_sale')
+    amount = request.POST.get('value')
+
+    # Decimal validation, Payu requirement
+    if amount[-1] == 0:
+        amount = round(float(amount), 1)
+
+    # Important validation to check the integrity of the data
+    create_signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_sale + "~" + str(amount) + "." + "~" + currency + "~" + transaction_final_state).encode('utf-8')).hexdigest()
 
     if transaction_final_state == PAYU_APPROVED_CODE:
         carts = Cart.objects.filter(buyer=buyer, product__seller=extra2)
@@ -271,10 +270,13 @@ def payment_confirmation(request):
             for cart in carts:
                 OrderItem.objects.create(order=order, product=cart.product, quantity=cart.quantity)
                 cart.delete()
+            print('good daf3')
         else:
+            print('bad daf3')
             message = '<h1>Sign is wrong check why!!!</h1>'
         return HttpResponse(message, status=200)
     else:
+        print('declined')
         message = '<h1>Something is wrong</h1>' + transaction_final_state
         return HttpResponse(message, status=400)
 
