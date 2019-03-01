@@ -258,6 +258,14 @@ def payment_confirmation(request):
     if amount[-1] == 0:
         amount = round(float(amount), 1)
 
+    print(apikey)
+    print(merchant_id)
+    print(reference_sale)
+    print(amount)
+    print(currency)
+    print(transaction_final_state)
+
+
     # Important validation to check the integrity of the data
     create_signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_sale + "~" + str(amount) + "." + "~" + currency + "~" + transaction_final_state).encode('utf-8')).hexdigest()
 
