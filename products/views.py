@@ -109,7 +109,7 @@ def cart_view(request):
     carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user))
     small_carts = []
     sellers = []
-
+    description = ''
     for item in carts:
         if item.product.seller not in sellers:
             sellers.append(item.product.seller)
