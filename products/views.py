@@ -185,7 +185,7 @@ def cart_view(request):
         "currency": currency,
         "test": test,    # to test credit card
         "description": description,
-        "buyer_name": buyer.user.username,
+        "buyer_name": buyer.full_name,
         "buyer_email": buyer.user.email,
         "buyer_phone": buyer.phone_number,
         "response_url": response_url,
