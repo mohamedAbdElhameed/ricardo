@@ -11,25 +11,25 @@ from userprofile.models import Seller, Buyer
 
 def index(request):
 
-    payment_method_type = request.POST.get('payment_method_type')
+    payment_method_type = request.GET.get('payment_method_type')
 
     if payment_method_type == 7 or payment_method_type == 10:
         PAYU_APPROVED_CODE = '4'
 
-        buyer = Buyer.objects.get(user=request.POST.get('extra1'))
-        extra2 = request.POST.get('extra2')
+        buyer = Buyer.objects.get(user=request.GET.get('extra1'))
+        extra2 = request.GET.get('extra2')
         # transaction_final_state = PAYU_APPROVED_CODE
 
-        transaction_final_state = request.POST.get('state_pol')
-        response_code_pol = request.POST.get('response_code_pol')
-        currency = request.POST.get('currency')
-        payment_method_id = request.POST.get('payment_method_id')
-        response_message_pol = request.POST.get('response_message_pol')
+        transaction_final_state = request.GET.get('state_pol')
+        response_code_pol = request.GET.get('response_code_pol')
+        currency = request.GET.get('currency')
+        payment_method_id = request.GET.get('payment_method_id')
+        response_message_pol = request.GET.get('response_message_pol')
         apikey = Seller.objects.get(id=extra2).APIKEY
-        sign = request.POST.get('sign')
-        merchant_id = request.POST.get('merchant_id')
-        reference_sale = request.POST.get('reference_sale')
-        amount = request.POST.get('value')
+        sign = request.GET.get('sign')
+        merchant_id = request.GET.get('merchant_id')
+        reference_sale = request.GET.get('reference_sale')
+        amount = request.GET.get('value')
 
         # Decimal validation, Payu requirement
         amount = round(float(amount), 1)
