@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from userprofile.models import *
 from products.models import Product
-
+from django.utils.translation import gettext_lazy as _
 
 class SellerSerializer(serializers.ModelSerializer):
     rate = serializers.SerializerMethodField()
@@ -51,11 +51,14 @@ class SellersSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    token = serializers.SerializerMethodField()
+    name_validator = RegexValidator(regex=r'^[a-zA-Z\s]*$', message=_('Only English letters and spaces'))
+    # token = serializers.SerializerMethodField()
+    full_name = serializers.CharField(validators=[name_validator])
+    national_id = serializers.CharField()
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'first_name', 'last_name', 'token']
+        fields = ['email', 'username', 'password', 'first_name', 'last_name', 'full_name', 'national_id']
         extra_kwargs = {'password': {'write_only': True}, }
 
     def create(self, validated_data):
@@ -69,12 +72,14 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         Token.objects.create(user=user)
         buyer = Buyer.objects.create(user=user)
-
+        buyer.full_name = validated_data['full_name']
+        buyer.national_id = validated_data['national_id']
+        buyer.save()
         print(user)
         return user
 
-    def get_token(self, user):
-        return Token.objects.get(user=user).key
+    # def get_token(self, user):
+    #     return Token.objects.get(user=user).key
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -97,7 +102,7 @@ class BuyerProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Buyer
-        fields = ['avatar', 'phone_number', 'address', 'user_name', 'email', 'first_name', 'last_name']
+        fields = ['avatar', 'phone_number', 'address', 'user_name', 'full_name', 'national_id', 'email', 'first_name', 'last_name']
 
     def get_user_name(self, buyer):
         return buyer.user.username

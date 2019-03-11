@@ -48,6 +48,15 @@ class UserCreate(CreateAPIView):
             }, status.HTTP_400_BAD_REQUEST)
         return super().post(request, *args, **kwargs)
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        # headers = self.get_success_headers(serializer.data)
+        return Response({
+            'status': 'ok',
+        }, status=status.HTTP_201_CREATED)
+
 
 class LoginView(APIView):
     permission_classes = ()
@@ -141,7 +150,7 @@ class ResetMyPassword(PasswordResetView):
         return super().post(request, *args, **kwargs)
 
 class ProfilePatching(UpdateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = BuyerProfileSerializer
 
     def get_object(self):
-        return self.request.user
+        return self.request.user.buyer
