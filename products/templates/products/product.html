@@ -107,7 +107,7 @@
         quantity = $("#number").val();
         if (quantity > 0){
                 $.ajax({
-                            url: "http://www.artesaniasdeboyaca.com/products/cart/add/"+product+"/"+quantity+"/",
+                            url: "/products/cart/add/"+product+"/"+quantity+"/",
                             type: 'GET',
                             success: function(res) {
                                 console.log(res);

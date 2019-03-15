@@ -76,7 +76,7 @@
                                     <input name="extra3" type="hidden" value="{{extra3}}">
                                     <input name="responseUrl" type="hidden" value="{{response_url}}">
                                     <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}">
-                                    <input class="button" name="Submit" type="submit"  onClick="submit_form(this.form)" value="Proceder con pago">
+                                    <input class="button" name="Submit" type="submit"  onClick="submit_form(this.form, {{cart.seller.id}})" value="Proceder con pago">
                                     <!--<a class="btn-card">Proceder con pago</a>-->
                                 </form>
 
@@ -126,7 +126,7 @@
 <script>
     function remove(cart){
         $.ajax({
-                    url: "http://www.artesaniasdeboyaca.com/products/cart/delete/"+cart+"/",
+                    url: "/products/cart/delete/"+cart+"/",
                     type: 'GET',
                     success: function(res) {
                         console.log(res);
@@ -145,7 +145,7 @@
         quantity = $("#number"+product).val();
         if (quantity > 0){
                 $.ajax({
-                            url: "http://www.artesaniasdeboyaca.com/products/cart/add/"+product+"/"+quantity+"/",
+                            url: "/products/cart/add/"+product+"/"+quantity+"/",
                             type: 'GET',
                             success: function(res) {
                                 console.log(res);
@@ -178,9 +178,9 @@
         form.submit();
     }
 
-    function submit_form(form){
+    function submit_form(form, seller){
         $.ajax({
-                    url: "/products/hide_cart/{{extra3}}/",
+                    url: "/products/hide_cart/{{extra3}}/"+seller+"/",
                     type: 'GET',
                     dataType: 'json',
                     <!--async: false,-->
