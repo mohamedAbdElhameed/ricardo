@@ -1,18 +1,16 @@
 import hashlib
 from collections import OrderedDict
-
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-
 # Create your views here.
 from django.utils.datetime_safe import datetime
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 import time
-
+from sequences import get_next_value
 from products.forms import SurveyForm
 from products.models import Category, SubCategory, Product, Cart, Order, OrderItem
 from ricardo import settings
@@ -90,13 +88,13 @@ def product_view(request, pk):
         "subcategory": subcategory,
         "category": category,
         "categories": categories,
-        "rate": (rate//1),
+        "rate": (rate // 1),
         "remainder": rate % 1,
         "the_rate": rate,
         "in_cart": in_cart,
         "quantity": quantity,
-        "range": range(1, int(rate//1+1)),
-        "range2": range(1, int(5-(rate//1+1))+flag)
+        "range": range(1, int(rate // 1 + 1)),
+        "range2": range(1, int(5 - (rate // 1 + 1)) + flag)
     }
     if not product.active:
         return HttpResponse("<P>this product is not active now<P>")
@@ -106,7 +104,13 @@ def product_view(request, pk):
 @login_required(login_url='/')
 def cart_view(request):
     user = request.user
-    carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user))
+    carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user), show=True)
+    unique_code = 0
+    for cart in carts:
+        i = Cart.objects.select_for_update().get(pk=cart.id)
+        unique_code = get_next_value('orders', initial_value=113151)
+        i.code = unique_code
+        i.save()
     small_carts = []
     sellers = []
     description = ''
@@ -137,7 +141,8 @@ def cart_view(request):
         currency = 'COP'
         tax = str(0)
         base = str(0)
-        signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(round(float(amount), 1)) + "~" + currency).encode('utf-8')).hexdigest()
+        signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(
+            round(float(amount), 1)) + "~" + currency).encode('utf-8')).hexdigest()
         small_carts.append({
             'seller': seller,
             'products': products,
@@ -183,13 +188,14 @@ def cart_view(request):
         "action_url": action_url,
         # "account_id": account_id,
         "currency": currency,
-        "test": test,    # to test credit card
+        "test": test,  # to test credit card
         "description": description,
         "buyer_name": buyer.full_name,
         "buyer_email": buyer.user.email,
         "buyer_phone": buyer.phone_number,
         "response_url": response_url,
         "confirmation_url": confirmation_url,
+        "extra3": unique_code
     }
     return render(request, 'products/cart.html', context)
 
@@ -240,6 +246,7 @@ def payment_confirmation(request):
 
     buyer = Buyer.objects.get(user=request.POST.get('extra1'))
     extra2 = request.POST.get('extra2')
+    extra3 = request.POST.get('extra3')
     # transaction_final_state = PAYU_APPROVED_CODE
 
     transaction_final_state = request.POST.get('state_pol')
@@ -266,12 +273,13 @@ def payment_confirmation(request):
     print(currency)
     print(transaction_final_state)
 
-
     # Important validation to check the integrity of the data
-    create_signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_sale + "~" + str(amount) + "~" + currency).encode('utf-8')).hexdigest()
+    create_signature = hashlib.md5(
+        (apikey + "~" + merchant_id + "~" + reference_sale + "~" + str(amount) + "~" + currency).encode(
+            'utf-8')).hexdigest()
 
     if transaction_final_state == PAYU_APPROVED_CODE or payment_method_type == 7 or payment_method_type == 10:
-        carts = Cart.objects.filter(buyer=buyer, product__seller=extra2)
+        carts = Cart.objects.filter(buyer=buyer, product__seller=extra2, code=extra3)
         print(create_signature)
         print(sign)
         message = '<h1>0K</h1>'
@@ -322,3 +330,16 @@ def add_review(request, pk):
         else:
             return HttpResponse('this form it not valid')
     return order_view(request)
+
+
+# @login_required(login_url='/')
+def hide_cart(request, ids):
+    print('here')
+    carts = Cart.objects.filter(code=ids, buyer=request.user.buyer)
+    for cart in carts:
+        i = Cart.objects.select_for_update().get(pk=cart.id)
+        i.show = False
+        i.save()
+    return JsonResponse({
+        'status': 'ok'
+    })

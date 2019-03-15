@@ -26,5 +26,6 @@ urlpatterns = [
     path('cart/total/', total_price_and_items, name='total_price'),
     path('payment_confirmation/', payment_confirmation, name='payment_confirmation'),
     path('orders/', order_view, name='orders'),
-    path('addreview/<int:pk>/', add_review, name='addreview')
+    path('addreview/<int:pk>/', add_review, name='addreview'),
+    path('hide_cart/<int:ids>/', hide_cart, name='hidecart'),
 ]

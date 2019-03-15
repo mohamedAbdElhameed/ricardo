@@ -103,6 +103,8 @@ class Cart(Model):
     quantity = models.IntegerField(help_text=_("Quantity"), verbose_name=_("Quantity"))
     created_at = models.DateTimeField(auto_now_add=True, help_text=_("Created At"), verbose_name=_("Created At"))
     modified_at = models.DateTimeField(auto_now=True, help_text=_("Modified At"), verbose_name=_("Modified At"))
+    show = models.BooleanField(default=True)
+    code = models.IntegerField(default=0)
 
     @property
     def total_cost(self):

@@ -53,7 +53,8 @@
                                 </li>
 
                                 {% endfor %}
-                                <form method="post" action={{action_url}}>
+                                <form method="post" onsubmit="return false;">
+                                    {% csrf_token %}
                                     <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
                                     <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
                                     <input name="description" type="hidden" value="{{cart.description}}">
@@ -72,9 +73,10 @@
                                     <input name="test" type="hidden" value="{{test}}">
                                     <input name="extra1" type="hidden" value="{{ request.user.id }}">
                                     <input name="extra2" type="hidden" value="{{cart.seller.id}}">
+                                    <input name="extra3" type="hidden" value="{{extra3}}">
                                     <input name="responseUrl" type="hidden" value="{{response_url}}">
                                     <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}">
-                                    <input class="button" name="Submit" type="submit" value="Proceder con pago">
+                                    <input class="button" name="Submit" type="submit"  onClick="submit_form(this.form)" value="Proceder con pago">
                                     <!--<a class="btn-card">Proceder con pago</a>-->
                                 </form>
 
@@ -157,7 +159,40 @@
         }
     }
 
+    function hide_cart(code){
 
+
+        $.ajax({
+                    url: "http://127.0.0.1:8000/products/hide_cart/+code+/",
+                    type: 'GET',
+                    success: function(res) {
+                        console.log(res);
+                    }
+        });
+
+    }
+
+    function submit_2(form){
+        form.action = "{{action_url}}";
+        <!--form.method = 'post'-->
+        form.submit();
+    }
+
+    function submit_form(form){
+        $.ajax({
+                    url: "/products/hide_cart/{{extra3}}/",
+                    type: 'GET',
+                    dataType: 'json',
+                    <!--async: false,-->
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function(res) {
+                        submit_2(form);
+                    },
+                    error: function(res) {
+                        console.log('Request Status: ' + res.status + ' Status Text: ' + res.statusText + ' ' + res.responseText);                    }
+        });
+
+    }
 
 
 
