@@ -105,10 +105,9 @@ def product_view(request, pk):
 def cart_view(request):
     user = request.user
     carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user), show=True)
-    unique_code = 0
+    unique_code = get_next_value('orders', initial_value=113151)
     for cart in carts:
         i = Cart.objects.select_for_update().get(pk=cart.id)
-        unique_code = get_next_value('orders', initial_value=113151)
         i.code = unique_code
         i.save()
     small_carts = []
