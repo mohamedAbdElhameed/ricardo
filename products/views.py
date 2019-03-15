@@ -62,7 +62,7 @@ def product_view(request, pk):
     quantity = None
     if user.is_authenticated:
         buyer = Buyer.objects.get(user=user)
-        cart = Cart.objects.filter(buyer=buyer, product=product)
+        cart = Cart.objects.filter(buyer=buyer, product=product, show=True)
         if cart:
             in_cart = True
             quantity = cart[0].quantity
@@ -130,7 +130,7 @@ def cart_view(request):
 
         date = str(int(round(time.time() * 1000)))
         reference_code = str(user.buyer.id) + date
-        products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller)
+        products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller, show=True)
         amount = 0
         description = ''
         number_of_products = 0
@@ -228,7 +228,7 @@ def add_to_cart(request, product, quantity):
     user = request.user
     buyer = Buyer.objects.get(user=user)
 
-    cart = Cart.objects.filter(buyer=buyer, product=Product.objects.get(pk=product))
+    cart = Cart.objects.filter(buyer=buyer, product=Product.objects.get(pk=product), show=True)
 
     if len(cart):
         cart[0].quantity = quantity
