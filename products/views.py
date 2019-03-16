@@ -334,7 +334,10 @@ def add_review(request, pk):
 # @login_required(login_url='/')
 def hide_cart(request, ids, seller):
     print('here')
-    carts = Cart.objects.filter(code=ids, buyer=request.user.buyer, product__seller=seller)
+    if request.user.is_anonymous:
+        carts = Cart.objects.filter(code=ids, product__seller=seller)
+    else:
+        carts = Cart.objects.filter(code=ids, buyer=request.user.buyer, product__seller=seller)
     for cart in carts:
         i = Cart.objects.select_for_update().get(pk=cart.id)
         i.show = False
