@@ -179,9 +179,9 @@ class CartViewForMobile(RetrieveAPIView):
                     <body>
 
 
-                        <h2 style="text-align:center'>Procesando pago, por favor espere… </h2>
+                        <h2>Procesando pago, por favor espere… </h2>
 
-                        <div class="loader" style="text-align:center'></div>
+                        <div class="loader" style="text-align:center"></div>
 
                         <form id="lol" method="post" onsubmit="return false;" style="text-align:center;display:none">
                                     <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
