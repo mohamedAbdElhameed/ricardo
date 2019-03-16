@@ -153,9 +153,37 @@ class CartViewForMobile(RetrieveAPIView):
                     <head>
                         <meta charset="utf-8">
                         <script src="http://www.artesaniasdeboyaca.com/static/start/js/jquery-3.3.1.min.js"></script>
+                        <style>
+                            .loader {
+                              border: 16px solid #f3f3f3;
+                              border-radius: 50%;
+                              border-top: 16px solid #3498db;
+                              width: 120px;
+                              height: 120px;
+                              -webkit-animation: spin 2s linear infinite; /* Safari */
+                              animation: spin 2s linear infinite;
+                            }
+
+                            /* Safari */
+                            @-webkit-keyframes spin {
+                              0% { -webkit-transform: rotate(0deg); }
+                              100% { -webkit-transform: rotate(360deg); }
+                            }
+
+                            @keyframes spin {
+                              0% { transform: rotate(0deg); }
+                              100% { transform: rotate(360deg); }
+                            }
+                        </style>
                     </head>
                     <body>
-                        <form id="lol" method="post" onsubmit="return false;" style="text-align:center">
+
+
+                        <h2 style="text-align:center'>Procesando pago, por favor espere… </h2>
+
+                        <div class="loader" style="text-align:center'></div>
+
+                        <form id="lol" method="post" onsubmit="return false;" style="text-align:center;display:none">
                                     <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
                                     <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
                                     <input name="description" type="hidden" value="{{description}}">
