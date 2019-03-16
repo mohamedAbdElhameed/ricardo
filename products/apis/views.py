@@ -10,6 +10,8 @@ from ricardo import settings
 from userprofile.models import Seller, Buyer
 from products.models import *
 from products.apis.serializers import *
+import time
+from sequences import get_next_value
 
 
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
@@ -52,8 +54,8 @@ class CartView(CreateAPIView):
         product = Product.objects.get(id=request.data['product_id'])
         quantity = request.data['quantity']
 
-        if len(Cart.objects.filter(buyer=buyer, product=product)) > 0:
-            cart = Cart.objects.get(buyer=buyer, product=product)
+        if len(Cart.objects.filter(buyer=buyer, product=product, show=True)) > 0:
+            cart = Cart.objects.get(buyer=buyer, product=product, show=True)
             cart.quantity += int(quantity)
             cart.save()
             if cart.quantity <= 0:
@@ -79,7 +81,7 @@ class CartListView(ListAPIView):
 
     def get_queryset(self):
         buyer = Buyer.objects.get(user=self.request.user)
-        cart = Cart.objects.filter(buyer=buyer)
+        cart = Cart.objects.filter(buyer=buyer, show=True)
         return cart
 
 
@@ -107,34 +109,54 @@ class OrderView(ListAPIView):
 class CartViewForMobile(RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         user = request.user
-        carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user))
+        carts = Cart.objects.filter(buyer=Buyer.objects.get(user=user), show=True)
+        unique_code = get_next_value('orders', initial_value=113151)
+        for cart in carts:
+            i = Cart.objects.select_for_update().get(pk=cart.id)
+            i.code = unique_code
+            i.save()
         small_carts = []
         sellers = []
-
+        description = ''
         for item in carts:
             if item.product.seller not in sellers:
                 sellers.append(item.product.seller)
 
         for seller in sellers:
-            apikey = seller.APIKEY or '4Vj8eK4rloUd272L48hsrarnUA'
-            merchant_id = seller.merchant_id or '508029'
-            account_id = seller.account_id or '512321'
-            date = str(datetime.now())
-            reference_code = str(user.buyer.id) + str(seller.name) + date
-            products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller)
+            if seller.APIKEY is None or seller.merchant_id is None or seller.account_id is None:
+                apikey = '4Vj8eK4rloUd272L48hsrarnUA'
+                merchant_id = '508029'
+                account_id = '512321'
+            else:
+                apikey = seller.APIKEY
+                merchant_id = seller.merchant_id
+                account_id = seller.account_id
+
+            date = str(int(round(time.time() * 1000)))
+            reference_code = str(user.buyer.id) + date
+            products = Cart.objects.filter(buyer=Buyer.objects.get(user=user), product__seller=seller, show=True)
             amount = 0
+            description = ''
             number_of_products = 0
             for product in products:
                 amount += product.product.price * product.quantity
                 number_of_products += product.quantity
+                description += product.product.name + ' '
             currency = 'COP'
             tax = str(0)
             base = str(0)
-            signature = hashlib.md5(
-                (apikey + "~" + merchant_id + "~" + reference_code + "~" + str(amount) + "~" + currency).encode(
-                    'utf-8')).hexdigest()
+            signature = hashlib.md5((apikey + "~" + merchant_id + "~" + reference_code + "~" + str(
+                round(float(amount), 1)) + "~" + currency).encode('utf-8')).hexdigest()
             form = '''
-                <form id="lol" method="post" action="{{action_url}}" style="text-align:center">
+            <!DOCTYPE html>
+                <html lang="es">
+                    <head>
+                        <meta charset="utf-8">
+                        <script src="http://www.artesaniasdeboyaca.com/static/start/js/jquery-3.3.1.min.js"></script>
+                    </head>
+                    <body>
+                        <form id="lol" method="post" onsubmit="return false;" style="text-align:center">
+                                    {% csrf_token %}
                                     <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
                                     <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
                                     <input name="description" type="hidden" value="{{description}}">
@@ -146,33 +168,68 @@ class CartViewForMobile(RetrieveAPIView):
                                     <input name="currency" type="hidden" value="{{currency}}">
                                     <input name="buyerFullName" type="hidden" value="{{buyer_name}}">
                                     <input name="buyerEmail" type="hidden" value="{{buyer_email}}">
-                                    <input name="shippingAddress" type="hidden" value="k2 n 12 34">
+                                    <input name="shippingAddress" type="hidden" value="{{user.buyer.address}}">
                                     <input name="shippingCity" type="hidden" value="Tunja">
                                     <input name="shippingCountry" type="hidden" value="COP">
-                                    <input name="telephone" type="hidden" value="3141234567">
-                                    <input name="test" type="hidden" value="0">
+                                    <input name="telephone" type="hidden" value="{{buyer_phone}}">
+                                    <input name="test" type="hidden" value="{{test}}">
                                     <input name="extra1" type="hidden" value="{{ request.user.id }}">
                                     <input name="extra2" type="hidden" value="{{cart.seller.id}}">
+                                    <input name="extra3" type="hidden" value="{{extra3}}">
                                     <input name="responseUrl" type="hidden" value="{{response_url}}">
                                     <input name="confirmationUrl" type="hidden" value="{{confirmation_url}}">
-                                    <input class="button" name="Submit" type="submit" value="Procesando pago, por favor espere… " style="align:center; font-size:72px; padding:30px;margin-top:200px">
+                                    <input class="button" name="Submit" type="submit" onClick="submit_form(this.form, {{cart.seller.id}})"value="Procesando pago, por favor espere… " style="align:center; font-size:72px; padding:30px;margin-top:200px">
                                 </form>
-                                <script>document.getElementById('lol').submit();</script>
+                            <script>
+                            function hideshow() {
+                                document.getElementById('lol').style.display = 'none';
+                            }
+                                function submit_2(){
+                                    form = document.getElementById("lol");
+                                    form.action = "{{action_url}}";
+                                    hideshow();
+                                    form.submit();
+                                }
+
+                                function submit_form(seller){
+                                    $.ajax({
+                                        url: "http://www.artesaniasdeboyaca.com/products/hide_cart/{{extra3}}/"+seller+"/",
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        contentType: "application/x-www-form-urlencoded",
+                                        success: function(res) {
+                                            submit_2();
+                                        },
+                                        error: function(res) {
+                                            console.log('Request Status: ' + res.status + ' Status Text: ' + res.statusText + ' ' + res.responseText);
+                                        }
+                                    });
+
+                                }
+                                submit_form({{seller.id}});
+                            </script>
+                    </body>
+                </html>
+
+
         '''
             form = form.replace('{{cart.merchant_id}}', merchant_id)
             form = form.replace('{{cart.reference_code}}', reference_code)
-            form = form.replace('{{description}}', 'paying')
+            form = form.replace('{{description}}', description)
             form = form.replace('{{cart.amount}}', str(amount))
             form = form.replace('{{cart.tax}}', str(tax))
             form = form.replace('{{cart.base}}', str(base))
             form = form.replace('{{cart.signature}}', signature)
             form = form.replace('{{account_id}}', account_id)
             form = form.replace('{{currency}}', 'COP')
-            form = form.replace('{{buyer_name}}', self.request.user.username)
+            form = form.replace('{{buyer_name}}', self.request.user.buyer.full_name)
             form = form.replace('{{buyer_email}}', self.request.user.email)
             form = form.replace('{{ request.user.id }}', str(request.user.id))
             form = form.replace('{{cart.seller.id}}', str(seller.id))
+            form = form.replace('{{seller.id}}', str(seller.id))
+            form = form.replace('{{buyer_phone}}', request.user.buyer.phone_number)
             form = form.replace('{{response_url}}', 'http://www.artesaniasdeboyaca.com/')
+            form = form.replace('{{extra3}}', str(unique_code))
             form = form.replace('{{confirmation_url}}',
                                 'http://www.artesaniasdeboyaca.com/products/payment_confirmation/')
             form = form.replace('{{action_url}}', "https://checkout.payulatam.com/ppp-web-gateway-payu/")
