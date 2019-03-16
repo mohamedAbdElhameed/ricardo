@@ -156,7 +156,6 @@ class CartViewForMobile(RetrieveAPIView):
                     </head>
                     <body>
                         <form id="lol" method="post" onsubmit="return false;" style="text-align:center">
-                                    {% csrf_token %}
                                     <input name="merchantId" type="hidden" value="{{cart.merchant_id}}">
                                     <input name="referenceCode" type="hidden" value="{{cart.reference_code}}">
                                     <input name="description" type="hidden" value="{{description}}">
