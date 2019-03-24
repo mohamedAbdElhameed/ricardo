@@ -6,6 +6,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from likert_field.models import LikertField
+from django.core.mail import EmailMessage
 
 User._meta.get_field('username')._unique = True
 User._meta.get_field('email')._unique = True
@@ -121,3 +122,40 @@ def decrement_rate(sender, instance, **kwargs):
     seller.number_of_rates -= 1
     seller.rate -= instance.rate
     seller.save()
+
+
+@receiver(post_save, sender=Contact)
+def send_email(sender, instance, **kwargs):
+    email_body = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <b>
+    <table align="center" border="10">
+    <tr>
+        <td>nombre</td>
+        <td>""" + instance.name + """</td>
+    </tr>
+    <tr>
+        <td>correo electrónico</td>
+        <td>""" + instance.email + """</td>
+    </tr>
+    <tr>
+        <td>número de teléfono</td>
+        <td>""" + instance.phone +"""</td>
+    </tr>
+    <tr>
+        <td>mensaje</td>
+        <td>""" + instance.message+"""</td>
+    </tr>
+    </table>
+    </b>
+    </body>
+    </html>
+    """ + "\n"
+    email = EmailMessage('Artesanias de Boyacá', email_body, to=['info@artesaniasdeboyaca.com'])
+    email.content_subtype = "html"
+    email.send()

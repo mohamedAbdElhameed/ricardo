@@ -152,7 +152,7 @@ LANGUAGES = (
 )
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "millemille660@gmail.com"
-EMAIL_HOST_PASSWORD = 'jarjarjar'
+EMAIL_HOST_PASSWORD = 'jarjarjaryouyouyou'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 MULTILINGUAL_LANGUAGES = (
