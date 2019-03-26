@@ -178,7 +178,7 @@ class OrderAdmin(admin.ModelAdmin):
         price = 0
         for item in items:
             price += item.product.price * item.quantity
-        return price
+        return round(price)
 
     def get_queryset(self, request):
         qs = super(OrderAdmin, self).get_queryset(request)

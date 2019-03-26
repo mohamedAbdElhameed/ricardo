@@ -177,10 +177,10 @@ class OrderItem(models.Model):
         verbose_name_plural = _("Order Items")
 
     def total(self):
-        return '$ ' + str(self.quantity * self.product.price)
+        return '$ ' + str(round(self.quantity * self.product.price))
 
     def price(self):
-        return '$ ' + str(self.product.price)
+        return '$ ' + str(round(self.product.price))
 
 
 class OrderProxy(Order):
