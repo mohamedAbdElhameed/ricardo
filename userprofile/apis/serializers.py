@@ -54,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
     name_validator = RegexValidator(regex=r'^[a-zA-Z\s]*$', message=_('Only English letters and spaces'))
     # token = serializers.SerializerMethodField()
     full_name = serializers.CharField(validators=[name_validator])
-    national_id = serializers.CharField()
+    national_id = serializers.CharField(allow_null=True, allow_blank=True)
 
     class Meta:
         model = User
